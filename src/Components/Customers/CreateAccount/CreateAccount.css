@@ -1,0 +1,12 @@
+.inputs {
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-items: space-between;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+input {
+    margin-bottom: 1rem;
+}

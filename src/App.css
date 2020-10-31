@@ -1,8 +1,5 @@
 .App {
   text-align: center;
-}
-
-.App-header {
   background-color: #97baff;
   height: 100%;
   min-height: 100vh;
@@ -15,5 +12,17 @@
 }
 
 button {
-  font-size: xx-large;
+  font-size: x-large;
+  border: none;
+}
+
+.NavButtons {
+  width: 100vw;
+  padding: 1rem 0;
+  border-top:2px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  position: fixed;
+  bottom: 0;
 }
