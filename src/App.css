@@ -1,4 +1,4 @@
-.App {
+.app {
   text-align: center;
   background-color: #97baff;
   height: 100%;
@@ -14,15 +14,16 @@
 button {
   font-size: x-large;
   border: none;
+  padding: 0.5rem;
 }
 
-.NavButtons {
+.nav {
   width: 100vw;
   padding: 1rem 0;
-  border-top:2px solid black;
+  border-bottom:2px solid black;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   position: fixed;
-  bottom: 0;
+  top: 0;
 }
