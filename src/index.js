@@ -38,17 +38,17 @@ const getPetsForSaleInfo = async function () {
 
 //5. daily appointments information.
 const getAppointmentsInfo = async function () {
-    const response = await fetch(`${url}daily-appointments`);
-    var info = await response.json();
-    return info;
- };
+   const response = await fetch(`${url}daily-appointments`);
+   var info = await response.json();
+   return info;
+};
 
 //6. store income statistics information.
 const getIncomeStatisticsInfo = async function () {
-    const response = await fetch(`${url}income-statistics`);
-    var info = await response.json();
-    return info;
- };
+   const response = await fetch(`${url}income-statistics`);
+   var info = await response.json();
+   return info;
+};
 
 // Render <App> if all data is successfully retrived from local Strapi
 Promise.all([
@@ -57,10 +57,9 @@ Promise.all([
    getItemsForSaleInfo(),
    getPetsForSaleInfo(),
    getAppointmentsInfo(),
-   getIncomeStatisticsInfo()
+   getIncomeStatisticsInfo(),
 ]).then((allInfo) => {
-   console.log(allInfo);
-   ReactDOM.render(<App allInfo={allInfo} />, document.getElementById("root"));
+   ReactDOM.render(<App allInfo={allInfo} url={url}/>, document.getElementById("root"));
 });
 
 serviceWorker.unregister();
