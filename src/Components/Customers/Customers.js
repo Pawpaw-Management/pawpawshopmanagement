@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
 import CreateAccount from "./CreateAccount/CreateAccount";
 import SearchAccount from "./SearchAccount/SearchAccount";
