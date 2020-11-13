@@ -1,0 +1,17 @@
+.searchCustomer {
+    margin-top: 5rem;
+}
+
+.searchCustomer h1{
+    font-size: 2rem;
+}
+
+.customerList{
+    width: 90vw;
+    border-collapse: separate;
+    border-spacing: 0.3rem 1rem;
+}
+
+.customerList th {
+    background: rgb(2, 209, 255);
+}
