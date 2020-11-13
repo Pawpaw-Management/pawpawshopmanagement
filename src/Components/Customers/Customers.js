@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
 import CreateAccount from "./CreateAccount/CreateAccount";
-import SearchAccount from "./SearchAccount/SearchAccount";
+import SearchAccount from "./SearchAndEditAccount/SearchAndEditAccount";
 import "../CommonElements.css";
 
 function Customers(props) {
@@ -13,7 +13,7 @@ function Customers(props) {
                   <CreateAccount allInfo={props.allInfo} url={props.url} />
                </Route>
                <Route path="/search">
-                  <SearchAccount />
+                  <SearchAccount allInfo={props.allInfo} url={props.url} />
                </Route>
             </Switch>
             <nav className="nav-components">
