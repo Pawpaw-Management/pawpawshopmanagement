@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./InfoEditor.css";
 
 export default function InfoEditor(props) {
-    // Define variables
-    let customer_first_name,
-        customer_last_name,
-        customer_phone,
-        customer_email,
-        pet_breed,
-        pet_name,
-        pet_birthday,
-        pet_size,
-        pet_note;
+    // Define states
+    const [customer_first_name, setCustomerFirstName] = useState("");
+    const [customer_last_name, setCustomerLastName] = useState("");
+    const [customer_phone, setCustomerPhone] = useState("");
+    const [customer_email, setCustomerEmail] = useState("");
+    const [pet_name, setPetName] = useState("");
+    const [pet_breed, setPetBreed] = useState("");
+    const [pet_birthday, setPetBirthday] = useState("");
+    const [pet_size, setPetSize] = useState("");
+    const [pet_note, setPetNote] = useState("");
+
+    // Define onChange event handler
+    const changeFirstName = (event) => setCustomerFirstName(event.target.value);
+    const changeLastName = (event) => setCustomerLastName(event.target.value);
+    const changePhone = (event) => setCustomerPhone(event.target.value);
+    const changeEmail = (event) => setCustomerEmail(event.target.value);
+    const changePetName = (event) => setPetName(event.target.value);
+    const changePetBreed = (event) => setPetBreed(event.target.value);
+    const changePetBirthday = (event) => setPetBirthday(event.target.value);
+    const changePetSize = (event) => setPetSize(event.target.value);
+    const changePetNote = (event) => setPetNote(event.target.value);
 
     // When <InfoEditor> becomes visible, set input values to the current account information
     // 1. Define the current account
@@ -20,16 +31,19 @@ export default function InfoEditor(props) {
         props.customers_and_pets.customers_and_pets.find(
             (account) => account.id === props.accountId
         );
+
     // 2. Assign data from current_account to inputs' value
-    customer_first_name = current_account.customer_first_name;
-    customer_last_name = current_account.customer_last_name;
-    customer_phone = current_account.customer_phone;
-    customer_email = current_account.customer_email;
-    pet_breed = current_account.pet_breed;
-    pet_name = current_account.pet_name;
-    pet_birthday = current_account.pet_birthday;
-    pet_size = current_account.pet_size;
-    pet_note = current_account.pet_note;
+    setTimeout(() => {
+        current_account.customer_first_name && setCustomerFirstName(current_account.customer_first_name);
+        current_account.customer_last_name && setCustomerLastName(current_account.customer_last_name);
+        current_account.customer_phone && setCustomerPhone(current_account.customer_phone);
+        current_account.customer_email && setCustomerEmail(current_account.customer_email);
+        current_account.pet_breed && setPetBreed(current_account.pet_breed);
+        current_account.pet_name && setPetName(current_account.pet_name);
+        current_account.pet_birthday && setPetBirthday(current_account.pet_birthday);
+        current_account.pet_size && setPetSize(current_account.pet_size);
+        current_account.pet_note && setPetNote(current_account.pet_note);
+    }, 100);
 
     // Define a function to update account information
     const handleSubmit = async (event) => {
@@ -78,9 +92,7 @@ export default function InfoEditor(props) {
                     name="customer_first_name"
                     id="customer_first_name"
                     value={customer_first_name}
-                    ref={(input) => {
-                        customer_first_name = input;
-                    }}
+                    onChange={changeFirstName}
                 />
                 <label for="customer_last_name"> Last Name:</label>
                 <input
@@ -88,9 +100,7 @@ export default function InfoEditor(props) {
                     name="customer_last_name"
                     id="customer_last_name"
                     value={customer_last_name}
-                    ref={(input) => {
-                        customer_last_name = input;
-                    }}
+                    onChange={changeLastName}
                 />
                 <label for="customer_phone"> Phone Number:</label>
                 <input
@@ -98,9 +108,7 @@ export default function InfoEditor(props) {
                     name="customer_phone"
                     id="customer_phone"
                     value={customer_phone}
-                    ref={(input) => {
-                        customer_phone = input;
-                    }}
+                    onChange={changePhone}
                 />
                 <label for="customer_email"> Email:</label>
                 <input
@@ -108,9 +116,7 @@ export default function InfoEditor(props) {
                     name="customer_email"
                     id="infoEditor_customer_email"
                     value={customer_email}
-                    ref={(input) => {
-                        customer_email = input;
-                    }}
+                    onChange={setCustomerEmail}
                 />
                 <label for="pet_name">Pet's Name:</label>
                 <input
@@ -118,9 +124,7 @@ export default function InfoEditor(props) {
                     name="pet_name"
                     id="pet_name"
                     value={pet_name}
-                    ref={(input) => {
-                        pet_name = input;
-                    }}
+                    onChange={setPetName}
                 />
                 <label for="pet_birthday">Pet's Birthday:</label>
                 <input
@@ -128,9 +132,7 @@ export default function InfoEditor(props) {
                     name="pet_birthday"
                     id="pet_birthday"
                     value={pet_birthday}
-                    ref={(input) => {
-                        pet_birthday = input;
-                    }}
+                    onChange={setPetBirthday}
                 />
                 <label for="pet_breed">Pet's Breed:</label>
                 <input
@@ -138,9 +140,7 @@ export default function InfoEditor(props) {
                     name="pet_breed"
                     id="pet_breed"
                     value={pet_breed}
-                    ref={(input) => {
-                        pet_breed = input;
-                    }}
+                    onChange={setPetBreed}
                 />
                 <label for="pet_size">Pet's Size:</label>
                 <input
@@ -148,9 +148,7 @@ export default function InfoEditor(props) {
                     name="pet_size"
                     id="pet_size"
                     value={pet_size}
-                    ref={(input) => {
-                        pet_size = input;
-                    }}
+                    onChange={setPetSize}
                 />
                 <label for="pet_note">Note:</label>
                 <textarea
@@ -158,9 +156,7 @@ export default function InfoEditor(props) {
                     name="pet_note"
                     id="infoEditor_pet_note"
                     value={pet_note}
-                    ref={(input) => {
-                        pet_note = input;
-                    }}
+                    onChange={setPetNote}
                 />
                 <input type="submit" id="infoEditor_submit" />
             </form>
