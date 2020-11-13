@@ -11,7 +11,7 @@ const SearchAccount = (props) => {
     const [visibility, setVisibility] = useState("hidden");
 
     // Define useState for <InfoEditor> to edit the account clicked by user
-    const [accountId, setAccountId] = useState("");
+    const [accountId, setAccountId] = useState(29);
     console.log(`accountId: ${accountId}`);
 
     // When component mount, fetch latest data through API, and assign to "customers_and_pets"
@@ -59,6 +59,7 @@ const SearchAccount = (props) => {
             <InfoEditor
                 visibility={visibility}
                 accountId={accountId}
+                url={props.url}
                 customers_and_pets={customers_and_pets}
                 setVisibility={setVisibility}
             />
