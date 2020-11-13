@@ -6,9 +6,9 @@ import Customers from "./Components/Customers/Customers";
 import Employees from "./Components/Employees/Employees";
 
 function App(props) {
-   console.log("App:");
-   console.log(props.allInfo);
-   console.log(props.url);
+   // console.log("App:");
+   // console.log(props.allInfo);
+   // console.log(props.url);
 
    return (
       <Router>
