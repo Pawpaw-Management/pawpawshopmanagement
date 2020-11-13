@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./InfoEditor.css";
 
 export default function InfoEditor(props) {
@@ -32,46 +32,54 @@ export default function InfoEditor(props) {
             (account) => account.id === props.accountId
         );
 
-    // 2. Assign data from current_account to inputs' value
-    setTimeout(() => {
-        current_account.customer_first_name && setCustomerFirstName(current_account.customer_first_name);
-        current_account.customer_last_name && setCustomerLastName(current_account.customer_last_name);
-        current_account.customer_phone && setCustomerPhone(current_account.customer_phone);
-        current_account.customer_email && setCustomerEmail(current_account.customer_email);
-        current_account.pet_breed && setPetBreed(current_account.pet_breed);
-        current_account.pet_name && setPetName(current_account.pet_name);
-        current_account.pet_birthday && setPetBirthday(current_account.pet_birthday);
-        current_account.pet_size && setPetSize(current_account.pet_size);
-        current_account.pet_note && setPetNote(current_account.pet_note);
-    }, 100);
+    // 2. Assign data from current_account to states when accountId changes
+    useEffect(() => {
+        if (current_account) {
+            setCustomerFirstName(current_account.customer_first_name);
+            setCustomerLastName(current_account.customer_last_name);
+            setCustomerPhone(current_account.customer_phone);
+            setCustomerEmail(current_account.customer_email);
+            setPetBreed(current_account.pet_breed);
+            setPetName(current_account.pet_name);
+            setPetBirthday(current_account.pet_birthday);
+            setPetSize(current_account.pet_size);
+            setPetNote(current_account.pet_note);
+        }
+    }, [props.accountId]);
 
     // Define a function to update account information
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const response = await fetch(
-            `${this.props.url}customers-and-pets/${this.props.id}`,
-            {
-                method: "PUT",
-                headers: {
-                    accept: "application/json",
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify({
-                    customer_first_name: `${this.customer_first_name.value}`,
-                    customer_last_name: `${this.customer_last_name.value}`,
-                    customer_phone: `${this.customer_phone.value}`,
-                    customer_email: `${this.customer_email.value}`,
-                    pet_name: `${this.pet_name.value}`,
-                    pet_breed: `${this.pet_breed.value}`,
-                    pet_birthday: `${this.pet_birthday.value}`,
-                    pet_size: `${this.pet_size.value}`,
-                    pet_note: `${this.pet_note.value}`,
-                }),
-            }
-        );
-        const content = await response.json();
-        console.log(content);
+        if (props.url && props.accountId) {
+            const response = await fetch(
+                `${props.url}customers-and-pets/${props.accountI}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "accept": "application/json",
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        customer_first_name: `${customer_first_name}`,
+                        customer_last_name: `${customer_last_name}`,
+                        customer_phone: `${customer_phone}`,
+                        customer_email: `${customer_email}`,
+                        pet_name: `${pet_name}`,
+                        pet_breed: `${pet_breed}`,
+                        pet_birthday: `${pet_birthday}`,
+                        pet_size: `${pet_size}`,
+                        pet_note: `${pet_note}`,
+                    }),
+                }
+            );
+            const content = await response.json();
+            console.log(content)
+            // Tell user the data above is successfully submitted
+            if(content.statusCode == 200) {
+                alert("Account Information Updated!")
+            };
+        }
     };
 
     return (
@@ -116,7 +124,7 @@ export default function InfoEditor(props) {
                     name="customer_email"
                     id="infoEditor_customer_email"
                     value={customer_email}
-                    onChange={setCustomerEmail}
+                    onChange={changeEmail}
                 />
                 <label for="pet_name">Pet's Name:</label>
                 <input
@@ -124,7 +132,7 @@ export default function InfoEditor(props) {
                     name="pet_name"
                     id="pet_name"
                     value={pet_name}
-                    onChange={setPetName}
+                    onChange={changePetName}
                 />
                 <label for="pet_birthday">Pet's Birthday:</label>
                 <input
@@ -132,7 +140,7 @@ export default function InfoEditor(props) {
                     name="pet_birthday"
                     id="pet_birthday"
                     value={pet_birthday}
-                    onChange={setPetBirthday}
+                    onChange={changePetBirthday}
                 />
                 <label for="pet_breed">Pet's Breed:</label>
                 <input
@@ -140,7 +148,7 @@ export default function InfoEditor(props) {
                     name="pet_breed"
                     id="pet_breed"
                     value={pet_breed}
-                    onChange={setPetBreed}
+                    onChange={changePetBreed}
                 />
                 <label for="pet_size">Pet's Size:</label>
                 <input
@@ -148,7 +156,7 @@ export default function InfoEditor(props) {
                     name="pet_size"
                     id="pet_size"
                     value={pet_size}
-                    onChange={setPetSize}
+                    onChange={changePetSize}
                 />
                 <label for="pet_note">Note:</label>
                 <textarea
@@ -156,7 +164,7 @@ export default function InfoEditor(props) {
                     name="pet_note"
                     id="infoEditor_pet_note"
                     value={pet_note}
-                    onChange={setPetNote}
+                    onChange={changePetNote}
                 />
                 <input type="submit" id="infoEditor_submit" />
             </form>
