@@ -1,0 +1,25 @@
+/* create_account style is in CommonElements.css */
+
+.employee_registrition {
+    width: 200%;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.employee_registrition input, select{
+    margin-bottom: 1rem;
+    height: 2rem;
+}
+
+.employee_registrition h1 {
+    margin-top: 5rem;
+}
+
+#employee_note {
+    height: 5rem;
+}
