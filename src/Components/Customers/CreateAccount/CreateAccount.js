@@ -103,14 +103,16 @@ export default class CreateAccount extends Component {
         });
         const content = await response.json();
         console.log(content);
-        if (content.statusCode === 200) {
+        if (response.status === 200) {
             alert("New Account Created!");
+        } else {
+            alert("Error! Please make sure the database is running properly.")
         }
     };
 
     render() {
         return (
-            <div className="customers-database">
+            <div className="create_account">
                 <h1>Create New Customer Account</h1>
                 <form
                     className="create_account_customer_registrition"
@@ -167,12 +169,17 @@ export default class CreateAccount extends Component {
                         ref={(input) => (this.pet_breed = input)}
                     />
                     <label for="pet_size">Pet Size:</label>
-                    <input
+                    <select
                         type="text"
                         name="pet_size"
                         id="pet_size"
+                        defaultValue="standard"
                         ref={(input) => (this.pet_size = input)}
-                    />
+                    >
+                        <option value="standard">Standard</option>
+                        <option value="large">Large</option>
+                        <option value="small">Small</option>
+                    </select>
                     <label for="pet_note">Note:</label>
                     <textarea
                         type="text"
