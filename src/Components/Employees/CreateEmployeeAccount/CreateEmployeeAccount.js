@@ -22,7 +22,6 @@ export default function CreateEmployeeAccount(props) {
     const changeBirthday = (event) => setEmployeeBirthday(event.target.value);
     const changeNote = (event) => setEmployeeNote(event.target.value);
 
-    console.log(employee_title);
     // Define a function to update account information
     const handleSubmit = async (event) => {
         event.preventDefault();
