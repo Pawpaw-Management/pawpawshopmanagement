@@ -21,7 +21,7 @@ function App(props) {
                   <Appointments allInfo={props.allInfo} />
                </Route>
                <Route path="/employees">
-                  <Employees />
+                  <Employees url={props.url} />
                </Route>
             </Switch>
             <nav className="nav">
