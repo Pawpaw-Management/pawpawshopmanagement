@@ -10,10 +10,10 @@ function Customers(props) {
          <div className="customers">
             <Switch>
                <Route path="/create">
-                  <CreateAccount allInfo={props.allInfo} url={props.url} />
+                  <CreateAccount url={props.url} />
                </Route>
                <Route path="/search">
-                  <SearchAccount allInfo={props.allInfo} url={props.url} />
+                  <SearchAccount url={props.url} />
                </Route>
             </Switch>
             <nav className="nav-components">
