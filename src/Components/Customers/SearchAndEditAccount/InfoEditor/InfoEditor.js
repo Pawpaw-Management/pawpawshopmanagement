@@ -57,7 +57,7 @@ export default function InfoEditor(props) {
                 {
                     method: "PUT",
                     headers: {
-                        "accept": "application/json",
+                        accept: "application/json",
                         "content-type": "application/json",
                     },
                     body: JSON.stringify({
@@ -74,11 +74,11 @@ export default function InfoEditor(props) {
                 }
             );
             const content = await response.json();
-            console.log(content)
+            console.log(content);
             // Tell user the data above is successfully submitted
-            if(content.statusCode == 200) {
-                alert("Account Information Updated!")
-            };
+            if (content.statusCode === 200) {
+                alert("Account Information Updated!");
+            }
         }
     };
 
