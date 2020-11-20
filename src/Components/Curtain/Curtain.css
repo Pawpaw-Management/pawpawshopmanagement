@@ -1,0 +1,32 @@
+.curtain {
+    position: fixed;
+    z-index: 100;
+    width: 100vw;
+    height: calc(100vh - 5rem);
+    top: 5rem;
+    left: 0;
+    background-color: rgb(255, 196, 196);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.curtain_login {
+    display: flex;
+    align-items: center;
+}
+
+.curtain span {
+    text-align: center;
+}
+
+.curtain label {
+    margin: 1rem;
+}
+
+.curtain input {
+    font-size: inherit;
+    margin: 1rem;
+    width: 10rem;
+}
