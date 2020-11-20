@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
 import CreateEmployeeAccount from "./CreateEmployeeAccount/CreateEmployeeAccount";
 import SearchAndEditEmployee from "./SearchAndEditEmployee/SearchAndEditEmployee";
+import Curtain from "../Curtain/Curtain";
 import "../CommonElements.css";
 
-function Employees(props) {
+const Employees = (props) => {
     return (
         <Router>
+            <Curtain />
             <div className="customers">
                 <Switch>
                     <Route path="/create">
@@ -27,6 +29,6 @@ function Employees(props) {
             </div>
         </Router>
     );
-}
+};
 
 export default Employees;
