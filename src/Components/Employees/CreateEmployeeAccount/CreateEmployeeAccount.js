@@ -10,17 +10,17 @@ export default function CreateEmployeeAccount(props) {
     const [employee_title, setEmployeeTitle] = useState("groomer");
     const [employee_birthday, setEmployeeBirthday] = useState("");
     const [employee_note, setEmployeeNote] = useState("");
+    const [employee_hourly_wage, setEmployeeWage] = useState("");
 
     // Define onChange event handler
     const changeFirstName = (event) => setEmployeeFirstName(event.target.value);
     const changeLastName = (event) => setEmployeeLastName(event.target.value);
     const changePhone = (event) => setEmployeePhone(event.target.value);
     const changeEmail = (event) => setEmployeeEmail(event.target.value);
-    const changeTitle = (event) => {
-        setEmployeeTitle(event.target.value);
-    };
+    const changeTitle = (event) => setEmployeeTitle(event.target.value);
     const changeBirthday = (event) => setEmployeeBirthday(event.target.value);
     const changeNote = (event) => setEmployeeNote(event.target.value);
+    const changeWage = (event) => setEmployeeWage(event.target.value);
 
     // Define a function to update account information
     const handleSubmit = async (event) => {
@@ -40,6 +40,7 @@ export default function CreateEmployeeAccount(props) {
                 employee_title: `${employee_title}`,
                 employee_birthday: `${employee_birthday}`,
                 employee_note: `${employee_note}`,
+                employee_hourly_wage: `${employee_hourly_wage}`,
             }),
         });
         const content = await response.json();
@@ -112,6 +113,14 @@ export default function CreateEmployeeAccount(props) {
                     id="employee_note"
                     value={employee_note}
                     onChange={changeNote}
+                />
+                <label for="employee_hourly_wage">Hourly Wage:</label>
+                <input
+                    type="text"
+                    name="employee_hourly_wage"
+                    id="employee_hourly_wage"
+                    value={employee_hourly_wage}
+                    onChange={changeWage}
                 />
                 <input type="submit" id="employee_submit" />
             </form>
