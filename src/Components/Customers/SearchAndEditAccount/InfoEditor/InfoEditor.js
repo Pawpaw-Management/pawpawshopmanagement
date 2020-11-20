@@ -53,7 +53,7 @@ export default function InfoEditor(props) {
 
         if (props.url && props.accountId) {
             const response = await fetch(
-                `${props.url}customers-and-pets/${props.accountI}`,
+                `${props.url}customers-and-pets/${props.accountId}`,
                 {
                     method: "PUT",
                     headers: {
