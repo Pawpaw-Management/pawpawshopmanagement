@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
 import EmployeeInfo from "./EmployeeInfo/EmployeeInfo";
 import InfoEditor from "./InfoEditor/InfoEditor";
-import "./SearchAndEditAccount.css";
+import "./SearchAndEditEmployee.css";
 
-const SearchAndEditAccount = (props) => {
+const SearchAndEditEmployee = (props) => {
     // Define useState for <Refresh> to update state here
-    const [customers_and_pets, setCustomersAndPets] = useState([]);
+    const [employees, setEmployees] = useState([]);
 
     // Define useState for <InfoEditor> to popup and disappear
     const [visibility, setVisibility] = useState("hidden");
 
     // Define useState for <InfoEditor> to edit the account clicked by user
-    const [accountId, setAccountId] = useState(29);
-    console.log(`accountId: ${accountId}`);
+    const [accountId, setAccountId] = useState(9);
 
     // When component mount, fetch latest data through API, and assign to "customers_and_pets"
     useEffect(() => {
-        fetch(`${props.url}customers-and-pets`)
+        fetch(`${props.url}employees`)
             .then((response) => response.json())
             .then((response) => {
-                setCustomersAndPets({ customers_and_pets: response });
+                setEmployees({ employees: response });
             })
             .catch((error) => {
                 console.log(error);
@@ -27,16 +26,16 @@ const SearchAndEditAccount = (props) => {
     }, []);
 
     // Shorten the long name
-    const info = customers_and_pets.customers_and_pets;
+    const info = employees.employees;
 
     return (
-        <section className="searchCustomer">
-            <h1>All Customer Accounts</h1>
-            <table className="customerList">
+        <section className="searchAndEditEmployee">
+            <h1>All Employee Accounts</h1>
+            <table className="employeeList">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Customer Name</th>
+                        <th>Employee Name</th>
                         <th>Phone</th>
                         <th>Email</th>
                     </tr>
@@ -45,7 +44,7 @@ const SearchAndEditAccount = (props) => {
                     {info &&
                         info.map((content, index) => {
                             return (
-                                <CustomerAndPetInfo
+                                <EmployeeInfo
                                     content={content}
                                     key={index}
                                     index={index}
@@ -60,11 +59,11 @@ const SearchAndEditAccount = (props) => {
                 visibility={visibility}
                 accountId={accountId}
                 url={props.url}
-                customers_and_pets={customers_and_pets}
+                employees={employees}
                 setVisibility={setVisibility}
             />
         </section>
     );
 };
 
-export default SearchAndEditAccount;
+export default SearchAndEditEmployee;

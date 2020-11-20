@@ -1,0 +1,17 @@
+.searchAndEditEmployee {
+    margin-top: 5rem;
+}
+
+.searchAndEditEmployee h1{
+    font-size: 2rem;
+}
+
+.employeeList{
+    width: 90vw;
+    border-collapse: separate;
+    border-spacing: 0.3rem 1rem;
+}
+
+.employeeList th {
+    background: rgb(2, 209, 255);
+}
