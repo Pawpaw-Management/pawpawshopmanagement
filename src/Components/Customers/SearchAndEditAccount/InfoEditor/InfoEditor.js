@@ -78,6 +78,8 @@ export default function InfoEditor(props) {
             // Tell user the data above is successfully submitted
             if (content.statusCode === 200) {
                 alert("Account Information Updated!");
+            } else {
+                alert("Error! Please make sure database is running properly.");
             }
         }
     };
