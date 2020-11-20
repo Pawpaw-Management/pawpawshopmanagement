@@ -12,6 +12,10 @@
     align-items: center;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 .curtain_login {
     display: flex;
     align-items: center;
