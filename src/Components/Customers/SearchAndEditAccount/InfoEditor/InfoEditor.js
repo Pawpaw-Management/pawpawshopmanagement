@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./InfoEditor.css";
 
 export default function InfoEditor(props) {
+    console.log(props.accountId);
     // Define states
     const [customer_first_name, setCustomerFirstName] = useState("");
     const [customer_last_name, setCustomerLastName] = useState("");
@@ -31,6 +32,8 @@ export default function InfoEditor(props) {
         props.customers_and_pets.customers_and_pets.find(
             (account) => account.id === props.accountId
         );
+
+    console.log(current_account);
 
     // 2. Assign data from current_account to states when accountId changes
     useEffect(() => {
