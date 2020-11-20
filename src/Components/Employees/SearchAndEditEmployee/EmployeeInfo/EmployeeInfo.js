@@ -1,9 +1,35 @@
 import React from 'react'
+import "./EmployeeInfo.css"
 
-export default function EmployeeInfo() {
+export default function EmployeeInfo(props) {
     return (
-        <div>
-            employe info
-        </div>
+        <tr className="eachEmployeeInfo">
+            <td>{`id: ${props.index + 1}`}</td>
+            <td>
+                {props.content.employee_first_name +
+                    " " +
+                    props.content.employee_last_name}
+            </td>
+            <td>
+                {props.content.employee_phone
+                    ? props.content.employee_phone
+                    : "no info provided"}
+            </td>
+            <td>
+                {props.content.employee_email
+                    ? props.content.employee_email
+                    : "no info provided"}
+            </td>
+            <td>
+                <button
+                    onClick={() => {
+                        props.setVisibility("visible");
+                        props.setAccountId(props.content.id);
+                    }}
+                >
+                    Edit
+                </button>
+            </td>
+        </tr>
     )
 }
