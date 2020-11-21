@@ -1,11 +1,5 @@
-import React, { Component } from 'react'
+import React from "react";
 
-export default class Appointments extends Component {
-    render() {
-        return (
-            <div>
-                haha
-            </div>
-        )
-    }
+export default function Appointments(props) {
+    return <div>Appointments</div>;
 }
