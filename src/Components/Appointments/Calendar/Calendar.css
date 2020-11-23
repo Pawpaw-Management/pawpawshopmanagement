@@ -5,13 +5,13 @@
   }
   
   .calendar .header {
-    background-color: blue;
+    background-color: rgb(34, 163, 255);
     text-align: center;
     min-height: 2rem;
     line-height: 2rem;
     color: black;
-    font-family: font-book;
     font-weight: 700;
+    font-size: larger;
     display: flex;
   }
   
@@ -24,7 +24,7 @@
   }
   
   .calendar .body {
-    border: 1px solid blue;
+    border: 1px solid rgb(34, 163, 255);
   }
   
   .calendar .header .previous {
