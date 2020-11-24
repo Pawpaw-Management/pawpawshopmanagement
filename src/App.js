@@ -17,7 +17,7 @@ function App(props) {
                         <Customers url={props.url} />
                     </Route>
                     <Route path="/appointments">
-                        <Appointments allInfo={props.allInfo} />
+                        <Appointments url={props.url} />
                     </Route>
                     <Route path="/employees">
                         <Employees url={props.url} />
