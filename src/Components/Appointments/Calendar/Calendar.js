@@ -3,14 +3,14 @@ import moment from "moment";
 import Header from "./CalendarHeader/CalendarHeader.js";
 import "./Calendar.css";
 
-export default function Calendar({ value, onChange }) {
+export default function Calendar({ selectedDate, onChange }) {
     // Define states
     const [calendar, setCalendar] = useState([]);
 
-    // Every time value changes, genereate the calendar according to value
+    // Every time selectedDate changes, genereate the calendar according to selectedDate
     useEffect(() => {
-        setCalendar(buildCalendar(value));
-    }, [value]);
+        setCalendar(buildCalendar(selectedDate));
+    }, [selectedDate]);
 
     // Define a function to generate calendar
     function buildCalendar(date) {
@@ -34,7 +34,7 @@ export default function Calendar({ value, onChange }) {
 
     // Define a function to tell the selected day
     function isSelected(day) {
-        return value.isSame(day, "day");
+        return selectedDate.isSame(day, "day");
     }
 
     // Define a function to tell if target day is before today
@@ -57,17 +57,17 @@ export default function Calendar({ value, onChange }) {
 
     // Define a function to show current month name
     function currMonthName() {
-        return value.format("MMMM");
+        return selectedDate.format("MMMM");
     }
 
     // Define a function to show current year name
     function currYear() {
-        return value.format("YYYY");
+        return selectedDate.format("YYYY");
     }
 
     return (
         <div className="calendar">
-            <Header value={value} onChange={onChange} />
+            <Header selectedDate={selectedDate} onChange={onChange} />
 
             <div className="body">
                 <div className="day-names">
