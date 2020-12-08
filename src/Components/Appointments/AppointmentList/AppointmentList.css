@@ -1,0 +1,11 @@
+.appointmentList {
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+.abc {
+}
