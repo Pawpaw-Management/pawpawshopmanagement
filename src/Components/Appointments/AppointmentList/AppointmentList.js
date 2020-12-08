@@ -3,7 +3,11 @@ import AppointmentDetail from "./AppointmentDetail/AppointmentDetail";
 import "./AppointmentList.css";
 
 export default function AppointmentList(props) {
-    const date = props.selectedDate.format("YYYY-MM-DD");
+    // If selected date is given by parent component, then change its format and assign its value to date
+    var date = null;
+    if (props.selectedDate) {
+        date = props.selectedDate.format("YYYY-MM-DD");
+    }
 
     // Define states
     const [appointments, setAppointments] = useState(null);
@@ -22,8 +26,8 @@ export default function AppointmentList(props) {
                 var appointmentsOnSelectedDate = response.filter((current) => {
                     return current.appointment_date === date;
                 });
-                console.log("appointmentsOnSelectedDate");
-                console.log(appointmentsOnSelectedDate);
+                // console.log("appointmentsOnSelectedDate");
+                // console.log(appointmentsOnSelectedDate);
 
                 // if date is provided, and response's length is not 0, then set hasAppointment to true
                 if (date && appointmentsOnSelectedDate.length !== 0) {
@@ -35,7 +39,7 @@ export default function AppointmentList(props) {
                     );
                     console.log("appointments");
                     console.log(appointments);
-                } else if (!date && appointmentsOnSelectedDate.length !== 0) {
+                } else if (date === null) {
                     setHasAppointment(true);
                     setAppointments(response);
                 } else if (date && appointmentsOnSelectedDate.length === 0) {
