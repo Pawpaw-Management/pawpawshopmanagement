@@ -26,7 +26,6 @@ export default function (props) {
                     </Route>
                     <Route path="/search">
                         <AppointmentList
-                            selectedDate={selectedDate}
                             url={props.url}
                         />
                     </Route>
