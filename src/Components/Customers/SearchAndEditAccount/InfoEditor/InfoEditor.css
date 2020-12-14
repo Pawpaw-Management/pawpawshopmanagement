@@ -25,24 +25,3 @@
     height: 2rem;
     margin-bottom: 4rem;
 }
-
-#infoEditor_customer_email {
-    margin-bottom: 18rem;
-}
-
-#infoEditor_pet_note {
-    height: 4rem;
-    width: 20rem;
-}
-
-#infoEditor_submit {
-    margin-top: 1rem;
-}
-
-#infoEditor_esc {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: rgb(255, 66, 66);
-    border: 2px black solid;
-}
