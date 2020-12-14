@@ -10,9 +10,8 @@
   color: black;
 }
 
-button {
+.nav button {
   font-size: x-large;
-  border: none;
   padding: 0.5rem;
 }
 
