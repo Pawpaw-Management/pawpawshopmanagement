@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./InfoEditor.css";
+import "../../../CommonElements.css"
 
 export default function InfoEditor(props) {
     console.log(props.accountId);
@@ -90,7 +91,7 @@ export default function InfoEditor(props) {
     return (
         <div className="infoEditor" style={{ visibility: props.visibility }}>
             <button
-                id="infoEditor_esc"
+                id="button_esc"
                 onClick={() => props.setVisibility("hidden")}
             >
                 Esc
