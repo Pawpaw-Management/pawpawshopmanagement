@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CustomerAndPetInfo from "./CustomerAndPetInfo/CustomerAndPetInfo";
 import InfoEditor from "./InfoEditor/InfoEditor";
 import "./SearchAndEditAccount.css";
+import "../../CommonElements.css";
 
 const SearchAccount = (props) => {
     console.log("scenario: " + props.scenario);
@@ -30,8 +31,16 @@ const SearchAccount = (props) => {
 
     if (props.scenario === "AddAppointment") {
         return (
-            <section className="searchAndEditCustomer">
-                <h1>All Customer Accounts</h1>
+            <section className="searchAndEditCustomer window">
+                <h1>Customer List</h1>
+                <button
+                    className="button_esc"
+                    onClick={() => {
+                        props.setVisibilityCustomer(false);
+                    }}
+                >
+                    Esc
+                </button>
                 <table className="customerList">
                     <thead>
                         <tr>
@@ -83,7 +92,7 @@ const SearchAccount = (props) => {
                                         content={content}
                                         key={index}
                                         index={index}
-                                        // setVisibility and setAccountId are called in <InfoEditor> 
+                                        // setVisibility and setAccountId are called in <InfoEditor>
                                         setVisibility={setVisibility}
                                         setAccountId={setAccountId}
                                         // setVisibilityCustomer and setCustomerId are for <AddAppointment>
