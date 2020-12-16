@@ -6,6 +6,9 @@ import Curtain from "../Curtain/Curtain";
 import "../CommonElements.css";
 
 const Employees = (props) => {
+    // Define a const to control <SearchAndEditEmployee> content
+    const scenario = "Employees";
+
     return (
         <Router>
             <Curtain />
@@ -15,7 +18,10 @@ const Employees = (props) => {
                         <CreateEmployeeAccount url={props.url} />
                     </Route>
                     <Route path="/search">
-                        <SearchAndEditEmployee url={props.url} />
+                        <SearchAndEditEmployee
+                            url={props.url}
+                            scenario={scenario}
+                        />
                     </Route>
                 </Switch>
                 <nav className="nav-components">
