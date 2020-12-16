@@ -29,6 +29,9 @@ const SearchAccount = (props) => {
             });
     }, []);
 
+    // Render elements according to scenario:
+    // if "AddAppointment", show "choose" button, cannot edit data
+    // if "Customers", show "edit" button, can edit data
     if (props.scenario === "AddAppointment") {
         return (
             <section className="searchAndEditCustomer window">
