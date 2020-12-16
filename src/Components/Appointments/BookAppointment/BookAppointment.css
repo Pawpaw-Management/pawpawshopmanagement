@@ -4,3 +4,7 @@
     justify-content: center;
     align-items: center;
 }
+
+.bookAppointment_calendar_and_form {
+    display: flex;
+}
