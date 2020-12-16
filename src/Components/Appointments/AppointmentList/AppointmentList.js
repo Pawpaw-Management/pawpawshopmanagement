@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AppointmentDetail from "./AppointmentDetail/AppointmentDetail";
+import EditAppointment from "./EditAppointment/EditAppointment";
 import "./AppointmentList.css";
 
 export default function AppointmentList(props) {
@@ -12,7 +13,8 @@ export default function AppointmentList(props) {
     // Define states
     const [appointments, setAppointments] = useState(null);
     const [appointmentId, setAppointmentId] = useState(1);
-    const [visibility, setVisibility] = useState("hidden");
+    const [visibilityEdit, showEdit] = useState("hidden");
+    const [visibilityComplete, showComplete] = useState("hidden");
     const [hasAppointment, setHasAppointment] = useState(false);
 
     // When component mount, fetch latest data through API, and assign to "appointments"
@@ -73,13 +75,20 @@ export default function AppointmentList(props) {
                                         content={content}
                                         index={index}
                                         key={index}
-                                        setVisibility={setVisibility}
+                                        showEdit={showEdit}
+                                        showComplete={showComplete}
                                         setAppointmentId={setAppointmentId}
                                     />
                                 );
                             })}
                     </tbody>
                 </table>
+                <EditAppointment
+                    visibility={visibilityEdit}
+                    url={props.url}
+                    appointments={appointments}
+                    appointmentId={appointmentId}
+                />
             </section>
         );
     } else {
