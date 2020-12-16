@@ -15,3 +15,12 @@
 .customerList th {
     background: rgb(2, 209, 255);
 }
+
+.window {
+    width: calc(100vw - 2rem);
+    position: absolute;
+    top: 2rem;
+    left: 1rem;
+    background: whitesmoke;
+    z-index: 99;
+}
