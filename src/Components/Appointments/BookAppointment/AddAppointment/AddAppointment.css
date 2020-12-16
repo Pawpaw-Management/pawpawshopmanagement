@@ -1,0 +1,11 @@
+.addAppointment_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 1rem;
+}
+
+.addAppointment_form button {
+    font-size: small;
+    margin-top: 1rem;
+}
