@@ -25,7 +25,7 @@ export default function CustomerAndPetInfo(props) {
                     <button
                         onClick={() => {
                             props.setVisibilityCustomer("hidden");
-                            props.setAccountId(props.content.id);
+                            props.setCustomerId(props.content.id);
                         }}
                     >
                         Choose
