@@ -34,6 +34,9 @@ export default function AppointmentDetail(props) {
                     Edit
                 </button>
             </td>
+            <td>
+                <button>Complete</button>
+            </td>
         </tr>
     );
 }
