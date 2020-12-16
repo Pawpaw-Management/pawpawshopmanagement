@@ -25,3 +25,12 @@
     margin-bottom: 1rem;
     font-size: 2rem;
 }
+
+
+.button_esc {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgb(255, 66, 66);
+    border: 2px black solid;
+}
