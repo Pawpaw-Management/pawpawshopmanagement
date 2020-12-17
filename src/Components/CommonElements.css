@@ -34,3 +34,12 @@
     background: rgb(255, 66, 66);
     border: 2px black solid;
 }
+
+.window {
+    width: calc(100vw - 2rem);
+    position: absolute;
+    top: 2rem;
+    left: 1rem;
+    background: whitesmoke;
+    z-index: 99;
+}
