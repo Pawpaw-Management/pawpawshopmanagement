@@ -10,7 +10,7 @@ export default function AddAppointment(props) {
     const [appointment_time_end, setTimeEnd] = useState("");
     const [appointment_service, setService] = useState("");
     const [appointment_customer_id, setCustomerId] = useState(33);
-    const [appointment_service_provider_id, setProviderId] = useState("");
+    const [appointment_service_provider_id, setProviderId] = useState(9);
 
     // Define states for component display
     const [shouldShowCustomer, setVisibilityCustomer] = useState(false);
@@ -20,6 +20,9 @@ export default function AddAppointment(props) {
     const scenario = "AddAppointment";
 
     console.log("appointment_customer_id: " + appointment_customer_id);
+    console.log(
+        "appointment_service_provider_id: " + appointment_service_provider_id
+    );
 
     // Define onChange event handlers
     const changeDate = (event) => setDate(event.target.value);
@@ -141,7 +144,7 @@ export default function AddAppointment(props) {
                     value="Book Appointment"
                 />
             </form>
-
+            {providerList}
             {customerList}
         </div>
     );
