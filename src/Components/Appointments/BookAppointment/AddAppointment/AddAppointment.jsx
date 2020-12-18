@@ -18,10 +18,12 @@ export default function AddAppointment(props) {
     // Define a const to pass to <CustomerList> & <ProviderList> and control their content
     const scenario = "AddAppointment";
 
-    // Change the format of selectedDate for data upload
+    // Change the format of selectedDate to match server data format
     const appointment_date = props.selectedDate.format("YYYY-MM-DD");
 
     console.log("appointment_date: " + appointment_date);
+    console.log("appointment_time_start: " + `${appointment_time_start + ":00.000"}`)
+    console.log(typeof(`${appointment_time_start + ":00.000"}`))
     console.log("appointment_customer_id: " + appointment_customer_id);
     console.log(
         "appointment_service_provider_id: " + appointment_service_provider_id
@@ -37,16 +39,17 @@ export default function AddAppointment(props) {
         event.preventDefault();
 
         if (props.url) {
-            const response = await fetch(`${props.url}daily-appintments}`, {
+            const response = await fetch(`${props.url}events`, {
                 method: "POST",
                 headers: {
-                    accept: "application/json",
+                    "accept": "application/json",
                     "content-type": "application/json",
                 },
                 body: JSON.stringify({
                     appointment_date: `${appointment_date}`,
-                    appointment_time_start: `${appointment_time_start}`,
-                    appointment_time_end: `${appointment_time_end}`,
+                    // + ":00.000" is required to match the data format on server
+                    appointment_time_start: `${appointment_time_start + ":00.000"}`,
+                    appointment_time_end: `${appointment_time_end + ":00.000"}`,
                     appointment_service: `${appointment_service}`,
                     appointment_customer_id: `${appointment_customer_id}`,
                     appointment_service_provider_id: `${appointment_service_provider_id}`,
@@ -117,7 +120,7 @@ export default function AddAppointment(props) {
                 />
                 <label for="appointment_service">Service</label>
                 <textarea
-                    type="email"
+                    type="text"
                     name="appointment_service"
                     id="appointment_service"
                     value={appointment_service}
