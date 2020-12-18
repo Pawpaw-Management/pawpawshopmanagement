@@ -38,7 +38,7 @@ const getPetsForSaleInfo = async function () {
 
 //5. daily appointments information.
 const getAppointmentsInfo = async function () {
-   const response = await fetch(`${url}daily-appointments`);
+   const response = await fetch(`${url}events`);
    var info = await response.json();
    return info;
 };

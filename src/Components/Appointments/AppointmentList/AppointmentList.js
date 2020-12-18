@@ -21,7 +21,7 @@ export default function AppointmentList(props) {
     // In BookAppointment.jsx, show only those appointments on selectedDate, ie. response.filter...
     // Otherwise, show all appointments
     useEffect(() => {
-        fetch(`${props.url}daily-appointments`)
+        fetch(`${props.url}events`)
             .then((response) => response.json())
             .then((response) => {
                 // filter the appointments on the selected date
