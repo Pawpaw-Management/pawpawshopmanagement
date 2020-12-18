@@ -5,7 +5,6 @@ import "./AddAppointment.css";
 
 export default function AddAppointment(props) {
     // Define states for posting data
-    const [appointment_date, setDate] = useState("");
     const [appointment_time_start, setTimeStart] = useState("");
     const [appointment_time_end, setTimeEnd] = useState("");
     const [appointment_service, setService] = useState("");
@@ -19,18 +18,19 @@ export default function AddAppointment(props) {
     // Define a const to pass to <CustomerList> & <ProviderList> and control their content
     const scenario = "AddAppointment";
 
+    // Change the format of selectedDate for data upload
+    const appointment_date = props.selectedDate.format("YYYY-MM-DD");
+
+    console.log("appointment_date: " + appointment_date);
     console.log("appointment_customer_id: " + appointment_customer_id);
     console.log(
         "appointment_service_provider_id: " + appointment_service_provider_id
     );
 
-    // Define onChange event handlers
-    const changeDate = (event) => setDate(event.target.value);
+    // Define onChange event handlers for the <input>s
     const changeTimeStart = (event) => setTimeStart(event.target.value);
     const changeTimeEnd = (event) => setTimeEnd(event.target.value);
     const changeService = (event) => setService(event.target.value);
-    const changeCustomerId = (event) => setCustomerId(event.target.value);
-    const changeProviderId = (event) => setProviderId(event.target.value);
 
     // Define a function to post appointment information on server
     const handleSubmit = async (event) => {
@@ -53,7 +53,6 @@ export default function AddAppointment(props) {
                 }),
             });
             const content = await response.json();
-            console.log(content);
             // Tell user the data above is successfully submitted
             if (response.status === 200) {
                 alert("Appointment Booked Successfully!");
@@ -63,7 +62,7 @@ export default function AddAppointment(props) {
         }
     };
 
-    // Render <CustomerList/> only when use clicks "choose customer" buttom
+    // Render <CustomerList/> only when user clicks "choose customer" buttom
     var customerList;
     if (shouldShowCustomer) {
         customerList = (
