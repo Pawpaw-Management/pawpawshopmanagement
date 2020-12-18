@@ -8,13 +8,13 @@ export default function EditAppointment(props) {
     const [appointment_time_start, setTimeStart] = useState("");
     const [appointment_time_end, setTimeEnd] = useState("");
     const [appointment_service, setService] = useState([]);
+    const [appointment_customer_id, setCustomerId] = useState("");
 
     // 2. There are for display only
-    const [appointment_customer_id, setCustomerId] = useState("");
     const [appointment_customer_first_name, setFirstName] = useState("");
     const [appointment_customer_last_name, setLastName] = useState("");
     const [appointment_pet_name, setPetName] = useState("");
-    const [pet_breed, setPetBreed] = useState("");
+    const [appointment_pet_breed, setPetBreed] = useState("");
 
     // Define onChange event handlers
     const changeDate = (event) => setDate(event.target.value);
@@ -52,7 +52,7 @@ export default function EditAppointment(props) {
 
         if (props.url && props.accountId) {
             const response = await fetch(
-                `${props.url}daily-appintments/${props.appointmentId}`,
+                `${props.url}events/${props.appointmentId}`,
                 {
                     method: "PUT",
                     headers: {

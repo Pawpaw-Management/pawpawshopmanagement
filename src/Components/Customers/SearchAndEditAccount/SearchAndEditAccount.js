@@ -5,8 +5,6 @@ import "./SearchAndEditAccount.css";
 import "../../CommonElements.css";
 
 const SearchAccount = (props) => {
-    console.log("scenario: " + props.scenario);
-
     // Define useState for <Refresh> to update state here
     const [customers_and_pets, setCustomersAndPets] = useState([]);
 
