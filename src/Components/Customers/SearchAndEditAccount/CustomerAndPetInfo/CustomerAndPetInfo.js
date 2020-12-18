@@ -24,7 +24,7 @@ export default function CustomerAndPetInfo(props) {
                 <td>
                     <button
                         onClick={() => {
-                            props.setVisibilityCustomer("hidden");
+                            props.setVisibilityCustomer(false);
                             props.setCustomerId(props.content.id);
                         }}
                     >
