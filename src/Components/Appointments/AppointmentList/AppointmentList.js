@@ -28,11 +28,10 @@ export default function AppointmentList(props) {
                 var appointmentsOnSelectedDate = response.filter((current) => {
                     return current.appointment_date === date;
                 });
-                // console.log("appointmentsOnSelectedDate");
-                // console.log(appointmentsOnSelectedDate);
 
-                // if date is provided, and response's length is not 0, then set hasAppointment to true
                 if (date && appointmentsOnSelectedDate.length !== 0) {
+                    // if date is provided, and response's length is not 0,
+                    // then set hasAppointment to true, and only assign appointments data on the given date to appointments
                     setHasAppointment(true);
                     setAppointments(
                         response.filter((current) => {
@@ -41,15 +40,19 @@ export default function AppointmentList(props) {
                     );
                     console.log("appointments");
                     console.log(appointments);
-                } else if (date === null) {
+                } else if (date === null) { 
+                    // if date is not provided, which means this component is used in Search/Edit Appointments,
+                    // then simply assign all fetched data to appointments, and set hasAppointment to true
                     setHasAppointment(true);
                     setAppointments(response);
                 } else if (date && appointmentsOnSelectedDate.length === 0) {
+                    // if date is provided, and response's length is 0, which means this component is used along with <Calendar>
+                    // then set hasAppointment to false
                     setHasAppointment(false);
                 }
             })
             .catch((error) => {
-                console.log("error:");
+                console.log("error: ");
                 console.log(error);
             });
     }, [date]);
@@ -92,22 +95,6 @@ export default function AppointmentList(props) {
             </section>
         );
     } else {
-        return (
-            <section className="appointmentList">
-                <table>
-                    <thead>
-                        <tr className="appointmentList_tableHead">
-                            <th>ID</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Customer</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <td colspan="4">No Appointments</td>
-                    </tbody>
-                </table>
-            </section>
-        );
+        return <span>No Appointments</span>;
     }
 }
