@@ -19,10 +19,10 @@ export default function BookAppointment(props) {
                     selectedDate={props.selectedDate}
                 />
             </div>
-            {/* <AppointmentList
+            <AppointmentList
                 url={props.url}
                 selectedDate={props.selectedDate}
-            /> */}
+            />
         </section>
     );
 }

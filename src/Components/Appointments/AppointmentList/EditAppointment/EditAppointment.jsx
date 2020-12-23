@@ -64,6 +64,7 @@ export default function EditAppointment(props) {
                         appointment_time_start: `${appointment_time_start}`,
                         appointment_time_end: `${appointment_time_end}`,
                         appointment_service: `${appointment_service}`,
+                        appointment_service_provider_id: `${appointment_service_provider_id}`,
                     }),
                 }
             );
@@ -78,14 +79,12 @@ export default function EditAppointment(props) {
         }
     };
 
+    // Render editAppointment only when user clicks "Edit" button from <AppointmentList>
     return (
-        <div
-            className="editAppointment"
-            style={{ visibility: props.visibilityEdit }}
-        >
+        <div className="editAppointment">
             <button
                 className="button_esc"
-                onClick={() => props.setVisibilityEdit("hidden")}
+                onClick={() => props.setVisibilityAppointmentEditor(false)}
             >
                 Esc
             </button>

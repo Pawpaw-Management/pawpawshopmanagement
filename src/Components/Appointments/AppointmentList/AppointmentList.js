@@ -12,10 +12,18 @@ export default function AppointmentList(props) {
 
     // Define states
     const [appointments, setAppointments] = useState(null);
-    const [appointmentId, setAppointmentId] = useState(1);
-    const [visibilityEdit, showEdit] = useState("hidden");
-    const [visibilityComplete, showComplete] = useState("hidden");
+    const [appointmentId, setAppointmentId] = useState();
     const [hasAppointment, setHasAppointment] = useState(false);
+
+    // Define states for component display
+    const [
+        shouldShowAppointmentEditor,
+        setVisibilityAppointmentEditor,
+    ] = useState(false);
+    const [
+        shouldShowAppointmentCompleter,
+        setVisibilityAppointmentCompleter,
+    ] = useState(false);
 
     // When component mount, fetch latest data through API, and assign to "appointments"
     // In BookAppointment.jsx, show only those appointments on selectedDate, ie. response.filter...
@@ -40,7 +48,7 @@ export default function AppointmentList(props) {
                     );
                     console.log("appointments");
                     console.log(appointments);
-                } else if (date === null) { 
+                } else if (date === null) {
                     // if date is not provided, which means this component is used in Search/Edit Appointments,
                     // then simply assign all fetched data to appointments, and set hasAppointment to true
                     setHasAppointment(true);
@@ -67,7 +75,8 @@ export default function AppointmentList(props) {
                             <th>ID</th>
                             <th>Date</th>
                             <th>Time</th>
-                            <th>Customer</th>
+                            <th>Groomer ID</th>
+                            <th>Services</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,23 +87,33 @@ export default function AppointmentList(props) {
                                         content={content}
                                         index={index}
                                         key={index}
-                                        showEdit={showEdit}
-                                        showComplete={showComplete}
+                                        setVisibilityAppointmentEditor={
+                                            setVisibilityAppointmentEditor
+                                        }
+                                        setVisibilityAppointmentCompleter={
+                                            setVisibilityAppointmentCompleter
+                                        }
                                         setAppointmentId={setAppointmentId}
                                     />
                                 );
                             })}
                     </tbody>
                 </table>
-                <EditAppointment
-                    visibility={visibilityEdit}
-                    url={props.url}
-                    appointments={appointments}
-                    appointmentId={appointmentId}
-                />
+                {shouldShowAppointmentEditor ? (
+                    <EditAppointment
+                        url={props.url}
+                        appointments={appointments}
+                        appointmentId={appointmentId}
+                        setVisibilityAppointmentEditor={
+                            setVisibilityAppointmentEditor
+                        }
+                    />
+                ) : (
+                    <div></div>
+                )}
             </section>
         );
-    } else {
+    } else if (!hasAppointment) {
         return <span>No Appointments</span>;
     }
 }

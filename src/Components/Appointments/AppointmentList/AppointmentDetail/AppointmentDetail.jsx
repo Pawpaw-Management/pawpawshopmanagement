@@ -10,6 +10,7 @@ export default function AppointmentDetail(props) {
         return time;
     };
 
+    console.log(props.content)
     return (
         <tr className="appointmentDetail">
             <td>{`id: ${props.index}`}</td>
@@ -20,22 +21,30 @@ export default function AppointmentDetail(props) {
                     TrimZeros(props.content.appointment_time_end)}
             </td>
             <td>
-                {props.content.appointment_customer_first_name +
-                    " " +
-                    props.content.appointment_customer_last_name}
+                {props.content.appointment_service_provider_id}
+            </td>
+            <td>
+                {props.content.appointment_service}
             </td>
             <td>
                 <button
                     onClick={() => {
-                        props.setVisibility("visible");
-                        props.setAccountId(props.content.id);
+                        props.setVisibilityAppointmentEditor(true);
+                        props.setAppointmentId(props.content.id);
                     }}
                 >
                     Edit
                 </button>
             </td>
             <td>
-                <button>Complete</button>
+                <button
+                    onClick={() => {
+                        props.setVisibilityAppointmentCompleter(true);
+                        props.setAppointmentId(props.content.id);
+                    }}
+                >
+                    Complete
+                </button>
             </td>
         </tr>
     );

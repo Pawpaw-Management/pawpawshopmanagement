@@ -9,3 +9,10 @@
     font-size: small;
     margin-top: 1rem;
 }
+
+.appointmentList td {
+    max-width:25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
