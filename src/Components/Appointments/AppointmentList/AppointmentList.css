@@ -1,8 +1,8 @@
 .appointmentList{
-    max-height: 12rem;
+    height: 80vh;
     overflow: auto;
 }
 
 .appointmentList_tableHead th {
-    width: 16rem;
+    width: 15rem;
 }
