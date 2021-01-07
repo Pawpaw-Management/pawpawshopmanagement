@@ -21,15 +21,18 @@ export default function AddAppointment(props) {
     // Change the format of selectedDate to match server data format
     const appointment_date = props.selectedDate.format("YYYY-MM-DD");
 
-    console.log("appointment_date: " + appointment_date);
-    console.log(
-        "appointment_time_start: " + `${appointment_time_start + ":00.000"}`
-    );
-    console.log(typeof `${appointment_time_start + ":00.000"}`);
-    console.log("appointment_customer_id: " + appointment_customer_id);
-    console.log(
-        "appointment_service_provider_id: " + appointment_service_provider_id
-    );
+    // console.log("appointment_date: " + appointment_date);
+    // console.log(
+    //     "appointment_time_start: " + `${appointment_time_start + ":00.000"}`
+    // );
+    // console.log(
+    //     "appointment_time_end: " + `${appointment_time_end + ":00.000"}`
+    // );
+    // console.log("appointment_customer_id: " + appointment_customer_id);
+    // console.log(
+    //     "appointment_service_provider_id: " + appointment_service_provider_id
+    // );
+    // console.log("appointment_service: " + appointment_service)
 
     // Define onChange event handlers for the <input>s
     const changeTimeStart = (event) => setTimeStart(event.target.value);
@@ -49,11 +52,8 @@ export default function AddAppointment(props) {
                 },
                 body: JSON.stringify({
                     appointment_date: `${appointment_date}`,
-                    // + ":00.000" is required to match the data format on server
-                    appointment_time_start: `${
-                        appointment_time_start + ":00.000"
-                    }`,
-                    appointment_time_end: `${appointment_time_end + ":00.000"}`,
+                    appointment_time_start: `${appointment_time_start}`,
+                    appointment_time_end: `${appointment_time_end}`,
                     appointment_service: `${appointment_service}`,
                     appointment_customer_id: `${appointment_customer_id}`,
                     appointment_service_provider_id: `${appointment_service_provider_id}`,
@@ -106,7 +106,9 @@ export default function AddAppointment(props) {
     return (
         <div className="addAppointment">
             <form className="addAppointment_form" onSubmit={handleSubmit}>
-                <label for="appointment_time_start">From</label>
+                <label for="appointment_time_start">
+                    From (time format must be xx:xx)
+                </label>
                 <input
                     type="text"
                     name="appointment_time_start"
