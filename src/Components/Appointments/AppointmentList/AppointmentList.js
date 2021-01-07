@@ -46,7 +46,7 @@ export default function AppointmentList(props) {
                             return current.appointment_date === date;
                         })
                     );
-                    console.log("appointments");
+                    console.log("appointments: ");
                     console.log(appointments);
                 } else if (date === null) {
                     // if date is not provided, which means this component is used in Search/Edit Appointments,
