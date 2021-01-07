@@ -1,27 +1,29 @@
 .app {
-  text-align: center;
-  background-color: #97baff;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  font-size: calc(10px + 2vmin);
-  color: black;
+    text-align: center;
+    background-color: #97baff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: calc(10px + 2vmin);
+    color: black;
 }
 
 .nav button {
-  font-size: x-large;
-  padding: 0.5rem;
+    font-size: x-large;
+    padding: 0.5rem;
 }
 
 .nav {
-  width: 100vw;
-  padding: 1rem 0;
-  border-bottom:2px solid black;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  position: fixed;
-  top: 0;
+    width: 100vw;
+    padding: 1rem 0;
+    border-bottom: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    position: fixed;
+    background-color: #97baff;
+    top: 0;
+    z-index: 1;
 }
