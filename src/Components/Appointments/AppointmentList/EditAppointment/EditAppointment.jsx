@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import DeleteAppointmentButton from "./DeleteAppointmentButton/DeleteAppointmentButton.jsx"
+import DeleteAppointmentButton from "./DeleteAppointmentButton/DeleteAppointmentButton.jsx";
 import "./EditAppointment.css";
 
 export default function EditAppointment(props) {
@@ -20,6 +20,9 @@ export default function EditAppointment(props) {
     const [appointment_pet_breed, setPetBreed] = useState("");
     const [appointment_pet_size, setPetSize] = useState("");
     const [appointment_pet_note, setPetNote] = useState("");
+
+    // 3. This controls whether render <DeleteAppointment> or not
+    const [shouldShowDeleteAppointment, setVisibilityDelete] = useState(false);
 
     // Define onChange event handlers
     const changeDate = (event) => setDate(event.target.value);
@@ -170,7 +173,10 @@ export default function EditAppointment(props) {
                 />
                 <div className="editAppointment_form_buttons">
                     <input type="submit" id="editAppointment_form_submit" />
-                    <DeleteAppointmentButton url={props.url} appointmentId={props.appointmentId} />
+                    <DeleteAppointmentButton
+                        url={props.url}
+                        appointmentId={props.appointmentId}
+                    />
                 </div>
             </form>
             <div className="editAppointment_chart">

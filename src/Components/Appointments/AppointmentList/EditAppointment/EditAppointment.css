@@ -41,10 +41,6 @@
     margin-bottom: 0;
 }
 
-#editAppointment_form_delete {
-    height: 2rem;
-}
-
 .editAppointment_chart_customerInfo {
     display: flex;
     flex-grow: 1;

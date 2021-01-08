@@ -1,4 +1,5 @@
 import React from "react";
+import "./DeleteAppointmentButton.css"
 
 function DeleteAppointmentButton(props) {
     // Define a function to delete an appointment
@@ -19,7 +20,11 @@ function DeleteAppointmentButton(props) {
         <button
             id="editAppointment_form_delete"
             onClick={() => {
-                handleDelete();
+                if (
+                    window.confirm("Are you sure you wish to delete this item?")
+                ) {
+                    handleDelete();
+                }
             }}
         >
             Delete
