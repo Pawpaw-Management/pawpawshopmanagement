@@ -33,17 +33,7 @@ export default function AppointmentDetail(props) {
                         props.setAppointmentId(props.content.id);
                     }}
                 >
-                    Edit
-                </button>
-            </td>
-            <td>
-                <button
-                    onClick={() => {
-                        props.setVisibilityAppointmentCompleter(true);
-                        props.setAppointmentId(props.content.id);
-                    }}
-                >
-                    Complete
+                    Detail
                 </button>
             </td>
         </tr>
