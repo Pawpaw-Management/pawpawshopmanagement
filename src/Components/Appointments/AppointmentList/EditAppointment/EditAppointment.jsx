@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CompleteAppointmentButton from "./CompleteAppointment/CompleteAppointmentButton";
 import DeleteAppointmentButton from "./DeleteAppointmentButton/DeleteAppointmentButton.jsx";
 import "./EditAppointment.css";
 
@@ -93,7 +94,7 @@ export default function EditAppointment(props) {
                         appointment_time_start: `${appointment_time_start}`,
                         appointment_time_end: `${appointment_time_end}`,
                         appointment_service: `${appointment_service}`,
-                        // appointment_service_provider_id: `${appointment_service_provider_id}`,
+                        appointment_service_provider_id: `${appointment_service_provider_id}`,
                     }),
                 }
             );
@@ -172,7 +173,18 @@ export default function EditAppointment(props) {
                     onChange={changeService}
                 />
                 <div className="editAppointment_form_buttons">
-                    <input type="submit" id="editAppointment_form_submit" />
+                    <input
+                        type="submit"
+                        value="Confirm Changes"
+                        id="editAppointment_form_submit"
+                    />
+                    <CompleteAppointmentButton
+                        url={props.url}
+                        appointmentId={props.appointmentId}
+                        date={appointment_date}
+                        time={`${appointment_time_start} - ${appointment_time_end}`}
+                        service={appointment_service}
+                    />
                     <DeleteAppointmentButton
                         url={props.url}
                         appointmentId={props.appointmentId}
