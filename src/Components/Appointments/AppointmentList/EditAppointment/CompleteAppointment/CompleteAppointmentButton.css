@@ -1,0 +1,9 @@
+#editAppointment_form_complete {
+    display: flex;
+}
+
+#editAppointment_form_complete_button {
+    margin-left: 1rem;
+    height: 2rem;
+    background: yellow;
+}
