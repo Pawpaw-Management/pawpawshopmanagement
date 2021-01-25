@@ -27,7 +27,7 @@ function DeleteAppointmentButton(props) {
                 }
             }}
         >
-            Delete
+            Delete this appointment
         </button>
     );
 }
