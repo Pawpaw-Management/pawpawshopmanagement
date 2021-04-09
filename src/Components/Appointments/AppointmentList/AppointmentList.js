@@ -10,10 +10,15 @@ export default function AppointmentList(props) {
         date = props.selectedDate.format("YYYY-MM-DD");
     }
 
-    // Define states
+    // Define basic states
     const [appointments, setAppointments] = useState(null);
     const [appointmentId, setAppointmentId] = useState();
     const [hasAppointment, setHasAppointment] = useState(false);
+    const [dateOfInterest, setDateOfInterest] = useState("");
+
+    // Define event handler
+    const changeDateOfInterest = (event) =>
+        setDateOfInterest(event.target.value);
 
     // Define states for component display
     const [
@@ -65,10 +70,22 @@ export default function AppointmentList(props) {
             });
     }, [date]);
 
+    // console.log(appointments[0].appointment_date)
+
     // Render appointment list or "No Appointments" based on hasAppointment
     if (hasAppointment) {
         return (
             <section className="appointmentList">
+                <div className="appointmentList_dateFinder">
+                    <label for="date">Date </label>
+                    <input
+                        type="text"
+                        name="date"
+                        placeholder="format: xxxx-xx-xx"
+                        value={dateOfInterest}
+                        onChange={changeDateOfInterest}
+                    />
+                </div>
                 <table>
                     <thead>
                         <tr className="appointmentList_tableHead">
@@ -80,22 +97,45 @@ export default function AppointmentList(props) {
                         </tr>
                     </thead>
                     <tbody>
+                        {/* Show appointments data according to "dateOfInterest". */}
                         {appointments &&
                             appointments.map((content, index) => {
-                                return (
-                                    <AppointmentDetail
-                                        content={content}
-                                        index={index}
-                                        key={index}
-                                        setVisibilityAppointmentEditor={
-                                            setVisibilityAppointmentEditor
-                                        }
-                                        setVisibilityAppointmentCompleter={
-                                            setVisibilityAppointmentCompleter
-                                        }
-                                        setAppointmentId={setAppointmentId}
-                                    />
-                                );
+                                // If date input in empty, show all the appointments in database.
+                                if (dateOfInterest === "") {
+                                    return (
+                                        <AppointmentDetail
+                                            content={content}
+                                            index={index}
+                                            key={index}
+                                            setVisibilityAppointmentEditor={
+                                                setVisibilityAppointmentEditor
+                                            }
+                                            setVisibilityAppointmentCompleter={
+                                                setVisibilityAppointmentCompleter
+                                            }
+                                            setAppointmentId={setAppointmentId}
+                                        />
+                                    );
+                                }
+                                // If user enter a valid date, show appointments on that date only.
+                                if (
+                                    content.appointment_date === dateOfInterest
+                                ) {
+                                    return (
+                                        <AppointmentDetail
+                                            content={content}
+                                            index={index}
+                                            key={index}
+                                            setVisibilityAppointmentEditor={
+                                                setVisibilityAppointmentEditor
+                                            }
+                                            setVisibilityAppointmentCompleter={
+                                                setVisibilityAppointmentCompleter
+                                            }
+                                            setAppointmentId={setAppointmentId}
+                                        />
+                                    );
+                                }
                             })}
                     </tbody>
                 </table>
