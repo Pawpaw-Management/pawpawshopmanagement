@@ -41,13 +41,19 @@ export default function CompleteAppointmentButton(props) {
             <button
                 id="editAppointment_form_complete_button"
                 onClick={(event) => {
-                    event.preventDefault()
+                    event.preventDefault();
                     setVisibilityInputWindow(true);
                 }}
             >
                 Checkout
             </button>
-            {shouldShowInputWindow ? <IncomeInputWindow /> : <div></div>}
+            {shouldShowInputWindow ? (
+                <IncomeInputWindow
+                    setVisibilityInputWindow={setVisibilityInputWindow}
+                />
+            ) : (
+                <div></div>
+            )}
         </div>
     );
 }
