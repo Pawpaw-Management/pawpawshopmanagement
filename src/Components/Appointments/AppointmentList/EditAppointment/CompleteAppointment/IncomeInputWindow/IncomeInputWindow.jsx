@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./IncomeInputWindow.css";
+import SubmitButton from "./SubmitButton/SubmitButton"
 
 export default function IncomeInputWindow(props) {
     // When user finishes filling the inputs, user can click submit to upload data.
@@ -14,8 +15,15 @@ export default function IncomeInputWindow(props) {
 
     return (
         <div id="editAppointment_form_complete_window">
+            <h1>Checkout</h1>
+            <button
+                className="button_esc"
+                onClick={() => props.setVisibilityInputWindow(false)}
+            >
+                Esc
+            </button>
             <label for="total_income">
-                total income(must use format xxx.xx)
+                Total income<br/>(must use format xxx.xx)
             </label>
             <input
                 type="number"
@@ -24,7 +32,7 @@ export default function IncomeInputWindow(props) {
                 onChange={changeTotalIncome}
             />
             <label for="groomer_tip">
-                tip for groomer(must use format xxx.xx)
+                Tip for groomer<br/>(must use format xxx.xx)
             </label>
             <input
                 type="number"
@@ -32,6 +40,7 @@ export default function IncomeInputWindow(props) {
                 value={groomerTip}
                 onChange={changeGroomerTip}
             />
+            <SubmitButton />
         </div>
     );
 }
