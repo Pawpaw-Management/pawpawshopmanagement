@@ -21,7 +21,7 @@ function DeleteAppointmentButton(props) {
             id="editAppointment_form_delete"
             onClick={() => {
                 if (
-                    window.confirm("Are you sure you wish to delete this item?")
+                    window.confirm("Are you sure to delete this appointment? It CANNOT be recovered.")
                 ) {
                     handleDelete();
                 }
