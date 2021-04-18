@@ -6,3 +6,15 @@
 .appointmentList_tableHead th {
     width: 15rem;
 }
+
+.appointmentList_dateFinder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.appointmentList_dateFinder input {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}
