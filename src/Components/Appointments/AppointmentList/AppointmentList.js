@@ -77,11 +77,11 @@ export default function AppointmentList(props) {
         return (
             <section className="appointmentList">
                 <div className="appointmentList_dateFinder">
-                    <label for="date">Date </label>
+                    <label for="date">Date: </label>
                     <input
                         type="text"
                         name="date"
-                        placeholder="format: xxxx-xx-xx"
+                        placeholder="xxxx-xx-xx"
                         value={dateOfInterest}
                         onChange={changeDateOfInterest}
                     />
