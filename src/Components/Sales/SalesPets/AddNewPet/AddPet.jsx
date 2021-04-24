@@ -16,16 +16,7 @@ export default function AddPet(props) {
     const changePetGender = (event) => setPetGender(event.target.value);
     const changePetColor = (event) => setPetColor(event.target.value);
     const changePetPrice = (event) => setPetPrice(event.target.value);
-    const changePetAvailability = (event) => {
-        if (event.target.value === "yes") {
-            setPetAvailability(true);
-        }
-        if (event.target.value === "no") {
-            setPetAvailability(false);
-        }
-    }
-    console.log(pet_is_available);
-
+    
     // Define a function to update account information
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -42,7 +33,7 @@ export default function AddPet(props) {
                 pet_gender: `${pet_gender}`,
                 pet_color: `${pet_color}`,
                 pet_price: `${pet_price}`,
-                pet_is_available: `${pet_is_available}`,
+                pet_is_available: true,
             }),
         });
         const content = await response.json();
@@ -99,16 +90,7 @@ export default function AddPet(props) {
                     value={pet_price}
                     onChange={changePetPrice}
                 />
-                <label for="pet_is_available">Pet Availability:</label>
-                <select
-                    type="checkbox"
-                    name="pet_is_available"
-                    id="pet_is_available"
-                    onChange={changePetAvailability}
-                >
-                    <option value="yes">yes</option>
-                    <option value="no">no</option>
-                </select>
+                <input type="submit" />
             </form>
         </div>
     );
