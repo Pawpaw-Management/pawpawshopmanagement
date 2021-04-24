@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
-import AddPet from "./Add New Pet/AddPet"
-import EditPet from "./Edit Pet/EditPet"
-import SellPet from "./Sell Pet/SellPet"
+import AddPet from "./AddNewPet/AddPet"
+import EditPet from "./EditPet/EditPet"
+import SellPet from "./SellPet/SellPet"
 import "./SalesPets.css";
 
 export default function SalesPets(props) {
