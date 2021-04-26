@@ -1,0 +1,10 @@
+.petList{
+    width: 85vw;
+    border-collapse: separate;
+    border-spacing: 0.3rem 1rem;
+    overflow-y: scroll;
+}
+
+.employeeList th {
+    background: rgb(2, 209, 255);
+}

@@ -1,0 +1,15 @@
+.PetDetails {
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px black solid;
+    background-color: rgb(239,238,239);
+}
+
+.PetDetails td{
+    font-size: medium;
+}
+
+.PetDetails button {
+    background-color:  rgb(2, 209, 255);
+    width: 100%;
+}
