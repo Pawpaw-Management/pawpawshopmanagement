@@ -5,13 +5,13 @@ import "./ListOfPets.css";
 import "../../../CommonElements.css";
 
 export default function ListOfPets(props) {
-    // Define useState for <Refresh> to update state here
+    // Define useState to update state here
     const [pets, setPets] = useState([]);
 
-    // Define useState for <PetEditor> to popup and disappear
+    // Define useState for <EditPet> to popup and disappear
     const [visibility, setVisibility] = useState(false);
 
-    // Define useState for <PetEditor> to edit the account clicked by user
+    // Define useState for <EditPet> to edit the account clicked by user
     const [petId, setPetId] = useState(0);
 
     // When component mount, fetch latest data through API, and assign to "customers_and_pets"
