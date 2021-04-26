@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PetDetails from "./PetDetails/PetDetails";
 import EditPet from "../EditPet/EditPet";
+import SellPet from "../SellPet/SellPet";
 import "./ListOfPets.css";
 import "../../../CommonElements.css";
 
@@ -9,7 +10,10 @@ export default function ListOfPets(props) {
     const [pets, setPets] = useState([]);
 
     // Define useState for <EditPet> to popup and disappear
-    const [visibility, setVisibility] = useState(false);
+    const [visibility_edit, setVisibilityEdit] = useState(false);
+
+    // Define useState for <SellPet> to popup and disappear
+    const [visibility_sell, setVisibilitySell] = useState(false);
 
     // Define useState for <EditPet> to edit the account clicked by user
     const [petId, setPetId] = useState(0);
@@ -48,7 +52,8 @@ export default function ListOfPets(props) {
                                     content={content}
                                     key={index}
                                     index={index}
-                                    setVisibility={setVisibility}
+                                    setVisibilityEdit={setVisibilityEdit}
+                                    setVisibilitySell={setVisibilitySell}
                                     setPetId={setPetId}
                                 />
                             );
@@ -56,12 +61,23 @@ export default function ListOfPets(props) {
                 </tbody>
             </table>
 
-            {visibility ? (
+            {visibility_edit ? (
                 <EditPet
                     petId={petId}
                     url={props.url}
                     pets={pets}
-                    setVisibility={setVisibility}
+                    setVisibilityEdit={setVisibilityEdit}
+                />
+            ) : (
+                <div></div>
+            )}
+
+            {visibility_sell ? (
+                <SellPet
+                    petId={petId}
+                    url={props.url}
+                    pets={pets}
+                    setVisibilitySell={setVisibilitySell}
                 />
             ) : (
                 <div></div>
