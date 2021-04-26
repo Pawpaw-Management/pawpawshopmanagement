@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
 import AddPet from "./AddNewPet/AddPet"
-import EditPet from "./EditPet/EditPet"
+import EditPet from "./ListOfPets/ListOfPets"
 import SellPet from "./SellPet/SellPet"
 import "./SalesPets.css";
 
