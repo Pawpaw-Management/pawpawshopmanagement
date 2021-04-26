@@ -17,11 +17,21 @@ export default function PetDetails(props) {
                 <td>
                     <button
                         onClick={() => {
-                            props.setVisibility(true);
+                            props.setVisibilityEdit(true);
                             props.setPetId(props.content.id);
                         }}
                     >
                         Edit
+                    </button>
+                </td>
+                <td>
+                    <button
+                        onClick={() => {
+                            props.setVisibilitySell(true);
+                            props.setPetId(props.content.id);
+                        }}
+                    >
+                        Sell
                     </button>
                 </td>
             </tr>
