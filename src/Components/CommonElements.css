@@ -32,8 +32,9 @@
     position: absolute;
     top: 0;
     right: 0;
-    background: rgb(255, 66, 66);
-    border: 2px black solid;
+    background: rgb(255, 57, 57);
+    border: 1px black solid;
+    padding: 5px 7px;
 }
 
 .window {
