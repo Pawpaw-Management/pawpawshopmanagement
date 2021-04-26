@@ -5,10 +5,9 @@ export default function AddPet(props) {
     // Define states
     const [pet_name, setPetName] = useState("");
     const [pet_breed, setPetBreed] = useState("");
-    const [pet_gender, setPetGender] = useState("");
+    const [pet_gender, setPetGender] = useState("male");
     const [pet_color, setPetColor] = useState("");
     const [pet_price, setPetPrice] = useState(0);
-    const [pet_is_available, setPetAvailability] = useState(true);
 
     // Define onChange event handler
     const changePetName = (event) => setPetName(event.target.value);
@@ -16,7 +15,9 @@ export default function AddPet(props) {
     const changePetGender = (event) => setPetGender(event.target.value);
     const changePetColor = (event) => setPetColor(event.target.value);
     const changePetPrice = (event) => setPetPrice(event.target.value);
-    
+
+    console.log(pet_gender)
+
     // Define a function to update account information
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -32,7 +33,7 @@ export default function AddPet(props) {
                 pet_breed: `${pet_breed}`,
                 pet_gender: `${pet_gender}`,
                 pet_color: `${pet_color}`,
-                pet_price: `${pet_price}`,
+                pet_price: pet_price,
                 pet_is_available: true,
             }),
         });
@@ -50,7 +51,7 @@ export default function AddPet(props) {
         <div className="create_pet_for_sale">
             <h1>Add Pet to Store</h1>
             <form className="pet_for_sale_registrition" onSubmit={handleSubmit}>
-                <label for="pet_name">Pet Name:</label>
+                <label htmlFor="pet_name">Pet Name:</label>
                 <input
                     type="text"
                     name="pet_name"
@@ -58,7 +59,7 @@ export default function AddPet(props) {
                     value={pet_name}
                     onChange={changePetName}
                 />
-                <label for="pet_breed">Pet Breed:</label>
+                <label htmlFor="pet_breed">Pet Breed:</label>
                 <input
                     type="text"
                     name="pet_breed"
@@ -66,15 +67,16 @@ export default function AddPet(props) {
                     value={pet_breed}
                     onChange={changePetBreed}
                 />
-                <label for="pet_gender">Pet Gender:</label>
-                <input
-                    type="text"
+                <label htmlFor="pet_gender">Pet Gender:</label>
+                <select
                     name="pet_gender"
-                    id="pet_gender"
-                    value={pet_gender}
                     onChange={changePetGender}
-                />
-                <label for="pet_color">Pet Color:</label>
+                    value={pet_gender}
+                >
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                <label htmlFor="pet_color">Pet Color:</label>
                 <input
                     type="text"
                     name="pet_color"
@@ -82,7 +84,7 @@ export default function AddPet(props) {
                     value={pet_color}
                     onChange={changePetColor}
                 />
-                <label for="pet_price">Pet Price:</label>
+                <label htmlFor="pet_price">Pet Price:</label>
                 <input
                     type="text"
                     name="pet_price"
