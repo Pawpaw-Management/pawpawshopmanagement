@@ -24,7 +24,7 @@ const SearchAndEditEmployee = (props) => {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [visibility]);
 
     // Render elements according to scenario:
     // if "AddAppointment", show "choose" button, cannot edit data
