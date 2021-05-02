@@ -68,7 +68,7 @@ export default function AppointmentList(props) {
                 console.log("error: ");
                 console.log(error);
             });
-    }, [date]);
+    }, [date, shouldShowAppointmentEditor, shouldShowAppointmentCompleter]);
 
     // console.log(appointments[0].appointment_date)
 
