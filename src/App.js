@@ -5,6 +5,7 @@ import Appointments from "./Components/Appointments/Appointments";
 import Customers from "./Components/Customers/Customers";
 import Employees from "./Components/Employees/Employees";
 import Sales from "./Components/Sales/Sales"
+import Statistics from "./Components/Statistics/Statistics"
 import Logo from "./images/logo.png"
 
 function App(props) {
@@ -27,6 +28,9 @@ function App(props) {
                     <Route path="/sales">
                         <Sales url={props.url} />
                     </Route>
+                    <Route path="/statistics">
+                        <Statistics url={props.url} />
+                    </Route>
                 </Switch>
                 <nav className="nav">
                     <img src={Logo} />
@@ -41,6 +45,9 @@ function App(props) {
                     </Link>
                     <Link to="/sales">
                         <button>Sales</button>
+                    </Link>
+                    <Link to="/statistics">
+                        <button>Statistics</button>
                     </Link>
                 </nav>
             </div>

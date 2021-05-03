@@ -22,12 +22,12 @@
 }
 
 .infoEditor_employee_registrition input {
-    height: 2rem;
+    height: 1.5rem;
     margin-bottom: 4rem;
 }
 
-#infoEditor_employee_email {
-    margin-bottom: 18rem;
+.infoEditor_employee_registrition select {
+    margin-bottom: 4rem;
 }
 
 #infoEditor_pet_note {

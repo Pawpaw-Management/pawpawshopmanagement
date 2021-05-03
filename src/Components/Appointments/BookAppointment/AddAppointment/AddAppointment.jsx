@@ -132,22 +132,24 @@ export default function AddAppointment(props) {
                     value={appointment_service}
                     onChange={changeService}
                 />
-                <button
-                    onClick={(event) => {
-                        event.preventDefault();
-                        setVisibilityProvider(true);
-                    }}
-                >
-                    Choose Service Provider
-                </button>
-                <button
-                    onClick={(event) => {
-                        event.preventDefault();
-                        setVisibilityCustomer(true);
-                    }}
-                >
-                    Choose Customer
-                </button>
+                <div id="addAppointment_form--choose">
+                    <button
+                        onClick={(event) => {
+                            event.preventDefault();
+                            setVisibilityProvider(true);
+                        }}
+                    >
+                        Choose Service Provider
+                    </button>
+                    <button
+                        onClick={(event) => {
+                            event.preventDefault();
+                            setVisibilityCustomer(true);
+                        }}
+                    >
+                        Choose Customer
+                    </button>
+                </div>
                 <input
                     type="submit"
                     id="editAppointment_submit"

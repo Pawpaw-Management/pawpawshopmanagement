@@ -11,8 +11,14 @@
 }
 
 .appointmentList td {
-    max-width:25rem;
+    max-width: 25rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+#addAppointment_form--choose {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }

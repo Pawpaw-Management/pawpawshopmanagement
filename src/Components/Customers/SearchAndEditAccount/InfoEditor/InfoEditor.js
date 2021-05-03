@@ -91,10 +91,10 @@ export default function InfoEditor(props) {
     return (
         <div className="infoEditor" style={{ visibility: props.visibility }}>
             <button
-                id="button_esc"
+                className="button_esc"
                 onClick={() => props.setVisibility("hidden")}
             >
-                Esc
+                X
             </button>
             <form
                 className="infoEditor_customer_registrition"
