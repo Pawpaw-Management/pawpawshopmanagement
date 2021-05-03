@@ -18,7 +18,7 @@ export default function ListOfPets(props) {
     // Define useState for <EditPet> to edit the account clicked by user
     const [petId, setPetId] = useState(0);
 
-    // When component mount, fetch latest data through API, and assign to "customers_and_pets"
+    // When component mount, fetch latest data through API, and assign to "pets"
     useEffect(() => {
         fetch(`${props.url}pets-for-sales`)
             .then((response) => response.json())
@@ -28,9 +28,10 @@ export default function ListOfPets(props) {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    // When user finish editting/selling, refresh the pet list.
+    }, [visibility_edit, visibility_sell]);
 
-    console.log(pets[0]);
+    // console.log(pets[0]);
 
     return (
         <section className="ListOfPets">
