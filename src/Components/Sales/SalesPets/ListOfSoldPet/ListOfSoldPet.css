@@ -1,0 +1,19 @@
+.ListOfSoldPets {
+    width: 70vw;
+}
+
+.PetList {
+    width: 100%;
+}
+
+.PetList thead {
+    font-size: 1.5rem;
+}
+
+.PetList tbody {
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px black solid;
+    border-collapse: separate;
+    background-color: rgb(239,238,239);
+}
