@@ -50,8 +50,8 @@ export default function EditPet(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const response = await fetch(`${props.url}pets-for-sales`, {
-            method: "POST",
+        const response = await fetch(`${props.url}pets-for-sales/${props.petId}`, {
+            method: "PUT",
             headers: {
                 accept: "application/json",
                 "content-type": "application/json",
@@ -78,7 +78,7 @@ export default function EditPet(props) {
     return (
         <div className="edit_pet_for_sale">
             <h1>Edit Pet Profile</h1>
-            <button className="button_esc" onClick={() => props.setVisibility(false)}>Esc</button>
+            <button className="button_esc" onClick={() => props.setVisibilityEdit(false)}>X</button>
             <form className="pet_for_sale_registrition" onSubmit={handleSubmit}>
                 <label for="pet_name">Pet Name:</label>
                 <input
