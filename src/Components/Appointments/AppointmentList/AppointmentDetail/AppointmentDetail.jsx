@@ -36,6 +36,11 @@ export default function AppointmentDetail(props) {
                     Detail
                 </button>
             </td>
+            <td>
+                <button>
+                    Send Reminder
+                </button>
+            </td>
         </tr>
     );
 }
