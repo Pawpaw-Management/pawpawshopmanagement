@@ -1,0 +1,15 @@
+.edit_pet_for_sale {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-bottom: 1rem;
+    height: 37rem;
+    width: 80rem;
+    position: absolute;
+    top: calc(50% - 18.5rem);
+    left: calc(50% - 38rem);
+    background: rgb(209, 209, 209);
+    border: 3px solid black;
+}
+

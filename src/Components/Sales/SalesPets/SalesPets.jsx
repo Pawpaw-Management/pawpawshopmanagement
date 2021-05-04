@@ -6,11 +6,9 @@ import ListOfSoldPet from "./ListOfSoldPet/ListOfSoldPet"
 import "./SalesPets.css";
 
 export default function SalesPets(props) {
-    // Define states
-
     return (
         <Router>
-            <section className="appointments">
+            <section className="sell-pets">
                 <Switch>
                     <Route path="/addpet">
                         <AddPet
