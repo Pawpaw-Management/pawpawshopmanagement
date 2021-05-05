@@ -79,6 +79,9 @@ export default function CreateAccount(props) {
 
     var formdata = new FormData();
     // formdata.append("files.pet_photo", pet_photo, "icon-dog.png");
+    if (pet_photo !== null) {
+        formdata.append("files.pet_photo", pet_photo, "dog-border3.png")
+    }
     formdata.append(
         "data",
         JSON.stringify({
