@@ -29,7 +29,7 @@ export default function SellPet(props) {
     const changePhone = (event) => setPhone(event.target.value);
     const changeEmail = (event) => setEmail(event.target.value);
 
-    // When <EditPet> becomes visible, set input values to the current account information
+    // When <SellPet> becomes visible, set input values to the current account information
     // 1. Define the current account
     const current_pet =
         props.pets && props.pets.find((pet) => pet.id === props.petId);
