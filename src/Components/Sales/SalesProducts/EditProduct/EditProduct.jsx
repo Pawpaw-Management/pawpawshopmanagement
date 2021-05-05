@@ -1,136 +1,100 @@
 import React, { useState, useEffect } from "react";
-import "./EditPet.css";
-import "../../../CommonElements.css"
+import "./EditProduct.css";
+import "../../../CommonElements.css";
 
-export default function EditPet(props) {
+export default function EditProduct(props) {
     // Define states
-    const [pet_name, setPetName] = useState("");
-    const [pet_breed, setPetBreed] = useState("");
-    const [pet_gender, setPetGender] = useState("");
-    const [pet_color, setPetColor] = useState("");
-    const [pet_price, setPetPrice] = useState(0);
-    const [pet_is_available, setPetAvailability] = useState(true);
+    const [product_name, setProductName] = useState("");
+    const [product_amount, setProductAmount] = useState(0);
+    const [product_price, setProductPrice] = useState(0);
 
     // Define onChange event handler
-    const changePetName = (event) => setPetName(event.target.value);
-    const changePetBreed = (event) => setPetBreed(event.target.value);
-    const changePetGender = (event) => setPetGender(event.target.value);
-    const changePetColor = (event) => setPetColor(event.target.value);
-    const changePetPrice = (event) => setPetPrice(event.target.value);
-    const changePetAvailability = (event) => {
-        if (event.target.value === "yes") {
-            setPetAvailability(true);
-        }
-        if (event.target.value === "no") {
-            setPetAvailability(false);
-        }
-    };
-    
-    // When <EditPet> becomes visible, set input values to the current account information
+    const changeProductName = (event) => setProductName(event.target.value);
+    const changeProductAmount = (event) => setProductAmount(event.target.value);
+    const changeProductPrice = (event) => setProductPrice(event.target.value);
+
+    // When <EditProduct> becomes visible, set input values to the current account information
     // 1. Define the current account
-    const current_pet =
-        props.pets &&
-        props.pets.find(
-            (pet) => pet.id === props.petId
-        );
+    const current_product =
+        props.products &&
+        props.products.find((product) => product.id === props.productId);
 
     // 2. Assign data from current_account to states when accountId changes
     useEffect(() => {
-        if (current_pet) {
-            setPetName(current_pet.pet_name);
-            setPetBreed(current_pet.pet_breed);
-            setPetGender(current_pet.pet_gender);
-            setPetColor(current_pet.pet_color);
-            setPetPrice(current_pet.pet_price);
-            setPetAvailability(current_pet.pet_is_available);
+        if (current_product) {
+            setProductName(current_product.product_name);
+            setProductAmount(current_product.product_amount);
+            setProductPrice(current_product.product_price);
         }
-    }, [props.petId]);
+    }, [props.productId]);
 
     // Define a function to update account information
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const response = await fetch(`${props.url}pets-for-sales/${props.petId}`, {
-            method: "PUT",
-            headers: {
-                accept: "application/json",
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({
-                pet_name: `${pet_name}`,
-                pet_breed: `${pet_breed}`,
-                pet_gender: `${pet_gender}`,
-                pet_color: `${pet_color}`,
-                pet_price: `${pet_price}`,
-                pet_is_available: `${pet_is_available}`,
-            }),
-        });
+        const response = await fetch(
+            `${props.url}items-for-sales/${props.productId}`,
+            {
+                method: "PUT",
+                headers: {
+                    accept: "application/json",
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    product_name: `${product_name}`,
+                    product_amount: product_amount,
+                    product_price: product_price,
+                }),
+            }
+        );
         const content = await response.json();
         console.log(content);
         // Tell user the data above is successfully submitted
         if (response.status === 200) {
-            alert(`${pet_name}'s profile has been modified!`);
+            alert(`${product_name}'s profile has been modified!`);
         } else {
             alert("Error! Please make sure the database is running properly.");
         }
     };
 
     return (
-        <div className="edit_pet_for_sale">
-            <h1>Edit Pet Profile</h1>
-            <button className="button_esc" onClick={() => props.setVisibilityEdit(false)}>X</button>
-            <form className="pet_for_sale_registrition" onSubmit={handleSubmit}>
-                <label for="pet_name">Pet Name:</label>
+        <div className="edit_product_for_sale">
+            <h1>Edit Product Profile</h1>
+            <button
+                className="button_esc"
+                onClick={() => props.setVisibilityEdit(false)}
+            >
+                X
+            </button>
+            <form
+                className="product_for_sale_registrition"
+                onSubmit={handleSubmit}
+            >
+                <label for="product_name">Product Name:</label>
                 <input
                     type="text"
-                    name="pet_name"
-                    id="pet_name"
-                    value={pet_name}
-                    onChange={changePetName}
+                    name="product_name"
+                    id="product_name"
+                    value={product_name}
+                    onChange={changeProductName}
                 />
-                <label for="pet_breed">Pet Breed:</label>
+                <label for="product_amount">Product Amount:</label>
                 <input
                     type="text"
-                    name="pet_breed"
-                    id="pet_breed"
-                    value={pet_breed}
-                    onChange={changePetBreed}
+                    name="product_amount"
+                    id="product_amount"
+                    value={product_amount}
+                    onChange={changeProductAmount}
                 />
-                <label for="pet_gender">Pet Gender:</label>
+                <label for="product_price">Product Price:</label>
                 <input
                     type="text"
-                    name="pet_gender"
-                    id="pet_gender"
-                    value={pet_gender}
-                    onChange={changePetGender}
+                    name="product_price"
+                    id="product_price"
+                    value={product_price}
+                    onChange={changeProductPrice}
                 />
-                <label for="pet_color">Pet Color:</label>
-                <input
-                    type="text"
-                    name="pet_color"
-                    id="pet_color"
-                    value={pet_color}
-                    onChange={changePetColor}
-                />
-                <label for="pet_price">Pet Price:</label>
-                <input
-                    type="text"
-                    name="pet_price"
-                    id="pet_price"
-                    value={pet_price}
-                    onChange={changePetPrice}
-                />
-                <label for="pet_is_available">Pet Availability:</label>
-                <select
-                    type="checkbox"
-                    name="pet_is_available"
-                    id="pet_is_available"
-                    onChange={changePetAvailability}
-                >
-                    <option value="yes">yes</option>
-                    <option value="no">no</option>
-                </select>
-                <input type="submit"/>
+                <input type="submit" />
             </form>
         </div>
     );

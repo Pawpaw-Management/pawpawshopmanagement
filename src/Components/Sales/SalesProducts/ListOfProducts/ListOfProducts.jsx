@@ -1,61 +1,60 @@
 import React, { useState, useEffect } from "react";
-import PetDetails from "./PetDetails/PetDetails";
-import EditPet from "../EditPet/EditPet";
-import SellPet from "../SellProduct/SellProduct";
-import "./ListOfPets.css";
+import ProductDetails from "./ProductDetails/ProductDetails";
+import EditProduct from "../EditProduct/EditProduct";
+import SellProduct from "../SellProduct/SellProduct";
+import "./ListOfProducts.css";
 import "../../../CommonElements.css";
 
-export default function ListOfPets(props) {
+export default function ListOfProducts(props) {
     // Define useState to update state here
-    const [pets, setPets] = useState([]);
+    const [products, setProducts] = useState([]);
 
-    // Define useState for <EditPet> to popup and disappear
+    // Define useState for <EditProduct> to popup and disappear
     const [visibility_edit, setVisibilityEdit] = useState(false);
 
-    // Define useState for <SellPet> to popup and disappear
+    // Define useState for <SellProduct> to popup and disappear
     const [visibility_sell, setVisibilitySell] = useState(false);
 
-    // Define useState for <EditPet> to edit the account clicked by user
-    const [petId, setPetId] = useState(0);
+    // Define useState for <EditProduct> to edit the account clicked by user
+    const [productId, setProductId] = useState(0);
 
-    // When component mount, fetch latest data through API, and assign to "pets"
+    // When component mount, fetch latest data through API, and assign to "products"
     useEffect(() => {
-        fetch(`${props.url}pets-for-sales`)
+        fetch(`${props.url}items-for-sales`)
             .then((response) => response.json())
             .then((response) => {
-                setPets(response);
+                setProducts(response);
             })
             .catch((error) => {
                 console.log(error);
             });
-    // When user finish editting/selling, refresh the pet list.
-    }, [visibility_edit, visibility_sell]);
+    }, [visibility_edit, visibility_sell]); // When user finish editting/selling, refresh the product list.
 
-    // console.log(pets[0]);
+    // console.log(products[0]);
 
     return (
-        <section className="ListOfPets">
-            <h1>All Pets In Store</h1>
-            <table className="petList">
+        <section className="ListOfProducts">
+            <h1>All Products In Store</h1>
+            <table className="productList">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Pet Name</th>
-                        <th>Breed</th>
+                        <th>Product Name</th>
+                        <th>Amount</th>
                         <th>Price</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {pets &&
-                        pets.map((content, index) => {
+                    {products &&
+                        products.map((content, index) => {
                             return (
-                                <PetDetails
+                                <ProductDetails
                                     content={content}
                                     key={index}
                                     index={index}
                                     setVisibilityEdit={setVisibilityEdit}
                                     setVisibilitySell={setVisibilitySell}
-                                    setPetId={setPetId}
+                                    setProductId={setProductId}
                                 />
                             );
                         })}
@@ -63,10 +62,10 @@ export default function ListOfPets(props) {
             </table>
 
             {visibility_edit ? (
-                <EditPet
-                    petId={petId}
+                <EditProduct
+                    productId={productId}
                     url={props.url}
-                    pets={pets}
+                    products={products}
                     setVisibilityEdit={setVisibilityEdit}
                 />
             ) : (
@@ -74,10 +73,10 @@ export default function ListOfPets(props) {
             )}
 
             {visibility_sell ? (
-                <SellPet
-                    petId={petId}
+                <SellProduct
+                    productId={productId}
                     url={props.url}
-                    pets={pets}
+                    products={products}
                     setVisibilitySell={setVisibilitySell}
                 />
             ) : (

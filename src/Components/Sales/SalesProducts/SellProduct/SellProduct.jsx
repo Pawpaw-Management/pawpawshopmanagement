@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import "./SellPet.css";
+import "./SellProduct.css";
 import "../../../CommonElements.css";
 
-export default function SellPet(props) {
+export default function SellProduct(props) {
     // Define states
-    const [pet_name, setPetName] = useState("");
-    const [pet_breed, setPetBreed] = useState("");
-    const [pet_gender, setPetGender] = useState("");
-    const [pet_color, setPetColor] = useState("");
-    const [pet_price, setPetPrice] = useState(null);
-    const [first_name, setFirstName] = useState("");
-    const [last_name, setLastName] = useState("");
-    const [phone, setPhone] = useState(null);
-    const [email, setEmail] = useState("");
+    const [product_name, setProductName] = useState("");
+    const [product_amount, setProductAmount] = useState(0);
+    const [product_price, setProductPrice] = useState(0);
+    const [product_sell_amount, setProductSellAmount] = useState(1);
+    const [
+        product_amount_after_selling,
+        setProductAmountAfterSelling,
+    ] = useState(0);
 
     // Define the date of today as purchase_date
     var purchase_date = new Date();
@@ -24,59 +23,58 @@ export default function SellPet(props) {
     console.log("purchase_date: " + purchase_date);
 
     // Define onChange event handler
-    const changeFirstName = (event) => setFirstName(event.target.value);
-    const changeLastName = (event) => setLastName(event.target.value);
-    const changePhone = (event) => setPhone(event.target.value);
-    const changeEmail = (event) => setEmail(event.target.value);
+    const changeProductSellAmount = (event) => {
+        setProductSellAmount(event.target.value);
+        setProductAmountAfterSelling(product_amount - product_sell_amount);
+    };
 
-    // When <EditPet> becomes visible, set input values to the current account information
+    // When <SellProduct> becomes visible, set input values to the current account information
     // 1. Define the current account
-    const current_pet =
-        props.pets && props.pets.find((pet) => pet.id === props.petId);
+    const current_product =
+        props.products &&
+        props.products.find((product) => product.id === props.productId);
 
     // 2. Assign data from current_account to states when accountId changes
     useEffect(() => {
-        if (current_pet) {
-            setPetName(current_pet.pet_name);
-            setPetBreed(current_pet.pet_breed);
-            setPetGender(current_pet.pet_gender);
-            setPetColor(current_pet.pet_color);
-            setPetPrice(current_pet.pet_price);
+        if (current_product) {
+            setProductName(current_product.product_name);
+            setProductAmount(current_product.product_amount);
+            setProductPrice(current_product.product_price);
         }
-    }, [props.petId]);
+    }, [props.productId]);
 
-    // Define a function to post data
+    // Define a function to post data to items-solds
     const handleTransferToSold = async () => {
-        if (props.url && props.petId) {
-            const response = await fetch(`${props.url}pets-solds`, {
+        if (props.url && props.productId) {
+            const response = await fetch(`${props.url}items-solds`, {
                 method: "POST",
                 headers: {
                     accept: "application/json",
                     "content-type": "application/json",
                 },
                 body: JSON.stringify({
-                    pet_name: `${pet_name}`,
-                    pet_breed: `${pet_breed}`,
-                    pet_gender: `${pet_gender}`,
-                    pet_color: `${pet_color}`,
-                    pet_price: pet_price,
-                    first_name: `${first_name}`,
-                    last_name: `${last_name}`,
-                    phone: phone,
-                    email: `${email}`,
+                    product_name: `${product_name}`,
+                    product_sell_amount: product_sell_amount,
                     purchase_date: `${purchase_date}`,
                 }),
             });
         }
     };
 
-    // Define a function to delete an pet profile
+    // Define a function to reduce the amount of this product in store
     const handleDelete = async () => {
-        if (props.url && props.petId) {
+        if (props.url && props.productId) {
             const response = await fetch(
-                `${props.url}pets-for-sales/${props.petId}`,
+                `${props.url}items-for-sales/${props.productId}`,
                 {
-                    method: "DELETE",
+                    method: "PUT",
+                    headers: {
+                        accept: "application/json",
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        product_amount: product_amount_after_selling,
+                    }),
                 }
             );
             const content = await response.json();
@@ -85,7 +83,7 @@ export default function SellPet(props) {
     };
 
     return (
-        <div id="SellPet__Customer-Info-Form" className="window">
+        <div id="SellProduct__Customer-Info-Form" className="window">
             <div>
                 <p>Please enter customer information</p>
                 <button
@@ -94,41 +92,16 @@ export default function SellPet(props) {
                 >
                     X
                 </button>
-                <div id="SellPet__Customer-Info-Form__form">
+                <div id="SellProduct__Customer-Info-Form__form">
                     <div className="input-and-label">
-                        <label htmlFor="firstname">first name</label>
-                        <input
-                            type="text"
-                            name="firstname"
-                            id="firstname"
-                            onChange={changeFirstName}
-                        />
-                    </div>
-                    <div className="input-and-label">
-                        <label htmlFor="lastname">last name</label>
-                        <input
-                            type="text"
-                            name="lastname"
-                            id="lastname"
-                            onChange={changeLastName}
-                        />
-                    </div>
-                    <div className="input-and-label">
-                        <label htmlFor="phone">phone</label>
+                        <label htmlFor="firstname">
+                            Please enter the quantity
+                        </label>
                         <input
                             type="number"
-                            name="phone"
-                            id="phone"
-                            onChange={changePhone}
-                        />
-                    </div>
-                    <div className="input-and-label">
-                        <label htmlFor="email">email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            onChange={changeEmail}
+                            name="product_sell_amount"
+                            id="product_sell_amount"
+                            onChange={changeProductSellAmount}
                         />
                     </div>
                 </div>
@@ -137,7 +110,7 @@ export default function SellPet(props) {
                 onClick={() => {
                     if (
                         window.confirm(
-                            "Are you sure to sell {pet_name}? It CANNOT be recovered."
+                            `Are you sure to sell ${product_sell_amount} ${product_name}?. It CANNOT be undone.`
                         )
                     ) {
                         props.setVisibilitySell(false);

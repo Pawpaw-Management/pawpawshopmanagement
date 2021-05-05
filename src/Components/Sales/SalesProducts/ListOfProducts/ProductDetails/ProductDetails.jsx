@@ -1,39 +1,33 @@
 import React from "react";
-import "./PetDetails.css";
+import "./ProductDetails.css";
 
-export default function PetDetails(props) {
+export default function ProductDetails(props) {
     return (
-        <tr className="PetDetails">
-                <td>{`id: ${props.index + 1}`}</td>
-                <td>
-                    {props.content.pet_name}
-                </td>
-                <td>
-                    {props.content.pet_breed}
-                </td>
-                <td>
-                    {props.content.pet_price}
-                </td>
-                <td>
-                    <button
-                        onClick={() => {
-                            props.setVisibilityEdit(true);
-                            props.setPetId(props.content.id);
-                        }}
-                    >
-                        Edit
-                    </button>
-                </td>
-                <td>
-                    <button
-                        onClick={() => {
-                            props.setVisibilitySell(true);
-                            props.setPetId(props.content.id);
-                        }}
-                    >
-                        Sell
-                    </button>
-                </td>
-            </tr>
-    )
+        <tr className="ProductDetails">
+            <td>{`id: ${props.index + 1}`}</td>
+            <td>{props.content.product_name}</td>
+            <td>{props.content.product_amount}</td>
+            <td>{props.content.product_price}</td>
+            <td>
+                <button
+                    onClick={() => {
+                        props.setVisibilityEdit(true);
+                        props.setProductId(props.content.id);
+                    }}
+                >
+                    Edit
+                </button>
+            </td>
+            <td>
+                <button
+                    onClick={() => {
+                        props.setVisibilitySell(true);
+                        props.setProductId(props.content.id);
+                    }}
+                >
+                    Sell
+                </button>
+            </td>
+        </tr>
+    );
 }

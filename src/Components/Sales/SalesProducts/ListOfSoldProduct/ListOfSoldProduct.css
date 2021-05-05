@@ -1,16 +1,16 @@
-.ListOfSoldPets {
+.ListOfSoldProducts {
     width: 70vw;
 }
 
-.PetList {
+.ProductList {
     width: 100%;
 }
 
-.PetList thead {
+.ProductList thead {
     font-size: 1.5rem;
 }
 
-.PetList tbody {
+.ProductList tbody {
     padding: 1rem;
     font-size: 1rem;
     border: 1px black solid;
