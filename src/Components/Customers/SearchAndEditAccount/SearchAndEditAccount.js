@@ -80,6 +80,7 @@ const SearchAccount = (props) => {
                         <tr>
                             <th>ID</th>
                             <th>Customer Name</th>
+                            <th>Pet Photo</th>
                             <th>Phone</th>
                             <th>Email</th>
                         </tr>
@@ -93,6 +94,7 @@ const SearchAccount = (props) => {
                                         content={content}
                                         key={index}
                                         index={index}
+                                        url={props.url}
                                         // setVisibility and setAccountId are called in <InfoEditor>
                                         setVisibility={setVisibility}
                                         setAccountId={setAccountId}
