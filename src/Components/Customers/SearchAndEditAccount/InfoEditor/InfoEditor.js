@@ -100,7 +100,7 @@ export default function InfoEditor(props) {
                 className="infoEditor_customer_registrition"
                 onSubmit={handleSubmit}
             >
-                <label for="customer_first_name"> First Name</label>
+                <label htmlFor="customer_first_name"> First Name</label>
                 <input
                     type="text"
                     name="customer_first_name"
@@ -108,7 +108,7 @@ export default function InfoEditor(props) {
                     value={customer_first_name}
                     onChange={changeFirstName}
                 />
-                <label for="customer_last_name"> Last Name</label>
+                <label htmlFor="customer_last_name"> Last Name</label>
                 <input
                     type="text"
                     name="customer_last_name"
@@ -116,7 +116,7 @@ export default function InfoEditor(props) {
                     value={customer_last_name}
                     onChange={changeLastName}
                 />
-                <label for="customer_phone"> Phone Number</label>
+                <label htmlFor="customer_phone"> Phone Number</label>
                 <input
                     type="text"
                     name="customer_phone"
@@ -124,7 +124,7 @@ export default function InfoEditor(props) {
                     value={customer_phone}
                     onChange={changePhone}
                 />
-                <label for="customer_email"> Email</label>
+                <label htmlFor="customer_email"> Email</label>
                 <input
                     type="email"
                     name="customer_email"
@@ -132,7 +132,7 @@ export default function InfoEditor(props) {
                     value={customer_email}
                     onChange={changeEmail}
                 />
-                <label for="pet_name">Pet's Name</label>
+                <label htmlFor="pet_name">Pet's Name</label>
                 <input
                     type="text"
                     name="pet_name"
@@ -140,7 +140,7 @@ export default function InfoEditor(props) {
                     value={pet_name}
                     onChange={changePetName}
                 />
-                <label for="pet_birthday">Pet's Birthday</label>
+                <label htmlFor="pet_birthday">Pet's Birthday</label>
                 <input
                     type="date"
                     name="pet_birthday"
@@ -148,7 +148,7 @@ export default function InfoEditor(props) {
                     value={pet_birthday}
                     onChange={changePetBirthday}
                 />
-                <label for="pet_breed">Pet's Breed</label>
+                <label htmlFor="pet_breed">Pet's Breed</label>
                 <input
                     type="text"
                     name="pet_breed"
@@ -156,7 +156,7 @@ export default function InfoEditor(props) {
                     value={pet_breed}
                     onChange={changePetBreed}
                 />
-                <label for="pet_size">Pet's Size</label>
+                <label htmlFor="pet_size">Pet's Size</label>
                 <input
                     type="text"
                     name="pet_size"
@@ -164,7 +164,7 @@ export default function InfoEditor(props) {
                     value={pet_size}
                     onChange={changePetSize}
                 />
-                <label for="pet_note">Note</label>
+                <label htmlFor="pet_note">Note</label>
                 <textarea
                     type="text"
                     name="pet_note"
