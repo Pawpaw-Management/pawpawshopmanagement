@@ -30,7 +30,8 @@ export default function ListOfProducts(props) {
             });
     }, [visibility_edit, visibility_sell]); // When user finish editting/selling, refresh the product list.
 
-    // console.log(products[0]);
+    console.log("visibility_sell");
+    console.log(visibility_sell);
 
     return (
         <section className="ListOfProducts">
@@ -41,7 +42,7 @@ export default function ListOfProducts(props) {
                         <th>ID</th>
                         <th>Product Name</th>
                         <th>Amount</th>
-                        <th>Price</th>
+                        <th>Price<br></br>(Must use formet xx.xx)</th>
                     </tr>
                 </thead>
                 <tbody>
