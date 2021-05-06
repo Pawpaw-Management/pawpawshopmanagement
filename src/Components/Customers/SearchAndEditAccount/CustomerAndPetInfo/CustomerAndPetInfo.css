@@ -13,3 +13,7 @@
     background-color:  rgb(2, 209, 255);
     width: 100%;
 }
+
+.eachCustomerAndPetInfo-photo {
+    max-width: 200px;
+}
