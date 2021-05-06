@@ -1,14 +1,15 @@
-#SellPet__Customer-Info-Form {
-    top: 10rem;
+#SellProduct__Customer-Info-Form {
+    top: 6rem;
     left: 6rem;
     width: 90%;
-    height: 60vh;
+    height: 500px;
+    border: 1px solid black;
 }
 
-#SellPet__Customer-Info-Form__form {
+#SellProduct__Customer-Info-Form__form {
     height: 20rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 }
