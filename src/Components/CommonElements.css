@@ -54,10 +54,25 @@ table {
 }
 
 .window {
-    width: calc(100vw - 2rem);
-    position: absolute;
-    top: 2rem;
-    left: 1rem;
+    /* width: calc(100vw - 2rem); */
+    position: fixed;
+    top: 3rem;
+    padding: 1rem 0;
     background: whitesmoke;
     z-index: 99;
+    border: 1px solid black;
+}
+
+.searchAccount {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchAccount label {
+    margin-right: 1rem;
+}
+
+.searchAccount input {
+    line-height: 1.5rem;
 }
