@@ -8,6 +8,7 @@ export default function AddPet(props) {
     const [pet_gender, setPetGender] = useState("male");
     const [pet_color, setPetColor] = useState("");
     const [pet_price, setPetPrice] = useState(0);
+    const [pet_photo, setPetPhoto] = useState(null);
 
     // Define onChange event handler
     const changePetName = (event) => setPetName(event.target.value);
@@ -15,28 +16,41 @@ export default function AddPet(props) {
     const changePetGender = (event) => setPetGender(event.target.value);
     const changePetColor = (event) => setPetColor(event.target.value);
     const changePetPrice = (event) => setPetPrice(event.target.value);
+    const changePetPhoto = (event) => {
+        setPetPhoto(event.target.files[0]);
+    };
+    console.log(pet_gender);
 
-    console.log(pet_gender)
+    // Define the content for uploading
+    var formdata = new FormData();
+    if (pet_photo !== null) {
+        formdata.append("files.pet_photo", pet_photo, pet_photo.name);
+    }
+    formdata.append(
+        "data",
+        JSON.stringify({
+            pet_name: `${pet_name}`,
+            pet_breed: `${pet_breed}`,
+            pet_gender: `${pet_gender}`,
+            pet_color: `${pet_color}`,
+            pet_price: pet_price,
+            pet_is_available: true,
+        })
+    );
+
+    var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+    };
 
     // Define a function to update account information
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        const response = await fetch(`${props.url}pets-for-sales`, {
-            method: "POST",
-            headers: {
-                accept: "application/json",
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({
-                pet_name: `${pet_name}`,
-                pet_breed: `${pet_breed}`,
-                pet_gender: `${pet_gender}`,
-                pet_color: `${pet_color}`,
-                pet_price: pet_price,
-                pet_is_available: true,
-            }),
-        });
+        const response = await fetch(
+            `${props.url}pets-for-sales`,
+            requestOptions
+        );
         const content = await response.json();
         console.log(content);
         // Tell user the data above is successfully submitted
@@ -91,6 +105,13 @@ export default function AddPet(props) {
                     id="pet_price"
                     value={pet_price}
                     onChange={changePetPrice}
+                />
+                <label htmlFor="pet_photo">Pet Photo:</label>
+                <input
+                    type="file"
+                    name="pet_photo"
+                    id="pet_photo"
+                    onChange={changePetPhoto}
                 />
                 <input type="submit" />
             </form>
