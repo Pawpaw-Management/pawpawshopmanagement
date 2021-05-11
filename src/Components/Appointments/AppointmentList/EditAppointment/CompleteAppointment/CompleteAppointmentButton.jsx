@@ -49,6 +49,11 @@ export default function CompleteAppointmentButton(props) {
             </button>
             {shouldShowInputWindow ? (
                 <IncomeInputWindow
+                    url={props.url}
+                    time={props.time}
+                    date={props.appointment_date}
+                    appointmentId={props.appointmentId}
+                    service={props.appointment_service}
                     setVisibilityInputWindow={setVisibilityInputWindow}
                 />
             ) : (
