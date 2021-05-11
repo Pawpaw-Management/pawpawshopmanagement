@@ -58,7 +58,7 @@ export default function EditProduct(props) {
     };
 
     return (
-        <div className="edit_product_for_sale">
+        <div className="edit_product_for_sale window">
             <h1>Edit Product Profile</h1>
             <button
                 className="button_esc"

@@ -76,7 +76,7 @@ export default function EditPet(props) {
     };
 
     return (
-        <div className="edit_pet_for_sale">
+        <div className="edit_pet_for_sale window">
             <h1>Edit Pet Profile</h1>
             <button className="button_esc" onClick={() => props.setVisibilityEdit(false)}>X</button>
             <form className="pet_for_sale_registrition" onSubmit={handleSubmit}>
