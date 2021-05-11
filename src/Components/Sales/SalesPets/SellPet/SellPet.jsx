@@ -58,7 +58,7 @@ export default function SellPet(props) {
             setPetGender(current_pet.pet_gender);
             setPetColor(current_pet.pet_color);
             setPetPrice(current_pet.pet_price);
-            if (current_pet.pet_photo.url !== null) {
+            if (current_pet.pet_photo !== null) {
                 setPhotoURL(current_pet.pet_photo.url);
             } else {
                 setPhotoURL("none");
