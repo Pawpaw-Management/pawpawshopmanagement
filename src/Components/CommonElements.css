@@ -60,6 +60,8 @@ table {
     padding: 1rem 0;
     background: whitesmoke;
     z-index: 99;
+    max-height: 80vh;
+    overflow: scroll;
     border: 1px solid black;
 }
 
