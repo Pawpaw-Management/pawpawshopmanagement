@@ -13,9 +13,10 @@ export default function SellPet(props) {
     const [last_name, setLastName] = useState("");
     const [phone, setPhone] = useState(null);
     const [email, setEmail] = useState("");
+    const [pet_photo_url, setPhotoURL] = useState("");
     const [originalMonthlyIncome, setOriginalMonthlyIncome] = useState(0);
 
-    var updatedMonthlyIncome = originalMonthlyIncome + pet_price
+    var updatedMonthlyIncome = originalMonthlyIncome + pet_price;
 
     // Define the date of today as purchase_date
     var purchase_date = new Date();
@@ -47,6 +48,7 @@ export default function SellPet(props) {
     // 1. Define the current account
     const current_pet =
         props.pets && props.pets.find((pet) => pet.id === props.petId);
+    console.log(current_pet.pet_photo.url);
 
     // 2. Assign data from current_account to states when accountId changes
     useEffect(() => {
@@ -56,6 +58,11 @@ export default function SellPet(props) {
             setPetGender(current_pet.pet_gender);
             setPetColor(current_pet.pet_color);
             setPetPrice(current_pet.pet_price);
+            if (current_pet.pet_photo.url !== null) {
+                setPhotoURL(current_pet.pet_photo.url);
+            } else {
+                setPhotoURL("none");
+            }
         }
     }, [props.petId]);
 
@@ -111,6 +118,7 @@ export default function SellPet(props) {
                     last_name: `${last_name}`,
                     phone: phone,
                     email: `${email}`,
+                    pet_photo_url: `${pet_photo_url}`,
                     purchase_date: `${purchase_date}`,
                 }),
             });
@@ -139,7 +147,7 @@ export default function SellPet(props) {
                     className="button_esc"
                     onClick={(e) => {
                         e.preventDefault();
-                        props.setVisibilitySell(false)
+                        props.setVisibilitySell(false);
                     }}
                 >
                     X
@@ -185,11 +193,7 @@ export default function SellPet(props) {
             </div>
             <button
                 onClick={() => {
-                    if (
-                        window.confirm(
-                            `Are you sure? It CANNOT be undone.`
-                        )
-                    ) {
+                    if (window.confirm(`Are you sure? It CANNOT be undone.`)) {
                         props.setVisibilitySell(false);
                         handlePostToIncomeHistory();
                         handleUpdateMonthlyIncome();
