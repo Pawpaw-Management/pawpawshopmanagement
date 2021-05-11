@@ -28,7 +28,7 @@ export default function ListOfPets(props) {
             .catch((error) => {
                 console.log(error);
             });
-    // When user finish editting/selling, refresh the pet list.
+        // When user finish editting/selling, refresh the pet list.
     }, [visibility_edit, visibility_sell]);
 
     // console.log(pets[0]);
@@ -41,8 +41,9 @@ export default function ListOfPets(props) {
                     <tr>
                         <th>ID</th>
                         <th>Pet Name</th>
+                        <th>Pet Photo</th>
                         <th>Breed</th>
-                        <th>Price</th>
+                        <th>Price<br></br>(Must use format xx.xx)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +51,7 @@ export default function ListOfPets(props) {
                         pets.map((content, index) => {
                             return (
                                 <PetDetails
+                                    url={props.url}
                                     content={content}
                                     key={index}
                                     index={index}
