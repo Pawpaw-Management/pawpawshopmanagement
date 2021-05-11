@@ -1,0 +1,8 @@
+#income_table {
+    position: relative;
+    top: 5rem;
+}
+
+#income_table td {
+    border: 1px solid black;
+}
