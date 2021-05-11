@@ -109,20 +109,6 @@ export default function EditAppointment(props) {
         }
     };
 
-    // Define a function to delete an appointment
-    const handleDelete = async () => {
-        if (props.url && props.appointmentId) {
-            const response = await fetch(
-                `${props.url}events/${props.appointmentId}`,
-                {
-                    method: "DELETE",
-                }
-            );
-            const content = await response.json();
-            console.log(content);
-        }
-    };
-
     // Render editAppointment only when user clicks "Edit" button from <AppointmentList>
     return (
         <div className="editAppointment window">
