@@ -14,13 +14,13 @@ export default function IncomeInputWindow(props) {
     const changeGroomerTip = (event) => setGroomerTip(event.target.value);
 
     return (
-        <div id="editAppointment_form_complete_window">
+        <div id="editAppointment_form_complete_window" className="window">
             <h1>Checkout</h1>
             <button
                 className="button_esc"
                 onClick={() => props.setVisibilityInputWindow(false)}
             >
-                Esc
+                X
             </button>
             <label for="total_income">
                 Total income<br/>(must use format xxx.xx)
