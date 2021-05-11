@@ -125,12 +125,12 @@ export default function EditAppointment(props) {
 
     // Render editAppointment only when user clicks "Edit" button from <AppointmentList>
     return (
-        <div className="editAppointment">
+        <div className="editAppointment window">
             <button
                 className="button_esc"
                 onClick={() => props.setVisibilityAppointmentEditor(false)}
             >
-                Esc
+                X
             </button>
             <form className="editAppointment_form" onSubmit={handleSubmit}>
                 <label for="appointment_date">Date</label>
