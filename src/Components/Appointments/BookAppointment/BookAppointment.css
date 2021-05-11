@@ -7,4 +7,5 @@
 
 .bookAppointment_calendar_and_form {
     display: flex;
+    margin-bottom: 3rem;
 }
