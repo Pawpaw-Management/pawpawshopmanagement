@@ -13,6 +13,9 @@ export default function SellPet(props) {
     const [last_name, setLastName] = useState("");
     const [phone, setPhone] = useState(null);
     const [email, setEmail] = useState("");
+    const [originalMonthlyIncome, setOriginalMonthlyIncome] = useState(0);
+
+    var updatedMonthlyIncome = originalMonthlyIncome + pet_price
 
     // Define the date of today as purchase_date
     var purchase_date = new Date();
@@ -27,6 +30,18 @@ export default function SellPet(props) {
     const changeLastName = (event) => setLastName(event.target.value);
     const changePhone = (event) => setPhone(event.target.value);
     const changeEmail = (event) => setEmail(event.target.value);
+
+    // When <SellPet> becomes visible, fetch value from income-months and assign it to originalMonthlyIncome
+    useEffect(() => {
+        fetch(`${props.url}income-months`)
+            .then((response) => response.json())
+            .then((response) => {
+                setOriginalMonthlyIncome(response[0].value);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
     // When <SellPet> becomes visible, set input values to the current account information
     // 1. Define the current account
@@ -43,6 +58,39 @@ export default function SellPet(props) {
             setPetPrice(current_pet.pet_price);
         }
     }, [props.petId]);
+
+    // Define a function to post data to income-histories
+    const handlePostToIncomeHistory = async () => {
+        if (props.url && props.productId) {
+            const response = await fetch(`${props.url}income-histories`, {
+                method: "POST",
+                headers: {
+                    accept: "application/json",
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    date: `${purchase_date}`,
+                    income: pet_price,
+                    type: "sales",
+                    description: `${pet_name} had a new home. (${pet_gender}, ${pet_color}, ${pet_breed})`,
+                }),
+            });
+        }
+    };
+
+    // Update monthly income info
+    const handleUpdateMonthlyIncome = async () => {
+        const response = await fetch(`${props.url}income-months/1`, {
+            method: "PUT",
+            headers: {
+                accept: "application/json",
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                value: updatedMonthlyIncome,
+            }),
+        });
+    };
 
     // Define a function to post data
     const handleTransferToSold = async () => {
@@ -89,7 +137,10 @@ export default function SellPet(props) {
                 <p>Please enter customer information</p>
                 <button
                     className="button_esc"
-                    onClick={() => props.setVisibilitySell(false)}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        props.setVisibilitySell(false)
+                    }}
                 >
                     X
                 </button>
@@ -136,10 +187,12 @@ export default function SellPet(props) {
                 onClick={() => {
                     if (
                         window.confirm(
-                            "Are you sure to sell {pet_name}? It CANNOT be recovered."
+                            `Are you sure? It CANNOT be undone.`
                         )
                     ) {
                         props.setVisibilitySell(false);
+                        handlePostToIncomeHistory();
+                        handleUpdateMonthlyIncome();
                         handleTransferToSold();
                         handleDelete();
                     }
