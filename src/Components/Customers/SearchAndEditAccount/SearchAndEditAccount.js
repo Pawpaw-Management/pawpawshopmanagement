@@ -5,13 +5,13 @@ import "./SearchAndEditAccount.css";
 import "../../CommonElements.css";
 
 const SearchAccount = (props) => {
-    // Define useState for <Refresh> to update state here
+    // Define state for <Refresh> to update state here
     const [customers_and_pets, setCustomersAndPets] = useState([]);
 
-    // Define useState for <InfoEditor> to popup and disappear
+    // Define state for <InfoEditor> to popup and disappear
     const [visibility, setVisibility] = useState("hidden");
 
-    // Define useState for <InfoEditor> to edit the account clicked by user
+    // Define state for <InfoEditor> to edit the account clicked by user
     const [accountId, setAccountId] = useState(33);
     console.log(`accountId: ${accountId}`);
 
@@ -40,7 +40,7 @@ const SearchAccount = (props) => {
                         props.setVisibilityCustomer(false);
                     }}
                 >
-                    Esc
+                    X
                 </button>
                 <table className="customerList">
                     <thead>
