@@ -31,7 +31,7 @@ const SearchAndEditEmployee = (props) => {
     // if "Customers", show "edit" button, can edit data
     if (props.scenario === "AddAppointment") {
         return (
-            <section className="searchAndEditEmployee window">
+            <section className="searchAndEditEmployee appointmentWindow">
                 <h1>All Employee Accounts</h1>
                 <button
                     className="button_esc"
@@ -39,7 +39,7 @@ const SearchAndEditEmployee = (props) => {
                         props.setVisibilityProvider(false);
                     }}
                 >
-                    Esc
+                    X
                 </button>
                 <table className="employeeList">
                     <thead>

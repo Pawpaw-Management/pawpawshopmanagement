@@ -32,7 +32,7 @@ const SearchAccount = (props) => {
     // if "Customers", show "edit" button, can edit data
     if (props.scenario === "AddAppointment") {
         return (
-            <section className="searchAndEditCustomer window">
+            <section className="searchAndEditCustomer appointmentWindow">
                 <h1>Customer List</h1>
                 <button
                     className="button_esc"
@@ -56,6 +56,7 @@ const SearchAccount = (props) => {
                             customers_and_pets.map((content, index) => {
                                 return (
                                     <CustomerAndPetInfo
+                                        url={props.url}
                                         scenario={props.scenario}
                                         content={content}
                                         key={index}
