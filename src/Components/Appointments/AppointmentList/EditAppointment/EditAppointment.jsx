@@ -21,6 +21,7 @@ export default function EditAppointment(props) {
     const [appointment_pet_breed, setPetBreed] = useState("");
     const [appointment_pet_size, setPetSize] = useState("");
     const [appointment_pet_note, setPetNote] = useState("");
+    const [appointment_pet_photo_url, setPetPhotoURL] = useState("none");
 
     // 3. This controls whether render <DeleteAppointment> or not
     const [shouldShowDeleteAppointment, setVisibilityDelete] = useState(false);
@@ -60,12 +61,13 @@ export default function EditAppointment(props) {
         (async () => {
             const response = await fetch(`${props.url}customers-and-pets`);
             var customers = await response.json();
+            // console.log(customers)
             current_customer = customers.find(
                 (customer) =>
                     customer.id.toString() ===
                     current_appointment.appointment_customer_id
             );
-            // console.log(current_customer);
+            console.log(current_customer);
             setFirstName(current_customer.customer_first_name);
             setLastName(current_customer.customer_last_name);
             setEmail(current_customer.customer_email);
@@ -74,8 +76,31 @@ export default function EditAppointment(props) {
             setPetBreed(current_customer.pet_breed);
             setPetSize(current_customer.pet_size);
             setPetNote(current_customer.pet_note);
+            if (current_customer.pet_photo !== null) {
+                setPetPhotoURL(current_customer.pet_photo.url);
+            } else {
+                setPetPhotoURL("none");
+            }
         })();
     }, [props.appointmentId]);
+
+    // Props.url has a "/" at the end, need to remove it before using it in next step
+    const processed_url = props.url.slice(0, -1);
+    console.log(processed_url);
+
+    // If an account has pet_photo, then display it; if not, display "no photo provided"
+    let pet_photo;
+    if (appointment_pet_photo_url !== "none") {
+        pet_photo = (
+            <img
+                className={"eachCustomerAndPetInfo-photo"}
+                src={processed_url + appointment_pet_photo_url}
+                alt="customer's pet"
+            />
+        );
+    } else {
+        pet_photo = <span>no photo provided</span>;
+    }
 
     // Define a function to update appointment information on server
     const handleSubmit = async (event) => {
@@ -186,6 +211,7 @@ export default function EditAppointment(props) {
                     <span>{`Pet Name: ${appointment_pet_name}`}</span>
                     <span>{`Breed: ${appointment_pet_breed}`}</span>
                     <span>{`Size: ${appointment_pet_size}`}</span>
+                    {pet_photo}
                     <span className="editAppointment_chart_customerInfo_note">{`Note: ${appointment_pet_note}`}</span>
                 </div>
             </div>
