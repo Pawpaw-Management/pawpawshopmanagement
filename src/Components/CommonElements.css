@@ -63,6 +63,19 @@ table {
     border: 1px solid black;
 }
 
+.appointmentWindow {
+    position: fixed;
+    height: 60vh;
+    top: 5rem;
+    left: 1rem;
+    right: 1rem;
+    padding: 1rem;
+    background: whitesmoke;
+    z-index: 99;
+    border: 1px solid black;
+    overflow: scroll;
+}
+
 .searchAccount {
     display: flex;
     justify-content: center;
