@@ -14,8 +14,6 @@ export default function CreateAccount(props) {
     const [pet_note, setPetNote] = useState("");
     const [pet_photo, setPetPhoto] = useState(null);
 
-    console.log(typeof(pet_photo.name));
-
     // Define event handlers
     const changeCustomerFirstName = (event) => {
         setCustomerFirstName(event.target.value);
