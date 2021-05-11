@@ -18,7 +18,7 @@ export default function ListOfSoldPet(props) {
                 console.log(error);
             });
     }, []);
-    console.log(sold_pets)
+    console.log(sold_pets);
 
     return (
         <section className="ListOfSoldPets">
@@ -27,7 +27,7 @@ export default function ListOfSoldPet(props) {
                 <thead>
                     <tr>
                         <th>Pet Name</th>
-                        <th>Breed</th>
+                        <th>Photo</th>
                         <th>New Owner</th>
                         <th>Phone</th>
                         <th>Email</th>
@@ -39,6 +39,7 @@ export default function ListOfSoldPet(props) {
                         sold_pets.map((content, index) => {
                             return (
                                 <SoldPetDetails
+                                    url={props.url}
                                     content={content}
                                     key={index}
                                     index={index}
