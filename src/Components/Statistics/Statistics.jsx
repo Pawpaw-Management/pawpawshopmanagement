@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BarChart from "./BarChart/BarChart";
 import Incomes from "./Incomes/Incomes";
+import accounting from "./Accounting/Accounting";
+import "./Statistics.css";
 
 export default function Statistics(props) {
     // Define states
@@ -24,7 +26,13 @@ export default function Statistics(props) {
     // console.log(incomes_value)
     // console.log(incomes_date)
     return (
-        <div>
+        <div id="accounting-report">
+            <div id="accounting-report-button">
+                <span>Please click this button on the <b>FIRST DAY</b> every month</span>
+                <button onClick={() => accounting()}>
+                    Generate Monthly Report
+                </button>
+            </div>
             <BarChart
                 incomes_value={incomes_value}
                 incomes_date={incomes_date}
