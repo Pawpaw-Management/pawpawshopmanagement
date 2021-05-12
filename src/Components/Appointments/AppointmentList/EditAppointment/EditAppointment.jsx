@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CompleteAppointmentButton from "./CompleteAppointment/CompleteAppointmentButton";
 import DeleteAppointmentButton from "./DeleteAppointmentButton/DeleteAppointmentButton.jsx";
+import SendEmailReminder from "../../SendAppointmenReminder/SendAppointmenReminder";
 import "./EditAppointment.css";
 
 export default function EditAppointment(props) {
@@ -199,6 +200,14 @@ export default function EditAppointment(props) {
                     <DeleteAppointmentButton
                         url={props.url}
                         appointmentId={props.appointmentId}
+                    />
+                    <SendEmailReminder
+                        appointment_date={appointment_date}
+                        appointment_time_start={appointment_time_start}
+                        appointment_customer_first_name={appointment_customer_first_name}
+                        appointment_customer_last_name={appointment_customer_last_name}
+                        appointment_customer_email={appointment_customer_email}
+                        appointment_pet_name={appointment_pet_name}
                     />
                 </div>
             </form>
