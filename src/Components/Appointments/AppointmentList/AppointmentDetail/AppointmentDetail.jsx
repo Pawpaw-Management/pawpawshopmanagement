@@ -10,7 +10,6 @@ export default function AppointmentDetail(props) {
         return time;
     };
 
-    console.log(props.content)
     return (
         <tr className="appointmentDetail">
             <td>{`id: ${props.index}`}</td>
@@ -34,11 +33,6 @@ export default function AppointmentDetail(props) {
                     }}
                 >
                     Detail
-                </button>
-            </td>
-            <td>
-                <button>
-                    Send Reminder
                 </button>
             </td>
         </tr>
