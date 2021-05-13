@@ -59,7 +59,8 @@ const SearchAndEditEmployee = (props) => {
                                         content={content}
                                         key={index}
                                         index={index}
-                                        setProviderId={props.setProviderId}
+                                        // arrayAddItem={props.arrayAddItem}
+                                        // arrayDeleteItem={props.arrayDeleteItem}
                                         setVisibilityProvider={
                                             props.setVisibilityProvider
                                         }

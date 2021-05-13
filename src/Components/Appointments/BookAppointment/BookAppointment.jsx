@@ -9,7 +9,7 @@ export default function BookAppointment(props) {
 
     return (
         <section className="bookAppointment">
-            <div class="bookAppointment_calendar_and_form">
+            <div className="bookAppointment_calendar_and_form">
                 <Calendar
                     selectedDate={props.selectedDate}
                     onChange={props.setSelectedDate}

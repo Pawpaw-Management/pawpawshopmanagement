@@ -9,7 +9,10 @@ export default function AddAppointment(props) {
     const [appointment_time_end, setTimeEnd] = useState("");
     const [appointment_service, setService] = useState("");
     const [appointment_customer_id, setCustomerId] = useState(33);
-    const [appointment_service_provider_id, setProviderId] = useState(9);
+    // // WIP
+    // const [appointment_service_provider_ids, setProviderIds] = useState([]);
+    // console.log("main component");
+    // console.log(appointment_service_provider_ids);
 
     // Define states for component display
     const [shouldShowCustomer, setVisibilityCustomer] = useState(false);
@@ -30,14 +33,39 @@ export default function AddAppointment(props) {
     // );
     // console.log("appointment_customer_id: " + appointment_customer_id);
     // console.log(
-    //     "appointment_service_provider_id: " + appointment_service_provider_id
+    //     "appointment_service_provider_ids: " + appointment_service_provider_ids
     // );
     // console.log("appointment_service: " + appointment_service)
+    // const [myArray, setMyArray] = useState([]);
+    
+    // const arrayAddItem = (newItem) => {
+    //     setMyArray(...myArray, newItem);
+    // };
+    
+    // const arrayDeleteItem = (targetItem) => {
+    //     setMyArray(myArray.slice(myArray.indexOf(targetItem), 1));
+    // };
 
     // Define onChange event handlers for the <input>s
     const changeTimeStart = (event) => setTimeStart(event.target.value);
     const changeTimeEnd = (event) => setTimeEnd(event.target.value);
     const changeService = (event) => setService(event.target.value);
+
+    // // WIP
+    // // Define a function to add item to the array "appointment_service_provider_ids".
+    // const arrayAddItem = (newItem) => {
+    //     setProviderIds([...appointment_service_provider_ids, newItem]);
+    // };
+
+    // // Define a function to delete item from the array "appointment_service_provider_ids"
+    // const arrayDeleteItem = (targetItem) => {
+    //     setProviderIds(
+    //         appointment_service_provider_ids.slice(
+    //             appointment_service_provider_ids.indexOf(targetItem),
+    //             1
+    //         )
+    //     );
+    // };
 
     // Define a function to post appointment information on server
     const handleSubmit = async (event) => {
@@ -56,7 +84,7 @@ export default function AddAppointment(props) {
                     appointment_time_end: `${appointment_time_end}`,
                     appointment_service: `${appointment_service}`,
                     appointment_customer_id: `${appointment_customer_id}`,
-                    appointment_service_provider_id: `${appointment_service_provider_id}`,
+                    // appointment_service_provider_ids: `${appointment_service_provider_ids}`,
                 }),
             });
             const content = await response.json();
@@ -85,28 +113,26 @@ export default function AddAppointment(props) {
         customerList = <div></div>;
     }
 
-    // Render <ProviderList/> only when use clicks "choose Provider" buttom
-    var providerList;
-    if (shouldShowProvider) {
-        providerList = (
-            <ProviderList
-                url={props.url}
-                appointment_service_provider_id={
-                    appointment_service_provider_id
-                }
-                scenario={scenario}
-                setProviderId={setProviderId}
-                setVisibilityProvider={setVisibilityProvider}
-            />
-        );
-    } else {
-        providerList = <div></div>;
-    }
+    // // Render <ProviderList/> only when use clicks "choose Provider" buttom
+    // var providerList;
+    // if (shouldShowProvider) {
+    //     providerList = (
+    //         <ProviderList
+    //             url={props.url}
+    //             scenario={scenario}
+    //             // arrayAddItem={arrayAddItem}
+    //             // arrayDeleteItem={arrayDeleteItem}
+    //             setVisibilityProvider={setVisibilityProvider}
+    //         />
+    //     );
+    // } else {
+    //     providerList = <div></div>;
+    // }
 
     return (
         <div className="addAppointment">
             <form className="addAppointment_form" onSubmit={handleSubmit}>
-                <label for="appointment_time_start">
+                <label htmlFor="appointment_time_start">
                     From (time format must be xx:xx)
                 </label>
                 <input
@@ -116,7 +142,7 @@ export default function AddAppointment(props) {
                     value={appointment_time_start}
                     onChange={changeTimeStart}
                 />
-                <label for="appointment_time_end">To</label>
+                <label htmlFor="appointment_time_end">To</label>
                 <input
                     type="text"
                     name="appointment_time_end"
@@ -124,7 +150,7 @@ export default function AddAppointment(props) {
                     value={appointment_time_end}
                     onChange={changeTimeEnd}
                 />
-                <label for="appointment_service">Service</label>
+                <label htmlFor="appointment_service">Service</label>
                 <textarea
                     type="text"
                     name="appointment_service"
@@ -133,14 +159,14 @@ export default function AddAppointment(props) {
                     onChange={changeService}
                 />
                 <div id="addAppointment_form--choose">
-                    <button
+                    {/* <button
                         onClick={(event) => {
                             event.preventDefault();
                             setVisibilityProvider(true);
                         }}
                     >
                         Choose Service Provider
-                    </button>
+                    </button> */}
                     <button
                         onClick={(event) => {
                             event.preventDefault();
@@ -156,7 +182,7 @@ export default function AddAppointment(props) {
                     value="Book Appointment"
                 />
             </form>
-            {providerList}
+            {/* {providerList} */}
             {customerList}
         </div>
     );
