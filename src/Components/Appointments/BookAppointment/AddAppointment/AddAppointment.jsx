@@ -9,8 +9,12 @@ export default function AddAppointment(props) {
     const [appointment_time_end, setTimeEnd] = useState("");
     const [appointment_service, setService] = useState("");
     const [appointment_customer_id, setCustomerId] = useState(33);
-    // // WIP
-    // const [appointment_service_provider_ids, setProviderIds] = useState([]);
+    const [appointment_service_provider_ids, setProviderIds] = useState([]);
+    
+    const
+    // const [appointment_service_provider_id1, setProviderId1] = useState(0);
+    // const [appointment_service_provider_id2, setProviderId2] = useState(0);
+    // const [appointment_service_provider_id3, setProviderId3] = useState(0);
     // console.log("main component");
     // console.log(appointment_service_provider_ids);
 
@@ -36,12 +40,11 @@ export default function AddAppointment(props) {
     //     "appointment_service_provider_ids: " + appointment_service_provider_ids
     // );
     // console.log("appointment_service: " + appointment_service)
+
     // const [myArray, setMyArray] = useState([]);
-    
     // const arrayAddItem = (newItem) => {
     //     setMyArray(...myArray, newItem);
     // };
-    
     // const arrayDeleteItem = (targetItem) => {
     //     setMyArray(myArray.slice(myArray.indexOf(targetItem), 1));
     // };
@@ -51,7 +54,6 @@ export default function AddAppointment(props) {
     const changeTimeEnd = (event) => setTimeEnd(event.target.value);
     const changeService = (event) => setService(event.target.value);
 
-    // // WIP
     // // Define a function to add item to the array "appointment_service_provider_ids".
     // const arrayAddItem = (newItem) => {
     //     setProviderIds([...appointment_service_provider_ids, newItem]);
@@ -60,11 +62,24 @@ export default function AddAppointment(props) {
     // // Define a function to delete item from the array "appointment_service_provider_ids"
     // const arrayDeleteItem = (targetItem) => {
     //     setProviderIds(
-    //         appointment_service_provider_ids.slice(
-    //             appointment_service_provider_ids.indexOf(targetItem),
-    //             1
-    //         )
+    //         appointment_service_provider_ids.slice(appointment_service_provider_ids.indexOf(targetItem), 1)
     //     );
+    // };
+
+    // // Define a function to tell system when to arrayAddItem() and when to arrayDeleteItem()
+    // const arrayToggleCheckbox = (
+    //     isChecked,
+    //     newItem,
+    //     targetItem
+    // ) => {
+    //     if (isChecked) {
+    //         arrayAddItem(appointment_service_provider_ids, newItem);
+    //     }
+    //     if (!isChecked) {
+    //         if (appointment_service_provider_ids.includes(targetItem)) {
+    //             arrayDeleteItem(appointment_service_provider_ids, targetItem);
+    //         }
+    //     }
     // };
 
     // Define a function to post appointment information on server
@@ -113,21 +128,22 @@ export default function AddAppointment(props) {
         customerList = <div></div>;
     }
 
-    // // Render <ProviderList/> only when use clicks "choose Provider" buttom
-    // var providerList;
-    // if (shouldShowProvider) {
-    //     providerList = (
-    //         <ProviderList
-    //             url={props.url}
-    //             scenario={scenario}
-    //             // arrayAddItem={arrayAddItem}
-    //             // arrayDeleteItem={arrayDeleteItem}
-    //             setVisibilityProvider={setVisibilityProvider}
-    //         />
-    //     );
-    // } else {
-    //     providerList = <div></div>;
-    // }
+    // Render <ProviderList/> only when use clicks "choose Provider" buttom
+    var providerList;
+    if (shouldShowProvider) {
+        providerList = (
+            <ProviderList
+                url={props.url}
+                scenario={scenario}
+                arrayToggleCheckbox={arrayToggleCheckbox}
+                // arrayAddItem={arrayAddItem}
+                // arrayDeleteItem={arrayDeleteItem}
+                setVisibilityProvider={setVisibilityProvider}
+            />
+        );
+    } else {
+        providerList = <div></div>;
+    }
 
     return (
         <div className="addAppointment">
@@ -159,14 +175,14 @@ export default function AddAppointment(props) {
                     onChange={changeService}
                 />
                 <div id="addAppointment_form--choose">
-                    {/* <button
+                    <button
                         onClick={(event) => {
                             event.preventDefault();
                             setVisibilityProvider(true);
                         }}
                     >
                         Choose Service Provider
-                    </button> */}
+                    </button>
                     <button
                         onClick={(event) => {
                             event.preventDefault();
@@ -182,7 +198,7 @@ export default function AddAppointment(props) {
                     value="Book Appointment"
                 />
             </form>
-            {/* {providerList} */}
+            {providerList}
             {customerList}
         </div>
     );
