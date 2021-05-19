@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/pawpawshopmanagement/static/css/main.a73c29d8.chunk.css",
-    "main.js": "/pawpawshopmanagement/static/js/main.641b6221.chunk.js",
-    "main.js.map": "/pawpawshopmanagement/static/js/main.641b6221.chunk.js.map",
+    "main.css": "/pawpawshopmanagement/static/css/main.585e9065.chunk.css",
+    "main.js": "/pawpawshopmanagement/static/js/main.0dd5ee3d.chunk.js",
+    "main.js.map": "/pawpawshopmanagement/static/js/main.0dd5ee3d.chunk.js.map",
     "runtime-main.js": "/pawpawshopmanagement/static/js/runtime-main.ff2a7de3.js",
     "runtime-main.js.map": "/pawpawshopmanagement/static/js/runtime-main.ff2a7de3.js.map",
-    "static/js/2.63ded92c.chunk.js": "/pawpawshopmanagement/static/js/2.63ded92c.chunk.js",
-    "static/js/2.63ded92c.chunk.js.map": "/pawpawshopmanagement/static/js/2.63ded92c.chunk.js.map",
+    "static/js/2.1e7120c9.chunk.js": "/pawpawshopmanagement/static/js/2.1e7120c9.chunk.js",
+    "static/js/2.1e7120c9.chunk.js.map": "/pawpawshopmanagement/static/js/2.1e7120c9.chunk.js.map",
     "index.html": "/pawpawshopmanagement/index.html",
-    "static/css/main.a73c29d8.chunk.css.map": "/pawpawshopmanagement/static/css/main.a73c29d8.chunk.css.map",
-    "static/js/2.63ded92c.chunk.js.LICENSE.txt": "/pawpawshopmanagement/static/js/2.63ded92c.chunk.js.LICENSE.txt"
+    "static/css/main.585e9065.chunk.css.map": "/pawpawshopmanagement/static/css/main.585e9065.chunk.css.map",
+    "static/js/2.1e7120c9.chunk.js.LICENSE.txt": "/pawpawshopmanagement/static/js/2.1e7120c9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ff2a7de3.js",
-    "static/js/2.63ded92c.chunk.js",
-    "static/css/main.a73c29d8.chunk.css",
-    "static/js/main.641b6221.chunk.js"
+    "static/js/2.1e7120c9.chunk.js",
+    "static/css/main.585e9065.chunk.css",
+    "static/js/main.0dd5ee3d.chunk.js"
   ]
 }
