@@ -11,7 +11,7 @@ export default function EditAppointment(props) {
     const [appointment_time_start, setTimeStart] = useState("");
     const [appointment_time_end, setTimeEnd] = useState("");
     const [appointment_service, setService] = useState("");
-    const [appointment_service_provider_id, setProviderId] = useState("");
+    const [appointment_service_provider_ids, setProviderIds] = useState([]);
 
     // 2. There variables are for display only, in <div className="editAppointment_chart_customerInfo">
     const [appointment_customer_first_name, setFirstName] = useState("");
@@ -32,7 +32,7 @@ export default function EditAppointment(props) {
     const changeTimeStart = (event) => setTimeStart(event.target.value);
     const changeTimeEnd = (event) => setTimeEnd(event.target.value);
     const changeService = (event) => setService(event.target.value);
-    const changeProvider = (event) => setProviderId(event.target.value);
+    const changeProvider = (event) => setProviderIds(event.target.value);
 
     // When this component mounts, set input values to the current appointment information
     // 1. Define the current appointment
@@ -54,7 +54,7 @@ export default function EditAppointment(props) {
             setDate(current_appointment.appointment_date);
             setTimeStart(current_appointment.appointment_time_start);
             setTimeEnd(current_appointment.appointment_time_end);
-            setProviderId(current_appointment.appointment_service_provider_id);
+            setProviderIds(current_appointment.appointment_service_provider_ids);
             setService(current_appointment.appointment_service);
         }
 
@@ -62,7 +62,6 @@ export default function EditAppointment(props) {
         (async () => {
             const response = await fetch(`${props.url}customers-and-pets`);
             var customers = await response.json();
-            // console.log(customers)
             current_customer = customers.find(
                 (customer) =>
                     customer.id.toString() ===
@@ -120,7 +119,7 @@ export default function EditAppointment(props) {
                         appointment_time_start: `${appointment_time_start}`,
                         appointment_time_end: `${appointment_time_end}`,
                         appointment_service: `${appointment_service}`,
-                        appointment_service_provider_id: `${appointment_service_provider_id}`,
+                        appointment_service_provider_ids: appointment_service_provider_ids,
                     }),
                 }
             );
@@ -174,7 +173,7 @@ export default function EditAppointment(props) {
                     type="text"
                     name="appointment_service_provider_id"
                     id="appointment_service_provider_id"
-                    value={appointment_service_provider_id}
+                    value={appointment_service_provider_ids}
                     onChange={changeProvider}
                 />
                 <label for="appointment_service">Service</label>
