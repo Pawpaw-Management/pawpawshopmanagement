@@ -1,10 +1,10 @@
 .infoEditor {
-    position: absolute;
+    position: fixed;
     width: 90vw;
     height: 80vh;
     left: 50%;
     transform: translateX(-50%);
-    top: 6rem;
+    top: 5rem;
     background-color: rgb(240, 240, 240);
     z-index: 2;
     display: flex;
