@@ -1,0 +1,110 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#payments__inputs {
+    margin-bottom: 2rem;
+}
+
+.label-and-input,
+.label-and-input__service,
+.label-and-input__price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.2rem;
+}
+
+#payments__inputs .label-and-input label {
+    margin-right: 1rem;
+}
+
+#payments__inputs .label-and-input input {
+    line-height: 1.2rem;
+    margin-right: 1rem;
+}
+
+#payments__inputs #label-and-input__name {
+    justify-content: center;
+}
+
+#payments__title-and-print-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+#payments__print-button {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+#payments__section-for-printing {
+    background-color: #ffffff;
+    width: 215mm;
+    min-height: 279mm;
+    padding: 1rem 0 0 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#payments__section-for-printing span {
+    font-size: 1rem;
+}
+
+#payments__section-for-printing__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+#payments__section-for-printing__client-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 90%;
+}
+
+.label-and-input__discount label {
+    margin-right: 2rem;
+    font-size: 1rem;
+}
+
+#payments__section-for-printing__client-info__client {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+#span-invoice {
+    place-self: center;
+    font-size: 2rem !important;
+    font-weight: 800;
+    margin-bottom: 2rem;
+}
+
+#payments__section-for-printing__client-info__tables,
+#payments__section-for-printing__client-info__tables__details {
+    width: 100%;
+}
+
+#payments__section-for-printing__client-info__tables {
+    font-size: 1rem;
+}
+
+.table__font-bold {
+    font-weight: 800;
+    padding-bottom: 0.8rem;
+}
