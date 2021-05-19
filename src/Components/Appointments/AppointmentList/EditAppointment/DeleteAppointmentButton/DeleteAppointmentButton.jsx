@@ -1,5 +1,5 @@
 import React from "react";
-import "./DeleteAppointmentButton.css"
+import "./DeleteAppointmentButton.css";
 
 function DeleteAppointmentButton(props) {
     // Define a function to delete an appointment
@@ -19,9 +19,12 @@ function DeleteAppointmentButton(props) {
     return (
         <button
             id="editAppointment_form_delete"
-            onClick={() => {
+            onClick={(event) => {
+                event.preventDefault();
                 if (
-                    window.confirm("Are you sure to delete this appointment? It CANNOT be recovered.")
+                    window.confirm(
+                        "Are you sure to delete this appointment? It CANNOT be recovered."
+                    )
                 ) {
                     handleDelete();
                 }
