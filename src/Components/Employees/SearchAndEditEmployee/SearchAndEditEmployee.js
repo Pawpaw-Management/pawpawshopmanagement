@@ -36,7 +36,7 @@ const SearchAndEditEmployee = (props) => {
                 <button
                     className="button_esc"
                     onClick={() => {
-                        props.setVisibilityProvider(false);
+                        props.setVisibility(props.num);
                     }}
                 >
                     X
@@ -59,11 +59,12 @@ const SearchAndEditEmployee = (props) => {
                                         content={content}
                                         key={index}
                                         index={index}
+                                        setProviderId={props.setProviderId}
+                                        setVisibility={props.setVisibility}
+                                        num={props.num}
+                                        // arrayToggleCheckbox={props.arrayToggleCheckbox}
                                         // arrayAddItem={props.arrayAddItem}
                                         // arrayDeleteItem={props.arrayDeleteItem}
-                                        setVisibilityProvider={
-                                            props.setVisibilityProvider
-                                        }
                                     />
                                 );
                             })}
