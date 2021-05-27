@@ -38,6 +38,10 @@ input::-webkit-inner-spin-button {
     margin-bottom: 1rem;
 }
 
+#pay-employees-button {
+    margin-bottom: 2rem;
+}
+
 #payments__print-button {
     margin-top: 0.5rem;
     font-size: 1rem;
