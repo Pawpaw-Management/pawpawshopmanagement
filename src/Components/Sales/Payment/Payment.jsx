@@ -23,12 +23,14 @@ export default function Payment(props) {
     const [servicePrice3, setServicePrice3] = useState();
     const [servicePrice4, setServicePrice4] = useState();
     const [servicePrice5, setServicePrice5] = useState();
+    const [serviceTotalAfterDiscount, setServiceTotalAfterDiscount] =
+        useState();
     const [item1, setItem1] = useState("");
     const [item2, setItem2] = useState("");
     const [item3, setItem3] = useState("");
     const [item4, setItem4] = useState("");
     const [item5, setItem5] = useState("");
-    const [itemQuantity1, setItemQuantity1] = useState();
+    const [itemQuantity1, setItemQuantity1] = useState(undefined);
     const [itemQuantity2, setItemQuantity2] = useState();
     const [itemQuantity3, setItemQuantity3] = useState();
     const [itemQuantity4, setItemQuantity4] = useState();
@@ -38,17 +40,20 @@ export default function Payment(props) {
     const [itemPrice3, setItemPrice3] = useState();
     const [itemPrice4, setItemPrice4] = useState();
     const [itemPrice5, setItemPrice5] = useState();
-    const [visibilityEmployees, setVisibilityEmployees] = useState(true);
+    const [itemtotal, setItemtotal] = useState(0);
+    const [balanceDue, setBalanceDue] = useState(0);
+    const [visibilityEmployees, setVisibilityEmployees] = useState(false);
 
     // If visibilityEmployees is true, render <SelectEmployees>
     var selectEmployees = visibilityEmployees ? (
         <SelectEmployees
             url={props.url}
+            balanceDue={balanceDue}
+            serviceTotalAfterDiscount={serviceTotalAfterDiscount}
+            itemtotal={itemtotal}
             setVisibilityEmployees={setVisibilityEmployees}
         />
-    ) : (
-        null
-    );
+    ) : null;
 
     // Define non-state variables
     var purchase_date = new Date();
@@ -60,48 +65,99 @@ export default function Payment(props) {
     var totalService1 =
         serviceQuantity1 && servicePrice1
             ? serviceQuantity1 * servicePrice1
+            : servicePrice1 && serviceQuantity1 === undefined
+            ? servicePrice1
             : 0;
     var totalService2 =
         serviceQuantity2 && servicePrice2
             ? serviceQuantity2 * servicePrice2
+            : servicePrice2 && serviceQuantity2 === undefined
+            ? servicePrice2
             : 0;
     var totalService3 =
         serviceQuantity3 && servicePrice3
             ? serviceQuantity3 * servicePrice3
+            : servicePrice3 && serviceQuantity3 === undefined
+            ? servicePrice3
             : 0;
     var totalService4 =
         serviceQuantity4 && servicePrice4
             ? serviceQuantity4 * servicePrice4
+            : servicePrice4 && serviceQuantity4 === undefined
+            ? servicePrice4
             : 0;
     var totalService5 =
         serviceQuantity5 && servicePrice5
             ? serviceQuantity5 * servicePrice5
+            : servicePrice5 && serviceQuantity5 === undefined
+            ? servicePrice5
             : 0;
     var totalItem1 =
-        itemQuantity1 && itemPrice1 ? itemQuantity1 * itemPrice1 : 0;
+        itemQuantity1 && itemPrice1
+            ? Number(itemQuantity1) * Number(itemPrice1)
+            : itemPrice1 && itemQuantity1 === undefined
+            ? itemPrice1
+            : 0;
     var totalItem2 =
-        itemQuantity2 && itemPrice2 ? itemQuantity2 * itemPrice2 : 0;
+        itemQuantity2 && itemPrice2
+            ? itemQuantity2 * itemPrice2
+            : itemPrice2 && itemQuantity2 === undefined
+            ? itemPrice2
+            : 0;
     var totalItem3 =
-        itemQuantity3 && itemPrice3 ? itemQuantity3 * itemPrice3 : 0;
+        itemQuantity3 && itemPrice3
+            ? itemQuantity3 * itemPrice3
+            : itemPrice3 && itemQuantity3 === undefined
+            ? itemPrice3
+            : 0;
     var totalItem4 =
-        itemQuantity4 && itemPrice4 ? itemQuantity4 * itemPrice4 : 0;
+        itemQuantity4 && itemPrice4
+            ? itemQuantity4 * itemPrice4
+            : itemPrice4 && itemQuantity4 === undefined
+            ? itemPrice4
+            : 0;
     var totalItem5 =
-        itemQuantity5 && itemPrice5 ? itemQuantity5 * itemPrice5 : 0;
+        itemQuantity5 && itemPrice5
+            ? itemQuantity5 * itemPrice5
+            : itemPrice5 && itemQuantity5 === undefined
+            ? itemPrice5
+            : 0;
     var serviceTotal =
-        totalService1 +
-        totalService2 +
-        totalService3 +
-        totalService4 +
-        totalService5;
+        Number(totalService1) +
+        Number(totalService2) +
+        Number(totalService3) +
+        Number(totalService4) +
+        Number(totalService5);
     var itemTotal =
-        totalItem1 + totalItem2 + totalItem3 + totalItem4 + totalItem5;
+        Number(totalItem1) +
+        Number(totalItem2) +
+        Number(totalItem3) +
+        Number(totalItem4) +
+        Number(totalItem5);
     var discountPercent = Number(discount) * 100 + "%";
     var subtotalAfterDiscount = (
         Number(serviceTotal) * (1 - Number(discount)) +
         Number(itemTotal)
     ).toFixed(2);
     var gst = (subtotalAfterDiscount * 0.05).toFixed(2);
-    var balanceDue = (Number(subtotalAfterDiscount) + Number(gst)).toFixed(2);
+
+    // Every time subtotalAfterDiscount changes, update balanceDue
+    useEffect(() => {
+        setBalanceDue((Number(subtotalAfterDiscount) + Number(gst)).toFixed(2));
+    }, [subtotalAfterDiscount]);
+    console.log(balanceDue);
+
+    // Every time itemTotal changes, update itemtotal
+    useEffect(() => {
+        setItemtotal(itemTotal);
+    }, [itemTotal]);
+
+    // Every time serviceTotal changes, update serviceTotalAfterDiscount
+    useEffect(() => {
+        setServiceTotalAfterDiscount(
+            Number(serviceTotal) * (1 - Number(discount))
+        );
+    }, [serviceTotal]);
 
     // Define onChange handlers
     const changeDiscount = (event) => setDiscount(event.target.value);
@@ -316,8 +372,26 @@ export default function Payment(props) {
                         />
                     </div>
                 </div>
-                {/* Sell items */}
                 <br></br>
+                <button
+                    id="pay-employees-button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setVisibilityEmployees(true);
+                    }}
+                >
+                    Calculate Store Income & Pay Employees
+                </button>
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        deleteMultiple();
+                    }}
+                >
+                    try delete multiple
+                </button>
+                <br></br>
+                {/* Sell items */}
                 <span>Products</span>
                 <div className="label-and-input">
                     <div className="label-and-input__item">
@@ -496,133 +570,223 @@ export default function Payment(props) {
                             <tbody>
                                 {/* Services */}
                                 <tr id="service1">
-                                    {service1 === "" ? null : (
+                                    {service1 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{service1}</td>
                                     )}
-                                    {serviceQuantity1 === 0 ? null : (
+                                    {serviceQuantity1 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{serviceQuantity1}</td>
                                     )}
-                                    {servicePrice1 === 0 ? null : (
+                                    {servicePrice1 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{servicePrice1}</td>
                                     )}
-                                    {service1 === "" ? null : (
+                                    {service1 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{totalService1}</td>
                                     )}
                                 </tr>
                                 <tr id="service2">
-                                    {service2 === "" ? null : (
+                                    {service2 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{service2}</td>
                                     )}
-                                    {serviceQuantity2 === 0 ? null : (
+                                    {serviceQuantity2 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{serviceQuantity2}</td>
                                     )}
-                                    {servicePrice2 === 0 ? null : (
+                                    {servicePrice2 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{servicePrice2}</td>
                                     )}
-                                    {service2 === "" ? null : (
+                                    {service2 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{totalService2}</td>
                                     )}
                                 </tr>
                                 <tr id="service3">
-                                    {service3 === "" ? null : (
+                                    {service3 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{service3}</td>
                                     )}
-                                    {serviceQuantity3 === 0 ? null : (
+                                    {serviceQuantity3 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{serviceQuantity3}</td>
                                     )}
-                                    {servicePrice3 === 0 ? null : (
+                                    {servicePrice3 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{servicePrice3}</td>
                                     )}
-                                    {service3 === "" ? null : (
+                                    {service3 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{totalService3}</td>
                                     )}
                                 </tr>
                                 <tr id="service4">
-                                    {service4 === "" ? null : (
+                                    {service4 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{service4}</td>
                                     )}
-                                    {serviceQuantity4 === 0 ? null : (
+                                    {serviceQuantity4 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{serviceQuantity4}</td>
                                     )}
-                                    {servicePrice4 === 0 ? null : (
+                                    {servicePrice4 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{servicePrice4}</td>
                                     )}
-                                    {service4 === "" ? null : (
+                                    {service4 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{totalService4}</td>
                                     )}
                                 </tr>
                                 <tr id="service5">
-                                    {service5 === "" ? null : (
+                                    {service5 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{service5}</td>
                                     )}
-                                    {serviceQuantity5 === 0 ? null : (
+                                    {serviceQuantity5 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{serviceQuantity5}</td>
                                     )}
-                                    {servicePrice5 === 0 ? null : (
+                                    {servicePrice5 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{servicePrice5}</td>
                                     )}
-                                    {service5 === "" ? null : (
+                                    {service5 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{totalService5}</td>
                                     )}
                                 </tr>
                                 {/* Products */}
                                 <tr id="item1">
-                                    {item1 === "" ? null : <td>{item1}</td>}
-                                    {itemQuantity1 === 0 ? null : (
+                                    {item1 === "" ? (
+                                        <td></td>
+                                    ) : (
+                                        <td>{item1}</td>
+                                    )}
+                                    {itemQuantity1 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{itemQuantity1}</td>
                                     )}
-                                    {itemPrice1 === 0 ? null : (
+                                    {itemPrice1 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{itemPrice1}</td>
                                     )}
-                                    {item1 === "" ? null : (
+                                    {item1 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{totalItem1}</td>
                                     )}
                                 </tr>
                                 <tr id="item2">
-                                    {item2 === "" ? null : <td>{item2}</td>}
-                                    {itemQuantity2 === 0 ? null : (
+                                    {item2 === "" ? (
+                                        <td></td>
+                                    ) : (
+                                        <td>{item2}</td>
+                                    )}
+                                    {itemQuantity2 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{itemQuantity2}</td>
                                     )}
-                                    {itemPrice2 === 0 ? null : (
+                                    {itemPrice2 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{itemPrice2}</td>
                                     )}
-                                    {item2 === "" ? null : (
+                                    {item2 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{totalItem2}</td>
                                     )}
                                 </tr>
                                 <tr id="item3">
-                                    {item3 === "" ? null : <td>{item3}</td>}
-                                    {itemQuantity3 === 0 ? null : (
+                                    {item3 === "" ? (
+                                        <td></td>
+                                    ) : (
+                                        <td>{item3}</td>
+                                    )}
+                                    {itemQuantity3 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{itemQuantity3}</td>
                                     )}
-                                    {itemPrice3 === 0 ? null : (
+                                    {itemPrice3 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{itemPrice3}</td>
                                     )}
-                                    {item3 === "" ? null : (
+                                    {item3 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{totalItem3}</td>
                                     )}
                                 </tr>
                                 <tr id="item4">
-                                    {item4 === "" ? null : <td>{item4}</td>}
-                                    {itemQuantity4 === 0 ? null : (
+                                    {item4 === "" ? (
+                                        <td></td>
+                                    ) : (
+                                        <td>{item4}</td>
+                                    )}
+                                    {itemQuantity4 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{itemQuantity4}</td>
                                     )}
-                                    {itemPrice4 === 0 ? null : (
+                                    {itemPrice4 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{itemPrice4}</td>
                                     )}
-                                    {item4 === "" ? null : (
+                                    {item4 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{totalItem4}</td>
                                     )}
                                 </tr>
                                 <tr id="item5">
-                                    {item5 === "" ? null : <td>{item5}</td>}
-                                    {itemQuantity5 === 0 ? null : (
+                                    {item5 === "" ? (
+                                        <td></td>
+                                    ) : (
+                                        <td>{item5}</td>
+                                    )}
+                                    {itemQuantity5 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{itemQuantity5}</td>
                                     )}
-                                    {itemPrice5 === 0 ? null : (
+                                    {itemPrice5 === undefined ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{itemPrice5}</td>
                                     )}
-                                    {item5 === "" ? null : (
+                                    {item5 === "" ? (
+                                        <td></td>
+                                    ) : (
                                         <td>{totalItem5}</td>
                                     )}
                                 </tr>
