@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/pawpawshopmanagement/static/css/main.c40df8d8.chunk.css",
-    "main.js": "/pawpawshopmanagement/static/js/main.02708660.chunk.js",
-    "main.js.map": "/pawpawshopmanagement/static/js/main.02708660.chunk.js.map",
+    "main.js": "/pawpawshopmanagement/static/js/main.e8f30a9b.chunk.js",
+    "main.js.map": "/pawpawshopmanagement/static/js/main.e8f30a9b.chunk.js.map",
     "runtime-main.js": "/pawpawshopmanagement/static/js/runtime-main.ff2a7de3.js",
     "runtime-main.js.map": "/pawpawshopmanagement/static/js/runtime-main.ff2a7de3.js.map",
     "static/js/2.967642a9.chunk.js": "/pawpawshopmanagement/static/js/2.967642a9.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.ff2a7de3.js",
     "static/js/2.967642a9.chunk.js",
     "static/css/main.c40df8d8.chunk.css",
-    "static/js/main.02708660.chunk.js"
+    "static/js/main.e8f30a9b.chunk.js"
   ]
 }
