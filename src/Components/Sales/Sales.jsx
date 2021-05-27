@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
 import SalesProducts from "./SalesProducts/SalesProducts";
 import SalesPets from "./SalesPets/SalesPets";
 import Payments from "./Payment/Payment";
+import PendingPayments from "./PendingPayments/PendingPayments"
 
 export default function Sales(props) {
     return (
@@ -18,6 +19,9 @@ export default function Sales(props) {
                     <Route path="/payments">
                         <Payments url={props.url} />
                     </Route>
+                    <Route path="/pendingpayments">
+                        <PendingPayments url={props.url}/>
+                    </Route>
                 </Switch>
                 <nav className="nav-components">
                     <Link to="/products">
@@ -28,6 +32,9 @@ export default function Sales(props) {
                     </Link>
                     <Link to="/payments">
                         <button>Invoice Generator</button>
+                    </Link>
+                    <Link to="/pendingpayments">
+                        <button>Pending Payments</button>
                     </Link>
                 </nav>
             </section>
