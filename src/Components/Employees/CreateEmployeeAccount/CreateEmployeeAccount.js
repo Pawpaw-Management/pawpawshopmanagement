@@ -5,7 +5,7 @@ export default function CreateEmployeeAccount(props) {
     // Define states
     const [employee_first_name, setEmployeeFirstName] = useState("");
     const [employee_last_name, setEmployeeLastName] = useState("");
-    const [employee_phone, setEmployeePhone] = useState("");
+    const [employee_phone, setEmployeePhone] = useState();
     const [employee_email, setEmployeeEmail] = useState("");
     const [employee_title, setEmployeeTitle] = useState("groomer");
     const [employee_birthday, setEmployeeBirthday] = useState("");
@@ -26,31 +26,33 @@ export default function CreateEmployeeAccount(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const response = await fetch(`${props.url}employees`, {
-            method: "POST",
-            headers: {
-                accept: "application/json",
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({
-                employee_first_name: `${employee_first_name}`,
-                employee_last_name: `${employee_last_name}`,
-                employee_phone: `${employee_phone}`,
-                employee_email: `${employee_email}`,
-                employee_title: `${employee_title}`,
-                employee_birthday: `${employee_birthday}`,
-                employee_note: `${employee_note}`,
-                employee_hourly_wage: `${employee_hourly_wage}`,
-            }),
+        var formdata = new FormData();
+        formdata.append("data", {
+            employee_first_name: `${employee_first_name}`,
+            employee_last_name: `${employee_last_name}`,
+            employee_phone: `${employee_phone}`,
+            employee_email: `${employee_email}`,
+            employee_title: `${employee_title}`,
+            employee_birthday: `${employee_birthday}`,
+            employee_note: `${employee_note}`,
+            employee_hourly_wage: `${employee_hourly_wage}`,
         });
-        const content = await response.json();
-        console.log(response);
-        // Tell user the data above is successfully submitted
-        if (response.status === 200) {
-            alert("Employee Account Created!");
-        } else {
-            alert("Error! Please make sure the database is running properly.");
-        }
+
+        var requestOptions = {
+            method: "POST",
+            body: formdata,
+            redirect: "follow",
+        };
+
+        fetch("http://localhost:1337/employees", requestOptions)
+            .then((response) => response.text())
+            .then((result) => alert("Employee Account Created!"))
+            .catch((error) => {
+                console.log("error", error);
+                alert(
+                    "Error! Please make sure the database is running properly."
+                );
+            });
     };
 
     return (
@@ -75,7 +77,7 @@ export default function CreateEmployeeAccount(props) {
                 />
                 <label for="employee_phone"> Phone Number:</label>
                 <input
-                    type="text"
+                    type="number"
                     name="employee_phone"
                     id="employee_phone"
                     value={employee_phone}
@@ -114,9 +116,11 @@ export default function CreateEmployeeAccount(props) {
                     value={employee_note}
                     onChange={changeNote}
                 />
-                <label for="employee_hourly_wage">Hourly Wage:</label>
+                <label for="employee_hourly_wage">
+                    Hourly Wage (optional):
+                </label>
                 <input
-                    type="text"
+                    type="number"
                     name="employee_hourly_wage"
                     id="employee_hourly_wage"
                     value={employee_hourly_wage}
