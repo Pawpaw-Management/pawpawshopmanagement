@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import "./InfoEditor.css"
-import "../../../CommonElements.css"
+import "./InfoEditor.css";
+import "../../../CommonElements.css";
 
 export default function InfoEditor(props) {
     // Define states
     const [employee_first_name, setEmployeeFirstName] = useState("");
     const [employee_last_name, setEmployeeLastName] = useState("");
-    const [employee_phone, setEmployeePhone] = useState("");
+    const [employee_phone, setEmployeePhone] = useState();
     const [employee_email, setEmployeeEmail] = useState("");
     const [employee_note, setEmployeeNote] = useState("");
     const [employee_title, setEmployeeTitle] = useState("");
-    const [employee_hourly_wage, setEmployeeWage] = useState("");
+    const [employee_hourly_wage, setEmployeeWage] = useState(0);
     const [employee_birthday, setEmployeeBirthday] = useState("");
 
     // Define onChange event handler
@@ -20,17 +20,14 @@ export default function InfoEditor(props) {
     const changeEmail = (event) => setEmployeeEmail(event.target.value);
     const changeNote = (event) => setEmployeeNote(event.target.value);
     const changeTitle = (event) => setEmployeeTitle(event.target.value);
-    const changeHourlyWage = (event) =>
-        setEmployeeWage(event.target.value);
+    const changeHourlyWage = (event) => setEmployeeWage(event.target.value);
     const changeBirthday = (event) => setEmployeeBirthday(event.target.value);
 
     // When <InfoEditor> becomes visible, set input values to the current account information
     // 1. Define the current account
     const current_account =
-        props.employees.employees &&
-        props.employees.employees.find(
-            (account) => account.id === props.accountId
-        );
+        props.employees &&
+        props.employees.find((account) => account.id === props.accountId);
 
     // 2. Assign data from current_account to states when accountId changes
     useEffect(() => {
@@ -77,16 +74,16 @@ export default function InfoEditor(props) {
             if (response.status === 200) {
                 alert("Account Information Updated!");
             } else {
-                alert("Error! Please make sure database is running properly.")
+                alert("Error! Please make sure database is running properly.");
             }
         }
     };
 
     return (
-        <div className="infoEditor window" style={{ visibility: props.visibility }}>
+        <div className="infoEditor window">
             <button
                 className="button_esc"
-                onClick={() => props.setVisibility("hidden")}
+                onClick={() => props.setVisibility(false)}
             >
                 X
             </button>
