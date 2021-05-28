@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./CreateEmployeeAccount.css";
 
 export default function CreateEmployeeAccount(props) {
+    console.log(props.url);
     // Define states
     const [employee_first_name, setEmployeeFirstName] = useState("");
     const [employee_last_name, setEmployeeLastName] = useState("");
@@ -10,7 +11,16 @@ export default function CreateEmployeeAccount(props) {
     const [employee_title, setEmployeeTitle] = useState("groomer");
     const [employee_birthday, setEmployeeBirthday] = useState("");
     const [employee_note, setEmployeeNote] = useState("");
-    const [employee_hourly_wage, setEmployeeWage] = useState("");
+    const [employee_hourly_wage, setEmployeeWage] = useState(0);
+
+    console.log(employee_first_name);
+    console.log(employee_last_name);
+    console.log(employee_phone);
+    console.log(employee_email);
+    console.log(employee_title);
+    console.log(employee_birthday);
+    console.log(employee_note);
+    console.log(employee_hourly_wage);
 
     // Define onChange event handler
     const changeFirstName = (event) => setEmployeeFirstName(event.target.value);
@@ -23,11 +33,10 @@ export default function CreateEmployeeAccount(props) {
     const changeWage = (event) => setEmployeeWage(event.target.value);
 
     // Define a function to update account information
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        var formdata = new FormData();
-        formdata.append("data", {
+    var formdata = new FormData();
+    formdata.append(
+        "data",
+        JSON.stringify({
             employee_first_name: `${employee_first_name}`,
             employee_last_name: `${employee_last_name}`,
             employee_phone: `${employee_phone}`,
@@ -36,29 +45,28 @@ export default function CreateEmployeeAccount(props) {
             employee_birthday: `${employee_birthday}`,
             employee_note: `${employee_note}`,
             employee_hourly_wage: `${employee_hourly_wage}`,
-        });
+        })
+    );
 
-        var requestOptions = {
-            method: "POST",
-            body: formdata,
-            redirect: "follow",
-        };
+    var requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+    };
 
-        fetch("http://localhost:1337/employees", requestOptions)
-            .then((response) => response.text())
-            .then((result) => alert("Employee Account Created!"))
-            .catch((error) => {
-                console.log("error", error);
-                alert(
-                    "Error! Please make sure the database is running properly."
-                );
-            });
+    const handleSubmit = async () => {
+        const response = await fetch(`${props.url}employees`, requestOptions);
+        if (response.status === 200) {
+            alert(`Employee Account Created!!`);
+        } else {
+            alert("Error! Please make sure the database is running properly.");
+        }
     };
 
     return (
         <div className="create_account">
             <h1>Create New Employee Account</h1>
-            <form className="employee_registrition" onSubmit={handleSubmit}>
+            <form className="employee_registrition">
                 <label for="employee_first_name"> First Name:</label>
                 <input
                     type="text"
@@ -126,7 +134,14 @@ export default function CreateEmployeeAccount(props) {
                     value={employee_hourly_wage}
                     onChange={changeWage}
                 />
-                <input type="submit" id="employee_submit" />
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        handleSubmit();
+                    }}
+                >
+                    Submit
+                </button>
             </form>
         </div>
     );
