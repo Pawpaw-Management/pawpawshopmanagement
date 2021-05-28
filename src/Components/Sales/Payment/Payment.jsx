@@ -51,6 +51,27 @@ export default function Payment(props) {
             balanceDue={balanceDue}
             serviceTotalAfterDiscount={serviceTotalAfterDiscount}
             itemtotal={itemtotal}
+            discount={discount}
+            service1={service1}
+            service2={service2}
+            service3={service3}
+            service4={service4}
+            service5={service5}
+            serviceQuantity1={serviceQuantity1}
+            serviceQuantity2={serviceQuantity2}
+            serviceQuantity3={serviceQuantity3}
+            serviceQuantity4={serviceQuantity4}
+            serviceQuantity5={serviceQuantity5}
+            item1={item1}
+            item2={item2}
+            item3={item3}
+            item4={item4}
+            item5={item5}
+            itemQuantity1={itemQuantity1}
+            itemQuantity2={itemQuantity2}
+            itemQuantity3={itemQuantity3}
+            itemQuantity4={itemQuantity4}
+            itemQuantity5={itemQuantity5}
             setVisibilityEmployees={setVisibilityEmployees}
         />
     ) : null;
@@ -372,25 +393,6 @@ export default function Payment(props) {
                         />
                     </div>
                 </div>
-                <br></br>
-                <button
-                    id="pay-employees-button"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setVisibilityEmployees(true);
-                    }}
-                >
-                    Calculate Store Income & Pay Employees
-                </button>
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        deleteMultiple();
-                    }}
-                >
-                    try delete multiple
-                </button>
-                <br></br>
                 {/* Sell items */}
                 <span>Products</span>
                 <div className="label-and-input">
@@ -539,6 +541,16 @@ export default function Payment(props) {
                     </div>
                 </div>
             </div>
+            <button
+                id="pay-employees-button"
+                onClick={(e) => {
+                    e.preventDefault();
+                    setVisibilityEmployees(true);
+                }}
+            >
+                Calculate Store Income & Pay Employees
+            </button>
+            <br></br>
             <div id="payments__title-and-print-button">
                 <span>Invoice Preview</span>
                 <button id="payments__print-button" onClick={printDocument}>
