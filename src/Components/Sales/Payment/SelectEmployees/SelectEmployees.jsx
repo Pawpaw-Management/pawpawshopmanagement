@@ -56,11 +56,28 @@ export default function SelectEmployeeIDs(props) {
         ).toFixed(2)
     );
 
-    var storeIncome = (Number(props.balanceDue) + Number(tips)).toFixed(
-        2
-    );
-    console.log(storeIncome);
-
+    var storeIncome = (Number(props.balanceDue) + Number(tips)).toFixed(2);
+    var service1 = props.service1 ? props.service1 : null;
+    var service2 = props.service2 ? props.service2 : null;
+    var service3 = props.service3 ? props.service3 : null;
+    var service4 = props.service4 ? props.service4 : null;
+    var service5 = props.service5 ? props.service5 : null;
+    var services =
+        service1 +
+        " " +
+        service2 +
+        " " +
+        service3 +
+        " " +
+        service4 +
+        " " +
+        service5;
+    var item1 = props.item1 ? props.itemQuantity1 + "*" + props.item1 : null;
+    var item2 = props.item2 ? props.itemQuantity2 + "*" + props.item2 : null;
+    var item3 = props.item3 ? props.itemQuantity3 + "*" + props.item3 : null;
+    var item4 = props.item4 ? props.itemQuantity4 + "*" + props.item4 : null;
+    var item5 = props.item5 ? props.itemQuantity5 + "*" + props.item5 : null;
+    var items = item1 + " " + item2 + " " + item3 + " " + item4 + " " + item5;
     // console.log("+++++++++++++++++");
     // console.log("props.serviceTotalAfterDiscount");
     // console.log(props.serviceTotalAfterDiscount);
@@ -125,8 +142,7 @@ export default function SelectEmployeeIDs(props) {
         body: formdata,
         redirect: "follow",
     };
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async () => {
         const response1 = await fetch(
             `${props.url}employee-pending-payments`,
             requestOptions
@@ -149,7 +165,7 @@ export default function SelectEmployeeIDs(props) {
         JSON.stringify({
             date: `${purchase_date}`,
             income: `${storeIncome}`,
-            description: `service income: ${props.serviceTotalAfterDiscount}, product income: `
+            description: `services: ${services} &#013;&#010; service discount: ${props.discount} &#013;&#010; service income: ${props.serviceTotalAfterDiscount} &#013;&#010; products: ${items} &#013;&#010; product income: ${props.itemtotal}`,
         })
     );
     var requestOptions2 = {
@@ -157,8 +173,7 @@ export default function SelectEmployeeIDs(props) {
         body: formdata2,
         redirect: "follow",
     };
-    const handlePostIncomeData = async (event) => {
-        event.preventDefault();
+    const handlePostIncomeData = async () => {
         const response = await fetch(
             `${props.url}income-histories`,
             requestOptions2
@@ -333,7 +348,8 @@ export default function SelectEmployeeIDs(props) {
             <button
                 onClick={(e) => {
                     e.preventDefault();
-                    handleSubmit(e);
+                    handleSubmit();
+                    handlePostIncomeData();
                 }}
             >
                 Confirm
