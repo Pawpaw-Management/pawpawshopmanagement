@@ -6,35 +6,36 @@ import Logo from "../../../images/logo.png";
 import "./Payment.css";
 
 export default function Payment(props) {
+    console.log("===============");
     // Define states
+    const [tips, setTips] = useState();
     const [discount, setDiscount] = useState(0);
     const [service1, setService1] = useState("");
     const [service2, setService2] = useState("");
     const [service3, setService3] = useState("");
     const [service4, setService4] = useState("");
     const [service5, setService5] = useState("");
-    const [serviceQuantity1, setServiceQuantity1] = useState();
-    const [serviceQuantity2, setServiceQuantity2] = useState();
-    const [serviceQuantity3, setServiceQuantity3] = useState();
-    const [serviceQuantity4, setServiceQuantity4] = useState();
-    const [serviceQuantity5, setServiceQuantity5] = useState();
+    const [serviceQuantity1, setServiceQuantity1] = useState(1);
+    const [serviceQuantity2, setServiceQuantity2] = useState(1);
+    const [serviceQuantity3, setServiceQuantity3] = useState(1);
+    const [serviceQuantity4, setServiceQuantity4] = useState(1);
+    const [serviceQuantity5, setServiceQuantity5] = useState(1);
     const [servicePrice1, setServicePrice1] = useState();
     const [servicePrice2, setServicePrice2] = useState();
     const [servicePrice3, setServicePrice3] = useState();
     const [servicePrice4, setServicePrice4] = useState();
     const [servicePrice5, setServicePrice5] = useState();
-    const [serviceTotalAfterDiscount, setServiceTotalAfterDiscount] =
-        useState();
+    const [serviceTotalAfterDiscount, setServiceTotalAfterDiscount] = useState();
     const [item1, setItem1] = useState("");
     const [item2, setItem2] = useState("");
     const [item3, setItem3] = useState("");
     const [item4, setItem4] = useState("");
     const [item5, setItem5] = useState("");
-    const [itemQuantity1, setItemQuantity1] = useState(undefined);
-    const [itemQuantity2, setItemQuantity2] = useState();
-    const [itemQuantity3, setItemQuantity3] = useState();
-    const [itemQuantity4, setItemQuantity4] = useState();
-    const [itemQuantity5, setItemQuantity5] = useState();
+    const [itemQuantity1, setItemQuantity1] = useState(1);
+    const [itemQuantity2, setItemQuantity2] = useState(1);
+    const [itemQuantity3, setItemQuantity3] = useState(1);
+    const [itemQuantity4, setItemQuantity4] = useState(1);
+    const [itemQuantity5, setItemQuantity5] = useState(1);
     const [itemPrice1, setItemPrice1] = useState();
     const [itemPrice2, setItemPrice2] = useState();
     const [itemPrice3, setItemPrice3] = useState();
@@ -81,7 +82,7 @@ export default function Payment(props) {
     var dd = String(purchase_date.getDate()).padStart(2, "0");
     var mm = String(purchase_date.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = purchase_date.getFullYear();
-    purchase_date = mm + "/" + dd + "/" + yyyy;
+    purchase_date = yyyy + "-" + mm + "-" + dd;
 
     var totalService1 =
         serviceQuantity1 && servicePrice1
@@ -162,11 +163,26 @@ export default function Payment(props) {
     ).toFixed(2);
     var gst = (subtotalAfterDiscount * 0.05).toFixed(2);
 
+    var services =
+        (service1 ? service1 + `: $${servicePrice1}` : "") +
+        (service2 ? ", " + service2 + `: $${servicePrice2}` : "") +
+        (service3 ? ", " + service3 + `: $${servicePrice3}` : "") +
+        (service4 ? ", " + service4 + `: $${servicePrice4}` : "") +
+        (service5 ? ", " + service5 + `: $${servicePrice5}` : "");
+    var items =
+        (item1 ? itemQuantity1 + "*" + item1 : "") +
+        (item2 ? ", " + itemQuantity2 + "*" + item2 : "") +
+        (item3 ? ", " + itemQuantity3 + "*" + item3 : "") +
+        (item4 ? ", " + itemQuantity4 + "*" + item4 : "") +
+        (item5 ? ", " + itemQuantity5 + "*" + item5 : "");
+
+    var description = `services: ${services} / service discount: ${discount} / service income: ${serviceTotalAfterDiscount} / products: ${items} / product income: ${itemtotal}`;
+
     // Every time subtotalAfterDiscount changes, update balanceDue
     useEffect(() => {
         setBalanceDue((Number(subtotalAfterDiscount) + Number(gst)).toFixed(2));
     }, [subtotalAfterDiscount]);
-    console.log(balanceDue);
+    console.log("balanceDue: ", balanceDue);
 
     // Every time itemTotal changes, update itemtotal
     useEffect(() => {
@@ -175,28 +191,22 @@ export default function Payment(props) {
 
     // Every time serviceTotal changes, update serviceTotalAfterDiscount
     useEffect(() => {
-        setServiceTotalAfterDiscount(
-            Number(serviceTotal) * (1 - Number(discount))
-        );
-    }, [serviceTotal]);
+        setServiceTotalAfterDiscount(Number(serviceTotal) * (1 - Number(discount)));
+    }, [serviceTotal, discount]);
 
     // Define onChange handlers
+    const changeTips = (event) => setTips(event.target.value);
     const changeDiscount = (event) => setDiscount(event.target.value);
     const changeService1 = (event) => setService1(event.target.value);
     const changeService2 = (event) => setService2(event.target.value);
     const changeService3 = (event) => setService3(event.target.value);
     const changeService4 = (event) => setService4(event.target.value);
     const changeService5 = (event) => setService5(event.target.value);
-    const changeServiceQuantity1 = (event) =>
-        setServiceQuantity1(event.target.value);
-    const changeServiceQuantity2 = (event) =>
-        setServiceQuantity2(event.target.value);
-    const changeServiceQuantity3 = (event) =>
-        setServiceQuantity3(event.target.value);
-    const changeServiceQuantity4 = (event) =>
-        setServiceQuantity4(event.target.value);
-    const changeServiceQuantity5 = (event) =>
-        setServiceQuantity5(event.target.value);
+    const changeServiceQuantity1 = (event) => setServiceQuantity1(event.target.value);
+    const changeServiceQuantity2 = (event) => setServiceQuantity2(event.target.value);
+    const changeServiceQuantity3 = (event) => setServiceQuantity3(event.target.value);
+    const changeServiceQuantity4 = (event) => setServiceQuantity4(event.target.value);
+    const changeServiceQuantity5 = (event) => setServiceQuantity5(event.target.value);
     const changeServicePrice1 = (event) => setServicePrice1(event.target.value);
     const changeServicePrice2 = (event) => setServicePrice2(event.target.value);
     const changeServicePrice3 = (event) => setServicePrice3(event.target.value);
@@ -230,14 +240,38 @@ export default function Payment(props) {
         });
     };
 
+    // Post data to DB
+    const handleSubmitToIncomeHistories = async () => {
+        const response = await fetch(`${props.url}income-histories`, {
+            method: "POST",
+            headers: {
+                accept: "application/json",
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                date: `${purchase_date}`,
+                income_before_tax: subtotalAfterDiscount,
+                income_after_tax: Number((Number(subtotalAfterDiscount) - Number(gst)).toFixed(2)),
+                tips: tips,
+                description: `${description}`,
+            }),
+        });
+        const content = await response.json();
+        console.log(content);
+        // Tell user the data above is successfully submitted
+        if (response.status === 200) {
+            alert(`Income information has been successfully uploaded!`);
+        } else {
+            alert("Error! Please make sure the database is running properly.");
+        }
+    };
+
     return (
         <section id="payments">
             <h1>Invoice Generator</h1>
             <div id="payments__inputs">
                 <div className="label-and-input__discount">
-                    <label htmlFor="discount">
-                        Discount (eg. 20% off should be 0.2)
-                    </label>
+                    <label htmlFor="discount">Discount (eg. 20% off should be 0.2)</label>
                     <input
                         value={discount}
                         onChange={changeDiscount}
@@ -398,12 +432,7 @@ export default function Payment(props) {
                 <div className="label-and-input">
                     <div className="label-and-input__item">
                         <label htmlFor="item1">item 1</label>
-                        <input
-                            value={item1}
-                            onChange={changeItem1}
-                            type="text"
-                            name="item1"
-                        />
+                        <input value={item1} onChange={changeItem1} type="text" name="item1" />
                     </div>
                     <div className="label-and-input__quantity">
                         <label htmlFor="item-quantity1">Quantity</label>
@@ -427,12 +456,7 @@ export default function Payment(props) {
                 <div className="label-and-input">
                     <div className="label-and-input__item">
                         <label htmlFor="item2">item 2</label>
-                        <input
-                            value={item2}
-                            onChange={changeItem2}
-                            type="text"
-                            name="item2"
-                        />
+                        <input value={item2} onChange={changeItem2} type="text" name="item2" />
                     </div>
                     <div className="label-and-input__quantity">
                         <label htmlFor="item-quantity2">Quantity</label>
@@ -456,12 +480,7 @@ export default function Payment(props) {
                 <div className="label-and-input">
                     <div className="label-and-input__item">
                         <label htmlFor="item3">item 3</label>
-                        <input
-                            value={item3}
-                            onChange={changeItem3}
-                            type="text"
-                            name="item3"
-                        />
+                        <input value={item3} onChange={changeItem3} type="text" name="item3" />
                     </div>
                     <div className="label-and-input__quantity">
                         <label htmlFor="item-quantity3">Quantity</label>
@@ -485,12 +504,7 @@ export default function Payment(props) {
                 <div className="label-and-input">
                     <div className="label-and-input__item">
                         <label htmlFor="item4">item 4</label>
-                        <input
-                            value={item4}
-                            onChange={changeItem4}
-                            type="text"
-                            name="item4"
-                        />
+                        <input value={item4} onChange={changeItem4} type="text" name="item4" />
                     </div>
                     <div className="label-and-input__quantity">
                         <label htmlFor="item-quantity4">Quantity</label>
@@ -514,12 +528,7 @@ export default function Payment(props) {
                 <div className="label-and-input">
                     <div className="label-and-input__item">
                         <label htmlFor="item5">item 5</label>
-                        <input
-                            value={item5}
-                            onChange={changeItem5}
-                            type="text"
-                            name="item5"
-                        />
+                        <input value={item5} onChange={changeItem5} type="text" name="item5" />
                     </div>
                     <div className="label-and-input__quantity">
                         <label htmlFor="item-quantity5">Quantity</label>
@@ -541,16 +550,30 @@ export default function Payment(props) {
                     </div>
                 </div>
             </div>
-            <button
-                id="pay-employees-button"
-                onClick={(e) => {
-                    e.preventDefault();
-                    setVisibilityEmployees(true);
-                }}
-            >
-                Calculate Store Income & Pay Employees
-            </button>
-            <br></br>
+            <div className="label-and-input">
+                <label htmlFor="tips">Tips:</label>
+                <input type="number" name="tips" value={tips} onChange={changeTips} />
+            </div>
+            <div id="payment__buttons-for-calculations">
+                <button
+                    id="pay-employees-button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setVisibilityEmployees(true);
+                    }}
+                >
+                    Pay Employee(s)
+                </button>
+                <button
+                    id="calc-store-income-button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        handleSubmitToIncomeHistories();
+                    }}
+                >
+                    Upload Income Information
+                </button>
+            </div>
             <div id="payments__title-and-print-button">
                 <span>Invoice Preview</span>
                 <button id="payments__print-button" onClick={printDocument}>
@@ -582,12 +605,8 @@ export default function Payment(props) {
                             <tbody>
                                 {/* Services */}
                                 <tr id="service1">
-                                    {service1 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{service1}</td>
-                                    )}
-                                    {serviceQuantity1 === undefined ? (
+                                    {service1 === "" ? <td></td> : <td>{service1}</td>}
+                                    {servicePrice1 === undefined ? (
                                         <td></td>
                                     ) : (
                                         <td>{serviceQuantity1}</td>
@@ -597,19 +616,11 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{servicePrice1}</td>
                                     )}
-                                    {service1 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{totalService1}</td>
-                                    )}
+                                    {service1 === "" ? <td></td> : <td>{totalService1}</td>}
                                 </tr>
                                 <tr id="service2">
-                                    {service2 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{service2}</td>
-                                    )}
-                                    {serviceQuantity2 === undefined ? (
+                                    {service2 === "" ? <td></td> : <td>{service2}</td>}
+                                    {servicePrice2 === undefined ? (
                                         <td></td>
                                     ) : (
                                         <td>{serviceQuantity2}</td>
@@ -619,19 +630,11 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{servicePrice2}</td>
                                     )}
-                                    {service2 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{totalService2}</td>
-                                    )}
+                                    {service2 === "" ? <td></td> : <td>{totalService2}</td>}
                                 </tr>
                                 <tr id="service3">
-                                    {service3 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{service3}</td>
-                                    )}
-                                    {serviceQuantity3 === undefined ? (
+                                    {service3 === "" ? <td></td> : <td>{service3}</td>}
+                                    {servicePrice3 === undefined ? (
                                         <td></td>
                                     ) : (
                                         <td>{serviceQuantity3}</td>
@@ -641,19 +644,11 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{servicePrice3}</td>
                                     )}
-                                    {service3 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{totalService3}</td>
-                                    )}
+                                    {service3 === "" ? <td></td> : <td>{totalService3}</td>}
                                 </tr>
                                 <tr id="service4">
-                                    {service4 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{service4}</td>
-                                    )}
-                                    {serviceQuantity4 === undefined ? (
+                                    {service4 === "" ? <td></td> : <td>{service4}</td>}
+                                    {servicePrice4 === undefined ? (
                                         <td></td>
                                     ) : (
                                         <td>{serviceQuantity4}</td>
@@ -663,19 +658,11 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{servicePrice4}</td>
                                     )}
-                                    {service4 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{totalService4}</td>
-                                    )}
+                                    {service4 === "" ? <td></td> : <td>{totalService4}</td>}
                                 </tr>
                                 <tr id="service5">
-                                    {service5 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{service5}</td>
-                                    )}
-                                    {serviceQuantity5 === undefined ? (
+                                    {service5 === "" ? <td></td> : <td>{service5}</td>}
+                                    {servicePrice5 === undefined ? (
                                         <td></td>
                                     ) : (
                                         <td>{serviceQuantity5}</td>
@@ -685,122 +672,58 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{servicePrice5}</td>
                                     )}
-                                    {service5 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{totalService5}</td>
-                                    )}
+                                    {service5 === "" ? <td></td> : <td>{totalService5}</td>}
                                 </tr>
                                 {/* Products */}
                                 <tr id="item1">
-                                    {item1 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{item1}</td>
-                                    )}
-                                    {itemQuantity1 === undefined ? (
+                                    {item1 === "" ? <td></td> : <td>{item1}</td>}
+                                    {itemPrice1 === undefined ? (
                                         <td></td>
                                     ) : (
                                         <td>{itemQuantity1}</td>
                                     )}
-                                    {itemPrice1 === undefined ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{itemPrice1}</td>
-                                    )}
-                                    {item1 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{totalItem1}</td>
-                                    )}
+                                    {itemPrice1 === undefined ? <td></td> : <td>{itemPrice1}</td>}
+                                    {item1 === "" ? <td></td> : <td>{totalItem1}</td>}
                                 </tr>
                                 <tr id="item2">
-                                    {item2 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{item2}</td>
-                                    )}
-                                    {itemQuantity2 === undefined ? (
+                                    {item2 === "" ? <td></td> : <td>{item2}</td>}
+                                    {itemPrice2 === undefined ? (
                                         <td></td>
                                     ) : (
                                         <td>{itemQuantity2}</td>
                                     )}
-                                    {itemPrice2 === undefined ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{itemPrice2}</td>
-                                    )}
-                                    {item2 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{totalItem2}</td>
-                                    )}
+                                    {itemPrice2 === undefined ? <td></td> : <td>{itemPrice2}</td>}
+                                    {item2 === "" ? <td></td> : <td>{totalItem2}</td>}
                                 </tr>
                                 <tr id="item3">
-                                    {item3 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{item3}</td>
-                                    )}
-                                    {itemQuantity3 === undefined ? (
+                                    {item3 === "" ? <td></td> : <td>{item3}</td>}
+                                    {itemPrice3 === undefined ? (
                                         <td></td>
                                     ) : (
                                         <td>{itemQuantity3}</td>
                                     )}
-                                    {itemPrice3 === undefined ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{itemPrice3}</td>
-                                    )}
-                                    {item3 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{totalItem3}</td>
-                                    )}
+                                    {itemPrice3 === undefined ? <td></td> : <td>{itemPrice3}</td>}
+                                    {item3 === "" ? <td></td> : <td>{totalItem3}</td>}
                                 </tr>
                                 <tr id="item4">
-                                    {item4 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{item4}</td>
-                                    )}
-                                    {itemQuantity4 === undefined ? (
+                                    {item4 === "" ? <td></td> : <td>{item4}</td>}
+                                    {itemPrice4 === undefined ? (
                                         <td></td>
                                     ) : (
                                         <td>{itemQuantity4}</td>
                                     )}
-                                    {itemPrice4 === undefined ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{itemPrice4}</td>
-                                    )}
-                                    {item4 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{totalItem4}</td>
-                                    )}
+                                    {itemPrice4 === undefined ? <td></td> : <td>{itemPrice4}</td>}
+                                    {item4 === "" ? <td></td> : <td>{totalItem4}</td>}
                                 </tr>
                                 <tr id="item5">
-                                    {item5 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{item5}</td>
-                                    )}
-                                    {itemQuantity5 === undefined ? (
+                                    {item5 === "" ? <td></td> : <td>{item5}</td>}
+                                    {itemPrice5 === undefined ? (
                                         <td></td>
                                     ) : (
                                         <td>{itemQuantity5}</td>
                                     )}
-                                    {itemPrice5 === undefined ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{itemPrice5}</td>
-                                    )}
-                                    {item5 === "" ? (
-                                        <td></td>
-                                    ) : (
-                                        <td>{totalItem5}</td>
-                                    )}
+                                    {itemPrice5 === undefined ? <td></td> : <td>{itemPrice5}</td>}
+                                    {item5 === "" ? <td></td> : <td>{totalItem5}</td>}
                                 </tr>
                                 <tr>
                                     <td>
@@ -811,18 +734,14 @@ export default function Payment(props) {
                                     <tr>
                                         <td></td>
                                         <td></td>
-                                        <td className="table__font-bold">
-                                            Service Discount
-                                        </td>
+                                        <td className="table__font-bold">Service Discount</td>
                                         <td>{discountPercent}</td>
                                     </tr>
                                 )}
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td className="table__font-bold">
-                                        Subtotal
-                                    </td>
+                                    <td className="table__font-bold">Subtotal</td>
                                     <td>{subtotalAfterDiscount}</td>
                                 </tr>
                                 <tr>
