@@ -1,11 +1,23 @@
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 #payments__inputs {
     margin-bottom: 2rem;
+}
+
+#payments__section-for-printing__client-info__tables__details {
+    width: unset;
+    border-collapse: unset;
+    border-spacing: unset;
+}
+
+#payments__section-for-printing__client-info__tables__details th,
+#payments__section-for-printing__client-info__tables__details td {
+    background-color: unset;
+    font-size: unset;
 }
 
 .label-and-input,
@@ -40,6 +52,7 @@ input::-webkit-inner-spin-button {
 
 #pay-employees-button {
     margin-bottom: 2rem;
+    margin-right: 2rem;
 }
 
 #payments__print-button {
