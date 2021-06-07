@@ -1,0 +1,18 @@
+#daily-income-editor {
+    width: 75vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#daily-income-editor .input-and-label {
+    width: 30rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+#daily-income-editor .input-and-label label {
+    width: max-content;
+    font-size: 1.3rem;
+}
