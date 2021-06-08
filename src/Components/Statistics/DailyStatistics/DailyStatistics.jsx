@@ -34,11 +34,13 @@ export default function DailyStatistics(props) {
         incomeHistoriesOnDate
             .map((item) => Number(item.income_after_tax))
             .reduce((a, b) => a + b, 0);
-    var totalGst = Number(totalIncomeBeforeTax) - Number(totalIncomeAfterTax);
+    var totalGst = Number((Number(totalIncomeBeforeTax) - Number(totalIncomeAfterTax)).toFixed(2));
     var totalTips =
         incomeHistoriesOnDate &&
         incomeHistoriesOnDate.map((item) => Number(item.tips)).reduce((a, b) => a + b, 0);
-    var total = totalIncomeBeforeTax + totalTips;
+    var total = Number(
+        (Number(totalIncomeBeforeTax) + Number(totalGst) + Number(totalTips)).toFixed(2)
+    );
     // console.log("totalIncomeBeforeTax:", totalIncomeBeforeTax);
 
     // Define onChange handlers
