@@ -36,10 +36,11 @@
 #pet-1,
 #pet-2,
 #pet-3,
-#pet-4 {
+#pet-4,
+.multiple-pet-wrapper {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -53,7 +54,6 @@
 
 .customer-and-pet__infoEditor textarea {
     min-width: 40vw;
-    min-height: 200px;
 }
 
 .eachCustomerAndPetInfo-photo {
