@@ -3,62 +3,69 @@ import "./InfoEditor.css";
 import "../../../CommonElements.css";
 
 export default function InfoEditor(props) {
-    console.log(props.accountId);
+    console.log("props.accountId: ", props.accountId);
     // Define states
     const [customer_first_name, setCustomerFirstName] = useState("");
     const [customer_last_name, setCustomerLastName] = useState("");
-    const [customer_phone, setCustomerPhone] = useState("");
-    const [customer_email, setCustomerEmail] = useState("");
+    const [customer_phone, setCustomerPhone] = useState(0);
+    const [customer_email, setCustomerEmail] = useState();
     // Pet #1
     const [pet_name, setPetName] = useState("");
+    const [pet_price, setPetPrice] = useState("");
     const [pet_breed, setPetBreed] = useState("");
     const [pet_birthday, setPetBirthday] = useState("");
-    const [pet_size, setPetSize] = useState("");
-    const [pet_shampoo, setPetShampoo] = useState("");
+    const [pet_size, setPetSize] = useState("Small");
+    const [pet_shampoo, setPetShampoo] = useState("Rose");
     const [pet_gender, setPetGender] = useState("");
     const [pet_is_neutered, setPetIsNeutered] = useState("");
     const [pet_note, setPetNote] = useState("");
+    const [pet_note_height, setPetNoteHeight] = useState(0);
     const [pet_photo, setPetPhoto] = useState(null);
     // Pet #2
     const [pet_name2, setPetName2] = useState("");
+    const [pet_price2, setPetPrice2] = useState("");
     const [pet_breed2, setPetBreed2] = useState("");
     const [pet_birthday2, setPetBirthday2] = useState("");
-    const [pet_size2, setPetSize2] = useState("");
-    const [pet_shampoo2, setPetShampoo2] = useState("");
+    const [pet_size2, setPetSize2] = useState("Small");
+    const [pet_shampoo2, setPetShampoo2] = useState("Rose");
     const [pet_gender2, setPetGender2] = useState("");
     const [pet_is_neutered2, setPetIsNeutered2] = useState("");
     const [pet_note2, setPetNote2] = useState("");
+    const [pet_note_height2, setPetNoteHeight2] = useState(0);
     const [pet_photo2, setPetPhoto2] = useState(null);
     // Pet #3
     const [pet_name3, setPetName3] = useState("");
+    const [pet_price3, setPetPrice3] = useState("");
     const [pet_breed3, setPetBreed3] = useState("");
     const [pet_birthday3, setPetBirthday3] = useState("");
-    const [pet_size3, setPetSize3] = useState("");
-    const [pet_shampoo3, setPetShampoo3] = useState("");
+    const [pet_size3, setPetSize3] = useState("Small");
+    const [pet_shampoo3, setPetShampoo3] = useState("Rose");
     const [pet_gender3, setPetGender3] = useState("");
     const [pet_is_neutered3, setPetIsNeutered3] = useState("");
     const [pet_note3, setPetNote3] = useState("");
+    const [pet_note_height3, setPetNoteHeight3] = useState(0);
     const [pet_photo3, setPetPhoto3] = useState(null);
     // Pet #4
     const [pet_name4, setPetName4] = useState("");
+    const [pet_price4, setPetPrice4] = useState("");
     const [pet_breed4, setPetBreed4] = useState("");
     const [pet_birthday4, setPetBirthday4] = useState("");
-    const [pet_size4, setPetSize4] = useState("");
-    const [pet_shampoo4, setPetShampoo4] = useState("");
+    const [pet_size4, setPetSize4] = useState("Small");
+    const [pet_shampoo4, setPetShampoo4] = useState("Rose");
     const [pet_gender4, setPetGender4] = useState("");
     const [pet_is_neutered4, setPetIsNeutered4] = useState("");
     const [pet_note4, setPetNote4] = useState("");
+    const [pet_note_height4, setPetNoteHeight4] = useState(0);
     const [pet_photo4, setPetPhoto4] = useState(null);
 
     // Define onChange event handlers
-    const changeCustomerFirstName = (event) =>
-        setCustomerFirstName(event.target.value);
-    const changeCustomerLastName = (event) =>
-        setCustomerLastName(event.target.value);
+    const changeCustomerFirstName = (event) => setCustomerFirstName(event.target.value);
+    const changeCustomerLastName = (event) => setCustomerLastName(event.target.value);
     const changePhone = (event) => setCustomerPhone(event.target.value);
     const changeEmail = (event) => setCustomerEmail(event.target.value);
     // Pet #1
     const changePetName = (event) => setPetName(event.target.value);
+    const changePetPrice = (event) => setPetPrice(event.target.value);
     const changePetBreed = (event) => setPetBreed(event.target.value);
     const changeBirthday = (event) => setPetBirthday(event.target.value);
     const changePetSize = (event) => setPetSize(event.target.value);
@@ -79,6 +86,7 @@ export default function InfoEditor(props) {
     const changePetName2 = (event) => {
         setPetName2(event.target.value);
     };
+    const changePetPrice2 = (event) => setPetPrice2(event.target.value);
     const changePetBreed2 = (event) => {
         setPetBreed2(event.target.value);
     };
@@ -107,6 +115,7 @@ export default function InfoEditor(props) {
     const changePetName3 = (event) => {
         setPetName3(event.target.value);
     };
+    const changePetPrice3 = (event) => setPetPrice3(event.target.value);
     const changePetBreed3 = (event) => {
         setPetBreed3(event.target.value);
     };
@@ -135,6 +144,7 @@ export default function InfoEditor(props) {
     const changePetName4 = (event) => {
         setPetName4(event.target.value);
     };
+    const changePetPrice4 = (event) => setPetPrice4(event.target.value);
     const changePetBreed4 = (event) => {
         setPetBreed4(event.target.value);
     };
@@ -164,9 +174,7 @@ export default function InfoEditor(props) {
     // 1. Define the current account
     const current_account =
         props.customers_and_pets &&
-        props.customers_and_pets.find(
-            (account) => account.id === props.accountId
-        );
+        props.customers_and_pets.find((account) => account.id === props.accountId);
 
     // 2. Assign data from current_account to states when accountId changes
     useEffect(() => {
@@ -176,6 +184,7 @@ export default function InfoEditor(props) {
             setCustomerPhone(current_account.customer_phone);
             setCustomerEmail(current_account.customer_email);
             setPetName(current_account.pet_name);
+            setPetPrice(current_account.pet_price);
             setPetBreed(current_account.pet_breed);
             setPetBirthday(current_account.pet_birthday);
             setPetSize(current_account.pet_size);
@@ -185,6 +194,7 @@ export default function InfoEditor(props) {
             setPetIsNeutered(current_account.pet_is_neutered);
             // Pet #2
             setPetName2(current_account.pet_name2);
+            setPetPrice2(current_account.pet_price2);
             setPetBreed2(current_account.pet_breed2);
             setPetBirthday2(current_account.pet_birthday2);
             setPetSize2(current_account.pet_size2);
@@ -194,6 +204,7 @@ export default function InfoEditor(props) {
             setPetIsNeutered2(current_account.pet_is_neutered2);
             // Pet #3
             setPetName3(current_account.pet_name3);
+            setPetPrice3(current_account.pet_price3);
             setPetBreed3(current_account.pet_breed3);
             setPetBirthday3(current_account.pet_birthday3);
             setPetSize3(current_account.pet_size3);
@@ -203,6 +214,7 @@ export default function InfoEditor(props) {
             setPetIsNeutered3(current_account.pet_is_neutered3);
             // Pet #4
             setPetName4(current_account.pet_name4);
+            setPetPrice4(current_account.pet_price4);
             setPetBreed4(current_account.pet_breed4);
             setPetBirthday4(current_account.pet_birthday4);
             setPetSize4(current_account.pet_size4);
@@ -211,7 +223,7 @@ export default function InfoEditor(props) {
             setPetGender4(current_account.pet_gender4);
             setPetIsNeutered4(current_account.pet_is_neutered4);
         }
-    }, [props.accountId]);
+    }, [props.accountId, current_account]);
 
     // Props.url has a "/" at the end, need to remove it before using it in next step
     const processed_url = props.url.slice(0, -1);
@@ -230,12 +242,7 @@ export default function InfoEditor(props) {
         pet_photoOrInput = (
             <div className="label-and-input">
                 <label htmlFor="pet_photo">Pet Photo:</label>
-                <input
-                    type="file"
-                    name="pet_photo"
-                    id="pet_photo"
-                    onChange={changePetPhoto}
-                />
+                <input type="file" name="pet_photo" id="pet_photo" onChange={changePetPhoto} />
             </div>
         );
     }
@@ -252,12 +259,7 @@ export default function InfoEditor(props) {
         pet_photoOrInput2 = (
             <div className="label-and-input">
                 <label htmlFor="pet_photo2">Pet #2 Photo:</label>
-                <input
-                    type="file"
-                    name="pet_photo2"
-                    id="pet_photo2"
-                    onChange={changePetPhoto2}
-                />
+                <input type="file" name="pet_photo2" id="pet_photo2" onChange={changePetPhoto2} />
             </div>
         );
     }
@@ -274,12 +276,7 @@ export default function InfoEditor(props) {
         pet_photoOrInput3 = (
             <div className="label-and-input">
                 <label htmlFor="pet_photo3">Pet #3 Photo:</label>
-                <input
-                    type="file"
-                    name="pet_photo3"
-                    id="pet_photo3"
-                    onChange={changePetPhoto3}
-                />
+                <input type="file" name="pet_photo3" id="pet_photo3" onChange={changePetPhoto3} />
             </div>
         );
     }
@@ -296,12 +293,7 @@ export default function InfoEditor(props) {
         pet_photoOrInput4 = (
             <div className="label-and-input">
                 <label htmlFor="pet_photo4">Pet #4 Photo:</label>
-                <input
-                    type="file"
-                    name="pet_photo4"
-                    id="pet_photo4"
-                    onChange={changePetPhoto4}
-                />
+                <input type="file" name="pet_photo4" id="pet_photo4" onChange={changePetPhoto4} />
             </div>
         );
     }
@@ -328,6 +320,7 @@ export default function InfoEditor(props) {
             customer_phone: `${customer_phone}`,
             customer_email: `${customer_email}`,
             pet_name: `${pet_name}`,
+            pet_price: `${pet_price}`,
             pet_breed: `${pet_breed}`,
             pet_birthday: `${pet_birthday}`,
             pet_size: `${pet_size}`,
@@ -336,6 +329,7 @@ export default function InfoEditor(props) {
             pet_is_neutered: `${pet_is_neutered}`,
             pet_note: `${pet_note}`,
             pet_name2: `${pet_name2}`,
+            pet_price2: `${pet_price2}`,
             pet_breed2: `${pet_breed2}`,
             pet_birthday2: `${pet_birthday2}`,
             pet_size2: `${pet_size2}`,
@@ -344,6 +338,7 @@ export default function InfoEditor(props) {
             pet_is_neutered2: `${pet_is_neutered2}`,
             pet_note2: `${pet_note2}`,
             pet_name3: `${pet_name3}`,
+            pet_price3: `${pet_price3}`,
             pet_breed3: `${pet_breed3}`,
             pet_birthday3: `${pet_birthday3}`,
             pet_size3: `${pet_size3}`,
@@ -352,6 +347,7 @@ export default function InfoEditor(props) {
             pet_is_neutered3: `${pet_is_neutered3}`,
             pet_note3: `${pet_note3}`,
             pet_name4: `${pet_name4}`,
+            pet_price4: `${pet_price4}`,
             pet_breed4: `${pet_breed4}`,
             pet_birthday4: `${pet_birthday4}`,
             pet_size4: `${pet_size4}`,
@@ -362,7 +358,6 @@ export default function InfoEditor(props) {
         })
     );
 
-    // Please test "put" method, see if it works on files
     var requestOptions = {
         method: "PUT",
         body: formdata,
@@ -377,83 +372,52 @@ export default function InfoEditor(props) {
         );
         if (response.status === 200) {
             alert(`Account Information Updated!`);
+            props.setRefresh(!props.refresh);
+            props.setVisibility(false);
         } else {
             alert("Error! Please make sure the database is running properly.");
         }
     };
-
-    // // Define a function to update account information on server
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-
-    //     if (props.url && props.accountId) {
-    //         const response = await fetch(
-    //             `${props.url}customers-and-pets/${props.accountId}`,
-    //             {
-    //                 method: "PUT",
-    //                 headers: {
-    //                     accept: "application/json",
-    //                     "content-type": "application/json",
-    //                 },
-    //                 body: JSON.stringify({
-    //                     customer_first_name: `${customer_first_name}`,
-    //                     customer_last_name: `${customer_last_name}`,
-    //                     customer_phone: `${customer_phone}`,
-    //                     customer_email: `${customer_email}`,
-    //                     pet_name: `${pet_name}`,
-    //                     pet_breed: `${pet_breed}`,
-    //                     pet_birthday: `${pet_birthday}`,
-    //                     pet_size: `${pet_size}`,
-    //                     pet_note: `${pet_note}`,
-    //                     pet_name2: `${pet_name2}`,
-    //                     pet_breed2: `${pet_breed2}`,
-    //                     pet_birthday2: `${pet_birthday2}`,
-    //                     pet_size2: `${pet_size2}`,
-    //                     pet_note2: `${pet_note2}`,
-    //                     pet_name3: `${pet_name3}`,
-    //                     pet_breed3: `${pet_breed3}`,
-    //                     pet_birthday3: `${pet_birthday3}`,
-    //                     pet_size3: `${pet_size3}`,
-    //                     pet_note3: `${pet_note3}`,
-    //                     pet_name4: `${pet_name4}`,
-    //                     pet_breed4: `${pet_breed4}`,
-    //                     pet_birthday4: `${pet_birthday4}`,
-    //                     pet_size4: `${pet_size4}`,
-    //                     pet_note4: `${pet_note4}`,
-    //                 }),
-    //             }
-    //         );
-    //         const content = await response.json();
-    //         console.log(content);
-    //         // Tell user the data above is successfully submitted
-    //         if (response.status === 200) {
-    //             alert("Account Information Updated!");
-    //         } else {
-    //             alert("Error! Please make sure database is running properly.");
-    //         }
-    //     }
-    // };
+    // console.log("pet_name2: ", pet_name2);
+    // console.log("pet_name3: ", pet_name3);
+    // console.log("pet_name4: ", pet_name4);
 
     // Make the textareas adjust height according to content
-    var textareas = document.getElementsByClassName("pet_notes");
-    console.log(textareas[3]);
-    for (let i = 0; i < textareas.length; i++) {
-        // textareas[i].style.height = "5px";
-        textareas[i].style.height = textareas[i].scrollHeight + "px";
-    }
+    const calcHeight = (value) => {
+        let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+        // newHeight = min-height + lines x line-height + padding + border
+        let newHeight = 20 + numberOfLineBreaks * 14.5 + 12 + 2;
+        return newHeight;
+    };
+
+    // When component mount, calculate and set height of the textareas according to content.
+    useEffect(() => {
+        if (pet_note) {
+            setPetNoteHeight(calcHeight(pet_note) + "px");
+        }
+    }, [pet_note]);
+    useEffect(() => {
+        if (pet_note2) {
+            setPetNoteHeight2(calcHeight(pet_note2) + "px");
+        }
+    }, [pet_note2]);
+    useEffect(() => {
+        if (pet_note3) {
+            setPetNoteHeight3(calcHeight(pet_note3) + "px");
+        }
+    }, [pet_note3]);
+    useEffect(() => {
+        if (pet_note4) {
+            setPetNoteHeight4(calcHeight(pet_note4) + "px");
+        }
+    }, [pet_note4]);
 
     return (
         <div className="customer-and-pet__infoEditor window">
-            <button
-                className="button_esc"
-                onClick={() => props.setVisibility(false)}
-            >
+            <button className="button_esc" onClick={() => props.setVisibility(false)}>
                 X
             </button>
-            <form
-                className="infoEditor_customer_registrition"
-                onSubmit={handleSubmit}
-            >
+            <form className="infoEditor_customer_registrition" onSubmit={handleSubmit}>
                 <div id="customer">
                     <div className="label-and-input">
                         <label htmlFor="customer_first_name">First Name:</label>
@@ -497,9 +461,7 @@ export default function InfoEditor(props) {
                         />
                     </div>
                 </div>
-                <span className="customer-and-pet__infoEditor__title">
-                    Pet #1
-                </span>
+                <span className="customer-and-pet__infoEditor__title">Pet #1</span>
                 <div id="pet-1">
                     <div className="label-and-input">
                         <label htmlFor="pet_name">Pet Name:</label>
@@ -512,9 +474,19 @@ export default function InfoEditor(props) {
                         />
                     </div>
                     <div className="label-and-input">
+                        <label htmlFor="pet_price">Pet Price:</label>
+                        <input
+                            type="number"
+                            name="pet_price"
+                            id="pet_price"
+                            value={pet_price}
+                            onChange={changePetPrice}
+                        />
+                    </div>
+                    <div className="label-and-input">
                         <label htmlFor="pet_birthday">Pet Birthday:</label>
                         <input
-                            type="date"
+                            type="text"
                             name="pet_birthday"
                             id="pet_birthday"
                             value={pet_birthday}
@@ -557,9 +529,7 @@ export default function InfoEditor(props) {
                             onChange={changePetShampoo}
                         >
                             <option value="Rose">Rose</option>
-                            <option value="Macadamia Nuts">
-                                Macadamia Nuts
-                            </option>
+                            <option value="Macadamia Nuts">Macadamia Nuts</option>
                             <option value="Lavender">Lavender</option>
                             <option value="Bergamot">Bergamot</option>
                         </select>
@@ -596,6 +566,7 @@ export default function InfoEditor(props) {
                     <div className="label-and-input">
                         <label htmlFor="pet_note">Note:</label>
                         <textarea
+                            style={{ height: pet_note_height }}
                             type="text"
                             name="pet_note"
                             id="pet_note"
@@ -605,336 +576,393 @@ export default function InfoEditor(props) {
                         />
                     </div>
                 </div>
-                <span className="customer-and-pet__infoEditor__title">
-                    Pet #2
-                </span>
-                <div className="add-more-pet-info" id="pet-2">
-                    <div className="label-and-input">
-                        <label htmlFor="pet_name2">Pet#2 Name:</label>
-                        <input
-                            type="text"
-                            name="pet_name2"
-                            id="pet_name2"
-                            value={pet_name2}
-                            onChange={changePetName2}
-                        />
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_birthday2">Pet#2 Birthday:</label>
-                        <input
-                            type="date"
-                            name="pet_birthday2"
-                            id="pet_birthday2"
-                            value={pet_birthday2}
-                            onChange={changeBirthday2}
-                        />
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_breed2">Pet#2 Breed:</label>
-                        <input
-                            type="text"
-                            name="pet_breed2"
-                            id="pet_breed2"
-                            value={pet_breed2}
-                            onChange={changePetBreed2}
-                        />
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_size2">Pet#2 Size:</label>
-                        <select
-                            type="text"
-                            name="pet_size2"
-                            id="pet_size2"
-                            value={pet_size2}
-                            onChange={changePetSize2}
-                        >
-                            <option value="Small">Small</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Large">Large</option>
-                            <option value="XL">XL</option>
-                            <option value="XXL">XXL</option>
-                        </select>
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_shampoo2">Pet#2 Shampoo:</label>
-                        <select
-                            type="text"
-                            name="pet_shampoo2"
-                            id="pet_shampoo2"
-                            value={pet_shampoo2}
-                            onChange={changePetShampoo2}
-                        >
-                            <option value="Rose">Rose</option>
-                            <option value="Macadamia Nuts">
-                                Macadamia Nuts
-                            </option>
-                            <option value="Lavender">Lavender</option>
-                            <option value="Bergamot">Bergamot</option>
-                        </select>
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_gender2">Pet#2 Gender:</label>
-                        <select
-                            type="text"
-                            name="pet_gender2"
-                            id="pet_gender2"
-                            value={pet_gender2}
-                            onChange={changePetGender2}
-                        >
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_is_neutered2">
-                            Pet#2 Neutered?
-                        </label>
-                        <select
-                            type="text"
-                            name="pet_is_neutered2"
-                            id="pet_is_neutered2"
-                            value={pet_is_neutered2}
-                            onChange={changePetIsNeutered2}
-                        >
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                    </div>
-                    <div className="line-break"></div>
-                    {pet_photoOrInput2}
-                    <div className="line-break"></div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_note2">Pet#2 Note:</label>
-                        <textarea
-                            type="text"
-                            name="pet_note2"
-                            id="pet_note2"
-                            className="pet_notes"
-                            value={pet_note2}
-                            onChange={changePetNote2}
-                        />
-                    </div>
-                </div>
-                <span className="customer-and-pet__infoEditor__title">
-                    Pet #3
-                </span>
-                <div className="add-more-pet-info" id="pet-3">
-                    <div className="label-and-input">
-                        <label htmlFor="pet_name3">Pet#3 Name:</label>
-                        <input
-                            type="text"
-                            name="pet_name3"
-                            id="pet_name3"
-                            value={pet_name3}
-                            onChange={changePetName3}
-                        />
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_birthday3">Pet#3 Birthday:</label>
-                        <input
-                            type="date"
-                            name="pet_birthday3"
-                            id="pet_birthday3"
-                            value={pet_birthday3}
-                            onChange={changeBirthday3}
-                        />
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_breed3">Pet#3 Breed:</label>
-                        <input
-                            type="text"
-                            name="pet_breed3"
-                            id="pet_breed3"
-                            value={pet_breed3}
-                            onChange={changePetBreed3}
-                        />
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_size3">Pet#3 Size:</label>
-                        <select
-                            type="text"
-                            name="pet_size3"
-                            id="pet_size3"
-                            value={pet_size3}
-                            onChange={changePetSize3}
-                        >
-                            <option value="Small">Small</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Large">Large</option>
-                            <option value="XL">XL</option>
-                            <option value="XXL">XXL</option>
-                        </select>
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_shampoo3">Pet#3 Shampoo:</label>
-                        <select
-                            type="text"
-                            name="pet_shampoo3"
-                            id="pet_shampoo3"
-                            value={pet_shampoo3}
-                            onChange={changePetShampoo3}
-                        >
-                            <option value="Rose">Rose</option>
-                            <option value="Macadamia Nuts">
-                                Macadamia Nuts
-                            </option>
-                            <option value="Lavender">Lavender</option>
-                            <option value="Bergamot">Bergamot</option>
-                        </select>
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_gender3">Pet#3 Gender:</label>
-                        <select
-                            type="text"
-                            name="pet_gender3"
-                            id="pet_gender3"
-                            value={pet_gender3}
-                            onChange={changePetGender3}
-                        >
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_is_neutered3">
-                            Pet#3 Neutered?
-                        </label>
-                        <select
-                            type="text"
-                            name="pet_is_neutered3"
-                            id="pet_is_neutered3"
-                            value={pet_is_neutered3}
-                            onChange={changePetIsNeutered3}
-                        >
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                    </div>
-                    <div className="line-break"></div>
-                    {pet_photoOrInput3}
-                    <div className="line-break"></div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_note3">Pet#3 Note:</label>
-                        <textarea
-                            type="text"
-                            name="pet_note3"
-                            id="pet_note3"
-                            className="pet_notes"
-                            value={pet_note3}
-                            onChange={changePetNote3}
-                        />
-                    </div>
-                </div>
-                <span className="customer-and-pet__infoEditor__title">
-                    Pet #4
-                </span>
-                <div className="add-more-pet-info" id="pet-4">
-                    <div className="label-and-input">
-                        <label htmlFor="pet_name4">Pet#4 Name:</label>
-                        <input
-                            type="text"
-                            name="pet_name4"
-                            id="pet_name4"
-                            value={pet_name4}
-                            onChange={changePetName4}
-                        />
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_birthday4">Pet#4 Birthday:</label>
-                        <input
-                            type="date"
-                            name="pet_birthday4"
-                            id="pet_birthday4"
-                            value={pet_birthday4}
-                            onChange={changeBirthday4}
-                        />
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_breed4">Pet#4 Breed:</label>
-                        <input
-                            type="text"
-                            name="pet_breed4"
-                            id="pet_breed4"
-                            value={pet_breed4}
-                            onChange={changePetBreed4}
-                        />
-                    </div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_size4">Pet#4 Size:</label>
-                        <select
-                            type="text"
-                            name="pet_size4"
-                            id="pet_size4"
-                            value={pet_size4}
-                            onChange={changePetSize4}
-                        >
-                            <option value="Small">Small</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Large">Large</option>
-                            <option value="XL">XL</option>
-                            <option value="XXL">XXL</option>
-                        </select>
-                    </div>
-                    <div className="label-and-input">
-                            <label htmlFor="pet_shampoo4">Pet#4 Shampoo:</label>
-                            <select
-                                type="text"
-                                name="pet_shampoo4"
-                                id="pet_shampoo4"
-                                value={pet_shampoo4}
-                                onChange={changePetShampoo4}
-                            >
-                                <option value="Rose">Rose</option>
-                                <option value="Macadamia Nuts">
-                                    Macadamia Nuts
-                                </option>
-                                <option value="Lavender">Lavender</option>
-                                <option value="Bergamot">Bergamot</option>
-                            </select>
+                {/* Pet #2 */}
+                {pet_name2 !== "null" && pet_name2 ? (
+                    <div className="multiple-pet-wrapper">
+                        <span className="customer-and-pet__infoEditor__title">Pet #2</span>
+                        <div className="add-more-pet-info" id="pet-2">
+                            <div className="label-and-input">
+                                <label htmlFor="pet_name2">Pet#2 Name:</label>
+                                <input
+                                    type="text"
+                                    name="pet_name2"
+                                    id="pet_name2"
+                                    value={pet_name2}
+                                    onChange={changePetName2}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_price2">Pet#2 Price:</label>
+                                <input
+                                    type="number"
+                                    name="pet_price2"
+                                    id="pet_price2"
+                                    value={pet_price2}
+                                    onChange={changePetPrice2}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_birthday2">Pet#2 Birthday:</label>
+                                <input
+                                    type="text"
+                                    name="pet_birthday2"
+                                    id="pet_birthday2"
+                                    value={pet_birthday2}
+                                    onChange={changeBirthday2}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_breed2">Pet#2 Breed:</label>
+                                <input
+                                    type="text"
+                                    name="pet_breed2"
+                                    id="pet_breed2"
+                                    value={pet_breed2}
+                                    onChange={changePetBreed2}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_size2">Pet#2 Size:</label>
+                                <select
+                                    type="text"
+                                    name="pet_size2"
+                                    id="pet_size2"
+                                    value={pet_size2}
+                                    onChange={changePetSize2}
+                                >
+                                    <option value="Small">Small</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Large">Large</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_shampoo2">Pet#2 Shampoo:</label>
+                                <select
+                                    type="text"
+                                    name="pet_shampoo2"
+                                    id="pet_shampoo2"
+                                    value={pet_shampoo2}
+                                    onChange={changePetShampoo2}
+                                >
+                                    <option value="Rose">Rose</option>
+                                    <option value="Macadamia Nuts">Macadamia Nuts</option>
+                                    <option value="Lavender">Lavender</option>
+                                    <option value="Bergamot">Bergamot</option>
+                                </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_gender2">Pet#2 Gender:</label>
+                                <select
+                                    type="text"
+                                    name="pet_gender2"
+                                    id="pet_gender2"
+                                    value={pet_gender2}
+                                    onChange={changePetGender2}
+                                >
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_is_neutered2">Pet#2 Neutered?</label>
+                                <select
+                                    type="text"
+                                    name="pet_is_neutered2"
+                                    id="pet_is_neutered2"
+                                    value={pet_is_neutered2}
+                                    onChange={changePetIsNeutered2}
+                                >
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div className="line-break"></div>
+                            {pet_photoOrInput2}
+                            <div className="line-break"></div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_note2">Pet#2 Note:</label>
+                                <textarea
+                                    style={{ height: pet_note_height2 }}
+                                    type="text"
+                                    name="pet_note2"
+                                    id="pet_note2"
+                                    className="pet_notes"
+                                    value={pet_note2}
+                                    onChange={changePetNote2}
+                                />
+                            </div>
                         </div>
-                        <div className="label-and-input">
-                            <label htmlFor="pet_gender4">Pet#4 Gender:</label>
-                            <select
-                                type="text"
-                                name="pet_gender4"
-                                id="pet_gender4"
-                                value={pet_gender4}
-                                onChange={changePetGender4}
-                            >
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </div>
-                        <div className="label-and-input">
-                            <label htmlFor="pet_is_neutered4">
-                                Pet#4 Neutered?
-                            </label>
-                            <select
-                                type="text"
-                                name="pet_is_neutered4"
-                                id="pet_is_neutered4"
-                                value={pet_is_neutered4}
-                                onChange={changePetIsNeutered4}
-                            >
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                    <div className="line-break"></div>
-                    {pet_photoOrInput4}
-                    <div className="line-break"></div>
-                    <div className="label-and-input">
-                        <label htmlFor="pet_note4">Pet#4 Note:</label>
-                        <textarea
-                            type="text"
-                            name="pet_note4"
-                            id="pet_note4"
-                            className="pet_notes"
-                            value={pet_note4}
-                            onChange={changePetNote4}
-                        />
                     </div>
-                </div>
+                ) : (
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setPetName2(" ");
+                        }}
+                    >
+                        Add Pet #2
+                    </button>
+                )}
+                {/* Pet #3 */}
+                {pet_name3 !== "null" && pet_name3 ? (
+                    <div className="multiple-pet-wrapper">
+                        <span className="customer-and-pet__infoEditor__title">Pet #3</span>
+                        <div className="add-more-pet-info" id="pet-3">
+                            <div className="label-and-input">
+                                <label htmlFor="pet_name3">Pet#3 Name:</label>
+                                <input
+                                    type="text"
+                                    name="pet_name3"
+                                    id="pet_name3"
+                                    value={pet_name3}
+                                    onChange={changePetName3}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_price3">Pet#3 Price:</label>
+                                <input
+                                    type="number"
+                                    name="pet_price3"
+                                    id="pet_price3"
+                                    value={pet_price3}
+                                    onChange={changePetPrice3}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_birthday3">Pet#3 Birthday:</label>
+                                <input
+                                    type="text"
+                                    name="pet_birthday3"
+                                    id="pet_birthday3"
+                                    value={pet_birthday3}
+                                    onChange={changeBirthday3}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_breed3">Pet#3 Breed:</label>
+                                <input
+                                    type="text"
+                                    name="pet_breed3"
+                                    id="pet_breed3"
+                                    value={pet_breed3}
+                                    onChange={changePetBreed3}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_size3">Pet#3 Size:</label>
+                                <select
+                                    type="text"
+                                    name="pet_size3"
+                                    id="pet_size3"
+                                    value={pet_size3}
+                                    onChange={changePetSize3}
+                                >
+                                    <option value="Small">Small</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Large">Large</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_shampoo3">Pet#3 Shampoo:</label>
+                                <select
+                                    type="text"
+                                    name="pet_shampoo3"
+                                    id="pet_shampoo3"
+                                    value={pet_shampoo3}
+                                    onChange={changePetShampoo3}
+                                >
+                                    <option value="Rose">Rose</option>
+                                    <option value="Macadamia Nuts">Macadamia Nuts</option>
+                                    <option value="Lavender">Lavender</option>
+                                    <option value="Bergamot">Bergamot</option>
+                                </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_gender3">Pet#3 Gender:</label>
+                                <select
+                                    type="text"
+                                    name="pet_gender3"
+                                    id="pet_gender3"
+                                    value={pet_gender3}
+                                    onChange={changePetGender3}
+                                >
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_is_neutered3">Pet#3 Neutered?</label>
+                                <select
+                                    type="text"
+                                    name="pet_is_neutered3"
+                                    id="pet_is_neutered3"
+                                    value={pet_is_neutered3}
+                                    onChange={changePetIsNeutered3}
+                                >
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div className="line-break"></div>
+                            {pet_photoOrInput3}
+                            <div className="line-break"></div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_note3">Pet#3 Note:</label>
+                                <textarea
+                                    style={{ height: pet_note_height3 }}
+                                    type="text"
+                                    name="pet_note3"
+                                    id="pet_note3"
+                                    className="pet_notes"
+                                    value={pet_note3}
+                                    onChange={changePetNote3}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ) : pet_name2 !== "null" && pet_name2 ? (
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setPetName3(" ");
+                        }}
+                    >
+                        Add Pet #3
+                    </button>
+                ) : null}
+                {/* Pet #4 */}
+                {pet_name4 !== "null" && pet_name4 ? (
+                    <div className="multiple-pet-wrapper">
+                        <span className="customer-and-pet__infoEditor__title">Pet #4</span>
+                        <div className="add-more-pet-info" id="pet-4">
+                            <div className="label-and-input">
+                                <label htmlFor="pet_name4">Pet#4 Name:</label>
+                                <input
+                                    type="text"
+                                    name="pet_name4"
+                                    id="pet_name4"
+                                    value={pet_name4}
+                                    onChange={changePetName4}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_price4">Pet#4 Price:</label>
+                                <input
+                                    type="number"
+                                    name="pet_price4"
+                                    id="pet_price4"
+                                    value={pet_price4}
+                                    onChange={changePetPrice4}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_birthday4">Pet#4 Birthday:</label>
+                                <input
+                                    type="text"
+                                    name="pet_birthday4"
+                                    id="pet_birthday4"
+                                    value={pet_birthday4}
+                                    onChange={changeBirthday4}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_breed4">Pet#4 Breed:</label>
+                                <input
+                                    type="text"
+                                    name="pet_breed4"
+                                    id="pet_breed4"
+                                    value={pet_breed4}
+                                    onChange={changePetBreed4}
+                                />
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_size4">Pet#4 Size:</label>
+                                <select
+                                    type="text"
+                                    name="pet_size4"
+                                    id="pet_size4"
+                                    value={pet_size4}
+                                    onChange={changePetSize4}
+                                >
+                                    <option value="Small">Small</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Large">Large</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_shampoo4">Pet#4 Shampoo:</label>
+                                <select
+                                    type="text"
+                                    name="pet_shampoo4"
+                                    id="pet_shampoo4"
+                                    value={pet_shampoo4}
+                                    onChange={changePetShampoo4}
+                                >
+                                    <option value="Rose">Rose</option>
+                                    <option value="Macadamia Nuts">Macadamia Nuts</option>
+                                    <option value="Lavender">Lavender</option>
+                                    <option value="Bergamot">Bergamot</option>
+                                </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_gender4">Pet#4 Gender:</label>
+                                <select
+                                    type="text"
+                                    name="pet_gender4"
+                                    id="pet_gender4"
+                                    value={pet_gender4}
+                                    onChange={changePetGender4}
+                                >
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_is_neutered4">Pet#4 Neutered?</label>
+                                <select
+                                    type="text"
+                                    name="pet_is_neutered4"
+                                    id="pet_is_neutered4"
+                                    value={pet_is_neutered4}
+                                    onChange={changePetIsNeutered4}
+                                >
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div className="line-break"></div>
+                            {pet_photoOrInput4}
+                            <div className="line-break"></div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_note4">Pet#4 Note:</label>
+                                <textarea
+                                    style={{ height: pet_note_height4 }}
+                                    type="text"
+                                    name="pet_note4"
+                                    id="pet_note4"
+                                    className="pet_notes"
+                                    value={pet_note4}
+                                    onChange={changePetNote4}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ) : pet_name3 !== "null" && pet_name3 ? (
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setPetName4(" ");
+                        }}
+                    >
+                        Add Pet #4
+                    </button>
+                ) : null}
                 <input type="submit" id="infoEditor_submit" />
             </form>
         </div>
