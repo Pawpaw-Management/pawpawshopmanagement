@@ -173,18 +173,23 @@ export default function CreateAccount(props) {
         setPetPhoto4(event.target.files[0]);
     };
 
+    console.log(pet_photo)
+    console.log(pet_photo2)
+    console.log(pet_photo3)
+    console.log(pet_photo4)
+
     // Prepare data to post to database
     var formdata = new FormData();
-    if (pet_photo !== null) {
+    if (pet_photo !== null && pet_photo !== "") {
         formdata.append("files.pet_photo", pet_photo, pet_photo.name);
     }
-    if (pet_photo2 !== null) {
+    if (pet_photo2 !== null && pet_photo2 !== "") {
         formdata.append("files.pet_photo2", pet_photo2, pet_photo2.name);
     }
-    if (pet_photo3 !== null) {
+    if (pet_photo3 !== null && pet_photo3 !== "") {
         formdata.append("files.pet_photo3", pet_photo3, pet_photo3.name);
     }
-    if (pet_photo4 !== null) {
+    if (pet_photo4 !== null && pet_photo4 !== "") {
         formdata.append("files.pet_photo4", pet_photo4, pet_photo4.name);
     }
     formdata.append(
@@ -235,26 +240,73 @@ export default function CreateAccount(props) {
         redirect: "follow",
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const response = await fetch(
-            `${props.url}customers-and-pets`,
-            requestOptions
-        );
+    const handleSubmit = async () => {
+        const response = await fetch(`${props.url}customers-and-pets`, requestOptions);
         if (response.status === 200) {
             alert(`Customer account successfully created!`);
+            setCustomerFirstName("");
+            setCustomerLastName("");
+            setPhone("");
+            setEmail("");
+            setPetName("");
+            setPetBreed("");
+            setBirthday("");
+            setPetSize("Small");
+            setPetShampoo("Rose");
+            setPetGender("Male");
+            setPetIsNeutered("Yes");
+            setPetNote("");
+            setPetPhoto(null);
+            setPetName2("");
+            setPetBreed2("");
+            setBirthday2("");
+            setPetSize2("Small");
+            setPetShampoo2("Rose");
+            setPetGender2("Male");
+            setPetIsNeutered2("Yes");
+            setPetNote2("");
+            setPetPhoto2(null);
+            setPetName3("");
+            setPetBreed3("");
+            setBirthday3("");
+            setPetSize3("Small");
+            setPetShampoo3("Rose");
+            setPetGender3("Male");
+            setPetIsNeutered3("Yes");
+            setPetNote3("");
+            setPetPhoto3(null);
+            setPetName4("");
+            setPetBreed4("");
+            setBirthday4("");
+            setPetSize4("Small");
+            setPetShampoo4("Rose");
+            setPetGender4("Male");
+            setPetIsNeutered4("Yes");
+            setPetNote4("");
+            setPetPhoto4(null);
+            setWouldAddPet2(false);
+            setWouldAddPet3(false);
+            setWouldAddPet4(false);
         } else {
             alert("Error! Please make sure the database is running properly.");
         }
     };
 
+    // Make the textareas adjust height according to content
+    const calcHeight = (value) => {
+        let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+        // newHeight = min-height + lines x line-height + padding + border
+        let newHeight = 20 + numberOfLineBreaks * 14.5 + 12 + 2;
+        return newHeight;
+    };
+    const autoChangeTextareaHeight = (event) => {
+        event.target.style.height = calcHeight(event.target.value) + "px";
+    };
+
     return (
         <div className="create_account">
             <h1>Create New Customer Account</h1>
-            <form
-                className="create_account_customer_registrition"
-                onSubmit={handleSubmit}
-            >
+            <form className="create_account_customer_registrition">
                 <div id="customer">
                     <div className="label-and-input">
                         <label htmlFor="customer_first_name">First Name:</label>
@@ -312,7 +364,7 @@ export default function CreateAccount(props) {
                     <div className="label-and-input">
                         <label htmlFor="pet_birthday">Pet Birthday:</label>
                         <input
-                            type="date"
+                            type="text"
                             name="pet_birthday"
                             id="pet_birthday"
                             value={pet_birthday}
@@ -355,9 +407,7 @@ export default function CreateAccount(props) {
                             onChange={changePetShampoo}
                         >
                             <option value="Rose">Rose</option>
-                            <option value="Macadamia Nuts">
-                                Macadamia Nuts
-                            </option>
+                            <option value="Macadamia Nuts">Macadamia Nuts</option>
                             <option value="Lavender">Lavender</option>
                             <option value="Bergamot">Bergamot</option>
                         </select>
@@ -391,11 +441,13 @@ export default function CreateAccount(props) {
                     <div className="label-and-input">
                         <label htmlFor="pet_note">Note:</label>
                         <textarea
+                            className="pet_notes"
                             type="text"
                             name="pet_note"
                             id="pet_note"
                             value={pet_note}
                             onChange={changePetNote}
+                            onKeyUp={autoChangeTextareaHeight}
                         />
                     </div>
                     <div className="label-and-input">
@@ -422,11 +474,9 @@ export default function CreateAccount(props) {
                             />
                         </div>
                         <div className="label-and-input">
-                            <label htmlFor="pet_birthday2">
-                                Pet#2 Birthday:
-                            </label>
+                            <label htmlFor="pet_birthday2">Pet#2 Birthday:</label>
                             <input
-                                type="date"
+                                type="text"
                                 name="pet_birthday2"
                                 id="pet_birthday2"
                                 value={pet_birthday2}
@@ -469,9 +519,7 @@ export default function CreateAccount(props) {
                                 onChange={changePetShampoo2}
                             >
                                 <option value="Rose">Rose</option>
-                                <option value="Macadamia Nuts">
-                                    Macadamia Nuts
-                                </option>
+                                <option value="Macadamia Nuts">Macadamia Nuts</option>
                                 <option value="Lavender">Lavender</option>
                                 <option value="Bergamot">Bergamot</option>
                             </select>
@@ -490,9 +538,7 @@ export default function CreateAccount(props) {
                             </select>
                         </div>
                         <div className="label-and-input">
-                            <label htmlFor="pet_is_neutered2">
-                                Pet#2 Neutered?
-                            </label>
+                            <label htmlFor="pet_is_neutered2">Pet#2 Neutered?</label>
                             <select
                                 type="text"
                                 name="pet_is_neutered2"
@@ -507,11 +553,13 @@ export default function CreateAccount(props) {
                         <div className="label-and-input">
                             <label htmlFor="pet_note2">Pet#2 Note:</label>
                             <textarea
+                                className="pet_notes"
                                 type="text"
                                 name="pet_note2"
                                 id="pet_note2"
                                 value={pet_note2}
                                 onChange={changePetNote2}
+                                onKeyUp={autoChangeTextareaHeight}
                             />
                         </div>
                         <div className="label-and-input">
@@ -549,11 +597,9 @@ export default function CreateAccount(props) {
                             />
                         </div>
                         <div className="label-and-input">
-                            <label htmlFor="pet_birthday3">
-                                Pet#3 Birthday:
-                            </label>
+                            <label htmlFor="pet_birthday3">Pet#3 Birthday:</label>
                             <input
-                                type="date"
+                                type="text"
                                 name="pet_birthday3"
                                 id="pet_birthday3"
                                 value={pet_birthday3}
@@ -596,9 +642,7 @@ export default function CreateAccount(props) {
                                 onChange={changePetShampoo3}
                             >
                                 <option value="Rose">Rose</option>
-                                <option value="Macadamia Nuts">
-                                    Macadamia Nuts
-                                </option>
+                                <option value="Macadamia Nuts">Macadamia Nuts</option>
                                 <option value="Lavender">Lavender</option>
                                 <option value="Bergamot">Bergamot</option>
                             </select>
@@ -617,9 +661,7 @@ export default function CreateAccount(props) {
                             </select>
                         </div>
                         <div className="label-and-input">
-                            <label htmlFor="pet_is_neutered3">
-                                Pet#3 Neutered?
-                            </label>
+                            <label htmlFor="pet_is_neutered3">Pet#3 Neutered?</label>
                             <select
                                 type="text"
                                 name="pet_is_neutered3"
@@ -634,11 +676,13 @@ export default function CreateAccount(props) {
                         <div className="label-and-input">
                             <label htmlFor="pet_note3">Pet#3 Note:</label>
                             <textarea
+                                className="pet_notes"
                                 type="text"
                                 name="pet_note3"
                                 id="pet_note3"
                                 value={pet_note3}
                                 onChange={changePetNote3}
+                                onKeyUp={autoChangeTextareaHeight}
                             />
                         </div>
                         <div className="label-and-input">
@@ -676,11 +720,9 @@ export default function CreateAccount(props) {
                             />
                         </div>
                         <div className="label-and-input">
-                            <label htmlFor="pet_birthday4">
-                                Pet#4 Birthday:
-                            </label>
+                            <label htmlFor="pet_birthday4">Pet#4 Birthday:</label>
                             <input
-                                type="date"
+                                type="text"
                                 name="pet_birthday4"
                                 id="pet_birthday4"
                                 value={pet_birthday4}
@@ -723,9 +765,7 @@ export default function CreateAccount(props) {
                                 onChange={changePetShampoo4}
                             >
                                 <option value="Rose">Rose</option>
-                                <option value="Macadamia Nuts">
-                                    Macadamia Nuts
-                                </option>
+                                <option value="Macadamia Nuts">Macadamia Nuts</option>
                                 <option value="Lavender">Lavender</option>
                                 <option value="Bergamot">Bergamot</option>
                             </select>
@@ -744,9 +784,7 @@ export default function CreateAccount(props) {
                             </select>
                         </div>
                         <div className="label-and-input">
-                            <label htmlFor="pet_is_neutered4">
-                                Pet#4 Neutered?
-                            </label>
+                            <label htmlFor="pet_is_neutered4">Pet#4 Neutered?</label>
                             <select
                                 type="text"
                                 name="pet_is_neutered4"
@@ -761,11 +799,13 @@ export default function CreateAccount(props) {
                         <div className="label-and-input">
                             <label htmlFor="pet_note4">Pet#4 Note:</label>
                             <textarea
+                                className="pet_notes"
                                 type="text"
                                 name="pet_note4"
                                 id="pet_note4"
                                 value={pet_note4}
                                 onChange={changePetNote4}
+                                onKeyUp={autoChangeTextareaHeight}
                             />
                         </div>
                         <div className="label-and-input">
@@ -789,10 +829,15 @@ export default function CreateAccount(props) {
                         Add Pet #4
                     </button>
                 ) : null}
-                <input
+                <button
                     className="create_account_customer_registrition-submit"
-                    type="submit"
-                />
+                    onClick={(e) => {
+                        e.preventDefault();
+                        handleSubmit();
+                    }}
+                >
+                    Submit
+                </button>
             </form>
         </div>
     );
