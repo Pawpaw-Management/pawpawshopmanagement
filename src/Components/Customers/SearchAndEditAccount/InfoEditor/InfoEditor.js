@@ -58,6 +58,12 @@ export default function InfoEditor(props) {
     const [pet_note_height4, setPetNoteHeight4] = useState(0);
     const [pet_photo4, setPetPhoto4] = useState(null);
 
+    // Define non-state variables
+    var pet_price_for_upload = pet_price ? pet_price : 0;
+    var pet_price_for_upload2 = pet_price2 ? pet_price2 : 0;
+    var pet_price_for_upload3 = pet_price3 ? pet_price3 : 0;
+    var pet_price_for_upload4 = pet_price4 ? pet_price4 : 0;
+
     // Define onChange event handlers
     const changeCustomerFirstName = (event) => setCustomerFirstName(event.target.value);
     const changeCustomerLastName = (event) => setCustomerLastName(event.target.value);
@@ -184,7 +190,9 @@ export default function InfoEditor(props) {
             setCustomerPhone(current_account.customer_phone);
             setCustomerEmail(current_account.customer_email);
             setPetName(current_account.pet_name);
-            setPetPrice(current_account.pet_price);
+            if (current_account.pet_price) {
+                setPetPrice(current_account.pet_price);
+            }
             setPetBreed(current_account.pet_breed);
             setPetBirthday(current_account.pet_birthday);
             setPetSize(current_account.pet_size);
@@ -194,7 +202,9 @@ export default function InfoEditor(props) {
             setPetIsNeutered(current_account.pet_is_neutered);
             // Pet #2
             setPetName2(current_account.pet_name2);
-            setPetPrice2(current_account.pet_price2);
+            if (current_account.pet_price2) {
+                setPetPrice2(current_account.pet_price2);
+            }
             setPetBreed2(current_account.pet_breed2);
             setPetBirthday2(current_account.pet_birthday2);
             setPetSize2(current_account.pet_size2);
@@ -204,7 +214,9 @@ export default function InfoEditor(props) {
             setPetIsNeutered2(current_account.pet_is_neutered2);
             // Pet #3
             setPetName3(current_account.pet_name3);
-            setPetPrice3(current_account.pet_price3);
+            if (current_account.pet_price3) {
+                setPetPrice3(current_account.pet_price3);
+            }
             setPetBreed3(current_account.pet_breed3);
             setPetBirthday3(current_account.pet_birthday3);
             setPetSize3(current_account.pet_size3);
@@ -214,7 +226,9 @@ export default function InfoEditor(props) {
             setPetIsNeutered3(current_account.pet_is_neutered3);
             // Pet #4
             setPetName4(current_account.pet_name4);
-            setPetPrice4(current_account.pet_price4);
+            if (current_account.pet_price4) {
+                setPetPrice4(current_account.pet_price4);
+            }
             setPetBreed4(current_account.pet_breed4);
             setPetBirthday4(current_account.pet_birthday4);
             setPetSize4(current_account.pet_size4);
@@ -320,7 +334,7 @@ export default function InfoEditor(props) {
             customer_phone: `${customer_phone}`,
             customer_email: `${customer_email}`,
             pet_name: `${pet_name}`,
-            pet_price: `${pet_price}`,
+            pet_price: pet_price_for_upload,
             pet_breed: `${pet_breed}`,
             pet_birthday: `${pet_birthday}`,
             pet_size: `${pet_size}`,
@@ -329,7 +343,7 @@ export default function InfoEditor(props) {
             pet_is_neutered: `${pet_is_neutered}`,
             pet_note: `${pet_note}`,
             pet_name2: `${pet_name2}`,
-            pet_price2: `${pet_price2}`,
+            pet_price2: pet_price_for_upload2,
             pet_breed2: `${pet_breed2}`,
             pet_birthday2: `${pet_birthday2}`,
             pet_size2: `${pet_size2}`,
@@ -338,7 +352,7 @@ export default function InfoEditor(props) {
             pet_is_neutered2: `${pet_is_neutered2}`,
             pet_note2: `${pet_note2}`,
             pet_name3: `${pet_name3}`,
-            pet_price3: `${pet_price3}`,
+            pet_price3: pet_price_for_upload3,
             pet_breed3: `${pet_breed3}`,
             pet_birthday3: `${pet_birthday3}`,
             pet_size3: `${pet_size3}`,
@@ -347,7 +361,7 @@ export default function InfoEditor(props) {
             pet_is_neutered3: `${pet_is_neutered3}`,
             pet_note3: `${pet_note3}`,
             pet_name4: `${pet_name4}`,
-            pet_price4: `${pet_price4}`,
+            pet_price4: pet_price_for_upload4,
             pet_breed4: `${pet_breed4}`,
             pet_birthday4: `${pet_birthday4}`,
             pet_size4: `${pet_size4}`,
@@ -474,16 +488,6 @@ export default function InfoEditor(props) {
                         />
                     </div>
                     <div className="label-and-input">
-                        <label htmlFor="pet_price">Pet Price:</label>
-                        <input
-                            type="number"
-                            name="pet_price"
-                            id="pet_price"
-                            value={pet_price}
-                            onChange={changePetPrice}
-                        />
-                    </div>
-                    <div className="label-and-input">
                         <label htmlFor="pet_birthday">Pet Birthday:</label>
                         <input
                             type="text"
@@ -518,6 +522,16 @@ export default function InfoEditor(props) {
                             <option value="XL">XL</option>
                             <option value="XXL">XXL</option>
                         </select>
+                    </div>
+                    <div className="label-and-input">
+                        <label htmlFor="pet_price">Pet Price:</label>
+                        <input
+                            type="number"
+                            name="pet_price"
+                            id="pet_price"
+                            value={pet_price}
+                            onChange={changePetPrice}
+                        />
                     </div>
                     <div className="label-and-input">
                         <label htmlFor="pet_shampoo">Pet Shampoo:</label>
@@ -592,16 +606,6 @@ export default function InfoEditor(props) {
                                 />
                             </div>
                             <div className="label-and-input">
-                                <label htmlFor="pet_price2">Pet#2 Price:</label>
-                                <input
-                                    type="number"
-                                    name="pet_price2"
-                                    id="pet_price2"
-                                    value={pet_price2}
-                                    onChange={changePetPrice2}
-                                />
-                            </div>
-                            <div className="label-and-input">
                                 <label htmlFor="pet_birthday2">Pet#2 Birthday:</label>
                                 <input
                                     type="text"
@@ -636,6 +640,16 @@ export default function InfoEditor(props) {
                                     <option value="XL">XL</option>
                                     <option value="XXL">XXL</option>
                                 </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_price2">Pet#2 Price:</label>
+                                <input
+                                    type="number"
+                                    name="pet_price2"
+                                    id="pet_price2"
+                                    value={pet_price2}
+                                    onChange={changePetPrice2}
+                                />
                             </div>
                             <div className="label-and-input">
                                 <label htmlFor="pet_shampoo2">Pet#2 Shampoo:</label>
@@ -721,16 +735,6 @@ export default function InfoEditor(props) {
                                 />
                             </div>
                             <div className="label-and-input">
-                                <label htmlFor="pet_price3">Pet#3 Price:</label>
-                                <input
-                                    type="number"
-                                    name="pet_price3"
-                                    id="pet_price3"
-                                    value={pet_price3}
-                                    onChange={changePetPrice3}
-                                />
-                            </div>
-                            <div className="label-and-input">
                                 <label htmlFor="pet_birthday3">Pet#3 Birthday:</label>
                                 <input
                                     type="text"
@@ -765,6 +769,16 @@ export default function InfoEditor(props) {
                                     <option value="XL">XL</option>
                                     <option value="XXL">XXL</option>
                                 </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_price3">Pet#3 Price:</label>
+                                <input
+                                    type="number"
+                                    name="pet_price3"
+                                    id="pet_price3"
+                                    value={pet_price3}
+                                    onChange={changePetPrice3}
+                                />
                             </div>
                             <div className="label-and-input">
                                 <label htmlFor="pet_shampoo3">Pet#3 Shampoo:</label>
@@ -850,16 +864,6 @@ export default function InfoEditor(props) {
                                 />
                             </div>
                             <div className="label-and-input">
-                                <label htmlFor="pet_price4">Pet#4 Price:</label>
-                                <input
-                                    type="number"
-                                    name="pet_price4"
-                                    id="pet_price4"
-                                    value={pet_price4}
-                                    onChange={changePetPrice4}
-                                />
-                            </div>
-                            <div className="label-and-input">
                                 <label htmlFor="pet_birthday4">Pet#4 Birthday:</label>
                                 <input
                                     type="text"
@@ -894,6 +898,16 @@ export default function InfoEditor(props) {
                                     <option value="XL">XL</option>
                                     <option value="XXL">XXL</option>
                                 </select>
+                            </div>
+                            <div className="label-and-input">
+                                <label htmlFor="pet_price4">Pet#4 Price:</label>
+                                <input
+                                    type="number"
+                                    name="pet_price4"
+                                    id="pet_price4"
+                                    value={pet_price4}
+                                    onChange={changePetPrice4}
+                                />
                             </div>
                             <div className="label-and-input">
                                 <label htmlFor="pet_shampoo4">Pet#4 Shampoo:</label>
