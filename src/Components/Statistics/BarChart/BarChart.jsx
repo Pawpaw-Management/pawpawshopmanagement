@@ -3,8 +3,10 @@ import { Bar } from "react-chartjs-2";
 import "./BarChart.css";
 
 export default function BarChart(props) {
+    console.log(props.incomes_value)
+    console.log(props.incomes_month)
     const data = {
-        labels: props.incomes_date,
+        labels: props.incomes_month,
         datasets: [
             {
                 label: "Monthly Income",
