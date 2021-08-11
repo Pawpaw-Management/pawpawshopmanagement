@@ -50,9 +50,19 @@ input::-webkit-inner-spin-button {
     margin-bottom: 1rem;
 }
 
-#pay-employees-button {
+#pay-employees-button,
+#calc-store-income-button {
+    padding: 1rem;
+    font-size: 1rem;
     margin-bottom: 2rem;
     margin-right: 2rem;
+}
+
+#clear-button {
+    background:red;
+    font-size: 1rem;
+    padding: 1rem;
+    color: white;
 }
 
 #payments__print-button {
