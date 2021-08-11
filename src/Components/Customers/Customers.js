@@ -9,26 +9,29 @@ function Customers(props) {
     const scenario = "Customers";
 
     return (
-        <Router>
-            <div className="customers">
-                <Switch>
-                    <Route path="/create">
-                        <CreateAccount url={props.url} />
-                    </Route>
-                    <Route path="/search">
-                        <SearchAccount url={props.url} scenario={scenario} />
-                    </Route>
-                </Switch>
-                <nav className="nav-components">
-                    <Link to="/create">
-                        <button>Create New Customer Account</button>
-                    </Link>
-                    <Link to="/search">
-                        <button>Search/Edit Customer Account</button>
-                    </Link>
-                </nav>
-            </div>
-        </Router>
+        <div>
+            <Router>
+                <div className="customers">
+                    <Switch>
+                        <Route path="/create">
+                            <CreateAccount url={props.url} />
+                        </Route>
+                        <Route path="/search">
+                            <SearchAccount url={props.url} scenario={scenario} />
+                        </Route>
+                    </Switch>
+                    <nav className="nav-components">
+                        <Link to="/create">
+                            <button>Create New Customer Account</button>
+                        </Link>
+                        <Link to="/search">
+                            <button>Search/Edit Customer Account</button>
+                        </Link>
+                    </nav>
+                </div>
+            </Router>
+            <SearchAccount url={props.url} scenario={scenario} />
+        </div>
     );
 }
 
