@@ -7,6 +7,7 @@ import "../../CommonElements.css";
 const SearchAccount = (props) => {
     // Define state for <Refresh> to update state here
     const [customers_and_pets, setCustomersAndPets] = useState([]);
+    console.log("customers_and_pets", customers_and_pets)
 
     // Define state for <InfoEditor> to popup and disappear
     const [visibility, setVisibility] = useState("hidden");
