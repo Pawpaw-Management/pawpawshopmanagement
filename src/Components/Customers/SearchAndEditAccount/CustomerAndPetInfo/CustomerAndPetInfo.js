@@ -7,12 +7,19 @@ export default function CustomerAndPetInfo(props) {
     console.log(processed_url)
 
     // If an account has pet_photo, then display it; if not, display "no photo provided"
-    let pet_photo
-    if (props.content.pet_photo !==null) {
-        pet_photo = <img className={"eachCustomerAndPetInfo-photo"} src={processed_url + props.content.pet_photo.url} alt="customer's pet" />
-    } else {
-        pet_photo = <span>no photo provided</span>
-    }
+    let pet_photo = <span>no photo provided</span>;
+    // Disabled photo display to fix fetch issue: 500 error - SQLite too many variables
+    // if (props.content.pet_photo !== null) {
+    //     pet_photo = (
+    //         <img
+    //             className={"eachCustomerAndPetInfo-photo"}
+    //             src={processed_url + props.content.pet_photo.url}
+    //             alt="customer's pet"
+    //         />
+    //     );
+    // } else {
+    //     pet_photo = <span>no photo provided</span>;
+    // }
     
     // Conditional rendering based on props.scenario
     if (props.scenario === "AddAppointment") {
