@@ -177,25 +177,21 @@ export default function CreateAccount(props) {
         setPetPhoto4(event.target.files[0]);
     };
 
-    console.log(pet_photo);
-    console.log(pet_photo2);
-    console.log(pet_photo3);
-    console.log(pet_photo4);
-
     // Prepare data to post to database
     var formdata = new FormData();
-    if (pet_photo !== null && pet_photo !== "") {
-        formdata.append("files.pet_photo", pet_photo, pet_photo.name);
-    }
-    if (pet_photo2 !== null && pet_photo2 !== "") {
-        formdata.append("files.pet_photo2", pet_photo2, pet_photo2.name);
-    }
-    if (pet_photo3 !== null && pet_photo3 !== "") {
-        formdata.append("files.pet_photo3", pet_photo3, pet_photo3.name);
-    }
-    if (pet_photo4 !== null && pet_photo4 !== "") {
-        formdata.append("files.pet_photo4", pet_photo4, pet_photo4.name);
-    }
+    // temp disabled photo for resolving database error
+    // if (pet_photo !== null && pet_photo !== "") {
+    //     formdata.append("files.pet_photo", pet_photo, pet_photo.name);
+    // }
+    // if (pet_photo2 !== null && pet_photo2 !== "") {
+    //     formdata.append("files.pet_photo2", pet_photo2, pet_photo2.name);
+    // }
+    // if (pet_photo3 !== null && pet_photo3 !== "") {
+    //     formdata.append("files.pet_photo3", pet_photo3, pet_photo3.name);
+    // }
+    // if (pet_photo4 !== null && pet_photo4 !== "") {
+    //     formdata.append("files.pet_photo4", pet_photo4, pet_photo4.name);
+    // }
     formdata.append(
         "data",
         JSON.stringify({
@@ -467,7 +463,8 @@ export default function CreateAccount(props) {
                             onKeyUp={autoChangeTextareaHeight}
                         />
                     </div>
-                    <div className="label-and-input">
+                    {/* temp disabled photo for resolving database error */}
+                    {/* <div className="label-and-input">
                         <label htmlFor="pet_photo">Pet Photo:</label>
                         <input
                             type="file"
@@ -475,7 +472,7 @@ export default function CreateAccount(props) {
                             id="pet_photo"
                             onChange={changePetPhoto}
                         />
-                    </div>
+                    </div> */}
                 </div>
                 {/* Render "Add Another Pet" button by default, if user clicks it, unmount this button and mount another set of inputs for pet #2 */}
                 {wouldAddPet2 ? (
@@ -579,7 +576,8 @@ export default function CreateAccount(props) {
                                 onKeyUp={autoChangeTextareaHeight}
                             />
                         </div>
-                        <div className="label-and-input">
+                        {/* temp disabled photo for resolving database error */}
+                        {/* <div className="label-and-input">
                             <label htmlFor="pet_photo2">Pet#2 Photo:</label>
                             <input
                                 type="file"
@@ -587,7 +585,7 @@ export default function CreateAccount(props) {
                                 id="pet_photo2"
                                 onChange={changePetPhoto2}
                             />
-                        </div>
+                        </div> */}
                     </div>
                 ) : (
                     <button
@@ -702,7 +700,8 @@ export default function CreateAccount(props) {
                                 onKeyUp={autoChangeTextareaHeight}
                             />
                         </div>
-                        <div className="label-and-input">
+                        {/* temp disabled photo for resolving database error */}
+                        {/* <div className="label-and-input">
                             <label htmlFor="pet_photo3">Pet#3 Photo:</label>
                             <input
                                 type="file"
@@ -710,7 +709,7 @@ export default function CreateAccount(props) {
                                 id="pet_photo3"
                                 onChange={changePetPhoto3}
                             />
-                        </div>
+                        </div> */}
                     </div>
                 ) : wouldAddPet2 === true ? (
                     <button
@@ -825,7 +824,8 @@ export default function CreateAccount(props) {
                                 onKeyUp={autoChangeTextareaHeight}
                             />
                         </div>
-                        <div className="label-and-input">
+                        {/* temp disabled photo for resolving database error */}
+                        {/* <div className="label-and-input">
                             <label htmlFor="pet_photo4">Pet#4 Photo:</label>
                             <input
                                 type="file"
@@ -833,7 +833,7 @@ export default function CreateAccount(props) {
                                 id="pet_photo4"
                                 onChange={changePetPhoto4}
                             />
-                        </div>
+                        </div> */}
                     </div>
                 ) : wouldAddPet3 === true ? (
                     <button

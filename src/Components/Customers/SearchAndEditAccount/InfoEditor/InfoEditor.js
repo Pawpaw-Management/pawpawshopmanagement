@@ -245,90 +245,99 @@ export default function InfoEditor(props) {
     // Props.url has a "/" at the end, need to remove it before using it in next step
     const processed_url = props.url.slice(0, -1);
 
+    
+    // Disabled photo display to fix fetch issue: 500 error - SQLite too many variables
+    let pet_photoOrInput = <span>No Photo</span>
+    let pet_photoOrInput2 = <span>No Photo</span>
+    let pet_photoOrInput3 = <span>No Photo</span>
+    let pet_photoOrInput4 = <span>No Photo</span>
+    
+    
     // If an account has pet_photo, then display it; if not, display "no photo provided"
-    let pet_photoOrInput;
-    if (current_account.pet_photo !== null) {
-        pet_photoOrInput = (
-            <img
-                className={"eachCustomerAndPetInfo-photo"}
-                src={processed_url + current_account.pet_photo.url}
-                alt="customer's pet"
-            />
-        );
-    } else {
-        pet_photoOrInput = (
-            <div className="label-and-input">
-                <label htmlFor="pet_photo">Pet Photo:</label>
-                <input type="file" name="pet_photo" id="pet_photo" onChange={changePetPhoto} />
-            </div>
-        );
-    }
-    let pet_photoOrInput2;
-    if (current_account.pet_photo2 !== null) {
-        pet_photoOrInput2 = (
-            <img
-                className={"eachCustomerAndPetInfo-photo"}
-                src={processed_url + current_account.pet_photo2.url}
-                alt="customer's pet#2"
-            />
-        );
-    } else {
-        pet_photoOrInput2 = (
-            <div className="label-and-input">
-                <label htmlFor="pet_photo2">Pet #2 Photo:</label>
-                <input type="file" name="pet_photo2" id="pet_photo2" onChange={changePetPhoto2} />
-            </div>
-        );
-    }
-    let pet_photoOrInput3;
-    if (current_account.pet_photo3 !== null) {
-        pet_photoOrInput3 = (
-            <img
-                className={"eachCustomerAndPetInfo-photo"}
-                src={processed_url + current_account.pet_photo3.url}
-                alt="customer's pet #3"
-            />
-        );
-    } else {
-        pet_photoOrInput3 = (
-            <div className="label-and-input">
-                <label htmlFor="pet_photo3">Pet #3 Photo:</label>
-                <input type="file" name="pet_photo3" id="pet_photo3" onChange={changePetPhoto3} />
-            </div>
-        );
-    }
-    let pet_photoOrInput4;
-    if (current_account.pet_photo4 !== null) {
-        pet_photoOrInput4 = (
-            <img
-                className={"eachCustomerAndPetInfo-photo"}
-                src={processed_url + current_account.pet_photo4.url}
-                alt="customer's pet #4"
-            />
-        );
-    } else {
-        pet_photoOrInput4 = (
-            <div className="label-and-input">
-                <label htmlFor="pet_photo4">Pet #4 Photo:</label>
-                <input type="file" name="pet_photo4" id="pet_photo4" onChange={changePetPhoto4} />
-            </div>
-        );
-    }
+    // let pet_photoOrInput;
+    // if (current_account.pet_photo !== null) {
+    //     pet_photoOrInput = (
+    //         <img
+    //             className={"eachCustomerAndPetInfo-photo"}
+    //             src={processed_url + current_account.pet_photo.url}
+    //             alt="customer's pet"
+    //         />
+    //     );
+    // } else {
+    //     pet_photoOrInput = (
+    //         <div className="label-and-input">
+    //             <label htmlFor="pet_photo">Pet Photo:</label>
+    //             <input type="file" name="pet_photo" id="pet_photo" onChange={changePetPhoto} />
+    //         </div>
+    //     );
+    // }
+    // let pet_photoOrInput2;
+    // if (current_account.pet_photo2 !== null) {
+    //     pet_photoOrInput2 = (
+    //         <img
+    //             className={"eachCustomerAndPetInfo-photo"}
+    //             src={processed_url + current_account.pet_photo2.url}
+    //             alt="customer's pet#2"
+    //         />
+    //     );
+    // } else {
+    //     pet_photoOrInput2 = (
+    //         <div className="label-and-input">
+    //             <label htmlFor="pet_photo2">Pet #2 Photo:</label>
+    //             <input type="file" name="pet_photo2" id="pet_photo2" onChange={changePetPhoto2} />
+    //         </div>
+    //     );
+    // }
+    // let pet_photoOrInput3;
+    // if (current_account.pet_photo3 !== null) {
+    //     pet_photoOrInput3 = (
+    //         <img
+    //             className={"eachCustomerAndPetInfo-photo"}
+    //             src={processed_url + current_account.pet_photo3.url}
+    //             alt="customer's pet #3"
+    //         />
+    //     );
+    // } else {
+    //     pet_photoOrInput3 = (
+    //         <div className="label-and-input">
+    //             <label htmlFor="pet_photo3">Pet #3 Photo:</label>
+    //             <input type="file" name="pet_photo3" id="pet_photo3" onChange={changePetPhoto3} />
+    //         </div>
+    //     );
+    // }
+    // let pet_photoOrInput4;
+    // if (current_account.pet_photo4 !== null) {
+    //     pet_photoOrInput4 = (
+    //         <img
+    //             className={"eachCustomerAndPetInfo-photo"}
+    //             src={processed_url + current_account.pet_photo4.url}
+    //             alt="customer's pet #4"
+    //         />
+    //     );
+    // } else {
+    //     pet_photoOrInput4 = (
+    //         <div className="label-and-input">
+    //             <label htmlFor="pet_photo4">Pet #4 Photo:</label>
+    //             <input type="file" name="pet_photo4" id="pet_photo4" onChange={changePetPhoto4} />
+    //         </div>
+    //     );
+    // }
 
     // Prepare data to post to database
     var formdata = new FormData();
-    if (pet_photo !== null) {
-        formdata.append("files.pet_photo", pet_photo, pet_photo.name);
-    }
-    if (pet_photo2 !== null) {
-        formdata.append("files.pet_photo2", pet_photo2, pet_photo2.name);
-    }
-    if (pet_photo3 !== null) {
-        formdata.append("files.pet_photo3", pet_photo3, pet_photo3.name);
-    }
-    if (pet_photo4 !== null) {
-        formdata.append("files.pet_photo4", pet_photo4, pet_photo4.name);
-    }
+    // Disabled photo display to fix fetch issue: 500 error - SQLite too many variables
+    // if (pet_photo !== null) {
+    //     formdata.append("files.pet_photo", pet_photo, pet_photo.name);
+    // }
+    // if (pet_photo2 !== null) {
+    //     formdata.append("files.pet_photo2", pet_photo2, pet_photo2.name);
+    // }
+    // if (pet_photo3 !== null) {
+    //     formdata.append("files.pet_photo3", pet_photo3, pet_photo3.name);
+    // }
+    // if (pet_photo4 !== null) {
+    //     formdata.append("files.pet_photo4", pet_photo4, pet_photo4.name);
+    // }
     formdata.append(
         "data",
         JSON.stringify({
