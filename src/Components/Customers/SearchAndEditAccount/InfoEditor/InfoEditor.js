@@ -8,6 +8,7 @@ export default function InfoEditor(props) {
     const [customer_first_name, setCustomerFirstName] = useState("");
     const [customer_last_name, setCustomerLastName] = useState("");
     const [customer_phone, setCustomerPhone] = useState(0);
+    const [customer_alternate_phone, setCustomerAlternatePhone] = useState(0);
     const [customer_email, setCustomerEmail] = useState();
     // Pet #1
     const [pet_name, setPetName] = useState("");
@@ -68,6 +69,7 @@ export default function InfoEditor(props) {
     const changeCustomerFirstName = (event) => setCustomerFirstName(event.target.value);
     const changeCustomerLastName = (event) => setCustomerLastName(event.target.value);
     const changePhone = (event) => setCustomerPhone(event.target.value);
+    const changeAlternatePhone = (event) => setCustomerAlternatePhone(event.target.value);
     const changeEmail = (event) => setCustomerEmail(event.target.value);
     // Pet #1
     const changePetName = (event) => setPetName(event.target.value);
@@ -188,6 +190,7 @@ export default function InfoEditor(props) {
             setCustomerFirstName(current_account.customer_first_name);
             setCustomerLastName(current_account.customer_last_name);
             setCustomerPhone(current_account.customer_phone);
+            setCustomerAlternatePhone(current_account.customer_alternate_phone);
             setCustomerEmail(current_account.customer_email);
             setPetName(current_account.pet_name);
             if (current_account.pet_price) {
@@ -332,6 +335,7 @@ export default function InfoEditor(props) {
             customer_first_name: `${customer_first_name}`,
             customer_last_name: `${customer_last_name}`,
             customer_phone: `${customer_phone}`,
+            customer_alternate_phone: `${customer_alternate_phone}`,
             customer_email: `${customer_email}`,
             pet_name: `${pet_name}`,
             pet_price: pet_price_for_upload,
@@ -464,6 +468,18 @@ export default function InfoEditor(props) {
                             onChange={changePhone}
                         />
                     </div>
+
+                    <div className="label-and-input">
+                        <label htmlFor="customer_alternate_phone"> Phone Number #2:</label>
+                        <input
+                            type="number"
+                            name="customer_alternate_phone"
+                            id="customer_alternate_phone"
+                            value={customer_alternate_phone}
+                            onChange={changeAlternatePhone}
+                        />
+                    </div>
+
                     <div className="label-and-input">
                         <label htmlFor="customer_email"> Email:</label>
                         <input

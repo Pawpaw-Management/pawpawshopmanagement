@@ -9,7 +9,7 @@ export default function Payment(props) {
     console.log("===============");
     // Define states
     const [tips, setTips] = useState("");
-    const [discount, setDiscount] = useState("");
+    const [discount, setDiscount] = useState(0);
     const [service1, setService1] = useState("");
     const [service2, setService2] = useState("");
     const [service3, setService3] = useState("");
@@ -25,8 +25,7 @@ export default function Payment(props) {
     const [servicePrice3, setServicePrice3] = useState("");
     const [servicePrice4, setServicePrice4] = useState("");
     const [servicePrice5, setServicePrice5] = useState("");
-    const [serviceTotal, setServiceTotal] = useState("");
-    const [serviceTotalAfterDiscount, setServiceTotalAfterDiscount] = useState("");
+    const [serviceTotalAfterDiscount, setServiceTotalAfterDiscount] = useState();
     const [item1, setItem1] = useState("");
     const [item2, setItem2] = useState("");
     const [item3, setItem3] = useState("");
@@ -37,166 +36,102 @@ export default function Payment(props) {
     const [itemQuantity3, setItemQuantity3] = useState(1);
     const [itemQuantity4, setItemQuantity4] = useState(1);
     const [itemQuantity5, setItemQuantity5] = useState(1);
-    const [totalService1, setTotalService1] = useState("");
-    const [totalService2, setTotalService2] = useState("");
-    const [totalService3, setTotalService3] = useState("");
-    const [totalService4, setTotalService4] = useState("");
-    const [totalService5, setTotalService5] = useState("");
     const [itemPrice1, setItemPrice1] = useState("");
     const [itemPrice2, setItemPrice2] = useState("");
     const [itemPrice3, setItemPrice3] = useState("");
     const [itemPrice4, setItemPrice4] = useState("");
     const [itemPrice5, setItemPrice5] = useState("");
-    const [totalItem1, setTotalItem1] = useState("");
-    const [totalItem2, setTotalItem2] = useState("");
-    const [totalItem3, setTotalItem3] = useState("");
-    const [totalItem4, setTotalItem4] = useState("");
-    const [totalItem5, setTotalItem5] = useState("");
-    const [itemTotal, setItemTotal] = useState("");
+    const [itemtotal, setItemtotal] = useState(0);
     const [visibilityEmployees, setVisibilityEmployees] = useState(false);
 
-    console.log(serviceTotalAfterDiscount)
-    // Define non-state variables
-    var tipsToFixed = tips ? Number(tips).toFixed(2) : null;
-    var tipsForUpload = tips ? tips : 0;
+    // // Every time subtotalAfterDiscount changes, update balanceDue
+    // useEffect(() => {
+    //     setBalanceDue((Number(subtotalAfterDiscount) + Number(gst)).toFixed(2));
+    // }, [subtotalAfterDiscount, gst]);
+
+    // Every time itemTotal changes, update itemtotal
+    useEffect(() => {
+        setItemtotal(itemTotal);
+    }, [itemTotal]);
 
     // Every time serviceTotal changes, update serviceTotalAfterDiscount
     useEffect(() => {
         setServiceTotalAfterDiscount(Number(serviceTotal) * (1 - Number(discount)));
     }, [serviceTotal, discount]);
 
-    // Update totalService1
-    useEffect(() => {
-        if (serviceQuantity1 && servicePrice1) {
-            setTotalService1(serviceQuantity1 * servicePrice1);
-        } else if (servicePrice1 && serviceQuantity1 === undefined) {
-            setTotalService1(servicePrice1);
-        } else {
-            setTotalService1(0);
-        }
-    }, [serviceQuantity1, servicePrice1]);
-
-    // Update totalService2
-    useEffect(() => {
-        if (serviceQuantity2 && servicePrice2) {
-            setTotalService2(serviceQuantity2 * servicePrice2);
-        } else if (servicePrice2 && serviceQuantity2 === undefined) {
-            setTotalService2(servicePrice2);
-        } else {
-            setTotalService2(0);
-        }
-    }, [serviceQuantity2, servicePrice2]);
-
-    // Update totalService3
-    useEffect(() => {
-        if (serviceQuantity3 && servicePrice3) {
-            setTotalService3(serviceQuantity3 * servicePrice3);
-        } else if (servicePrice3 && serviceQuantity3 === undefined) {
-            setTotalService3(servicePrice3);
-        } else {
-            setTotalService3(0);
-        }
-    }, [serviceQuantity3, servicePrice3]);
-
-    // Update totalService4
-    useEffect(() => {
-        if (serviceQuantity4 && servicePrice4) {
-            setTotalService4(serviceQuantity4 * servicePrice4);
-        } else if (servicePrice4 && serviceQuantity4 === undefined) {
-            setTotalService4(servicePrice4);
-        } else {
-            setTotalService4(0);
-        }
-    }, [serviceQuantity4, servicePrice4]);
-
-    // Update totalService5
-    useEffect(() => {
-        if (serviceQuantity5 && servicePrice5) {
-            setTotalService5(serviceQuantity5 * servicePrice5);
-        } else if (servicePrice5 && serviceQuantity5 === undefined) {
-            setTotalService5(servicePrice5);
-        } else {
-            setTotalService5(0);
-        }
-    }, [serviceQuantity5, servicePrice5]);
-
-    // Update service total serviceTotal as user gives input
-    useEffect(() => {
-        setServiceTotal(
-            Number(totalService1) +
-                Number(totalService2) +
-                Number(totalService3) +
-                Number(totalService4) +
-                Number(totalService5)
-        );
-    }, [totalService1, totalService2, totalService3, totalService4, totalService5]);
-
-    // Update totalItem1
-    useEffect(() => {
-        if (itemQuantity1 && itemPrice1) {
-            setTotalItem1(Number(itemQuantity1) * Number(itemPrice1));
-        } else if (itemPrice1 && itemQuantity1 === undefined) {
-            setTotalItem1(itemPrice1);
-        } else {
-            setTotalItem1(0);
-        }
-    }, [itemQuantity1, itemPrice1]);
-
-    // Update totalItem2
-    useEffect(() => {
-        if (itemQuantity2 && itemPrice2) {
-            setTotalItem2(Number(itemQuantity2) * Number(itemPrice2));
-        } else if (itemPrice2 && itemQuantity2 === undefined) {
-            setTotalItem2(itemPrice2);
-        } else {
-            setTotalItem2(0);
-        }
-    }, [itemQuantity2, itemPrice2]);
-
-    // Update totalItem3
-    useEffect(() => {
-        if (itemQuantity3 && itemPrice3) {
-            setTotalItem3(Number(itemQuantity3) * Number(itemPrice3));
-        } else if (itemPrice3 && itemQuantity3 === undefined) {
-            setTotalItem3(itemPrice3);
-        } else {
-            setTotalItem3(0);
-        }
-    }, [itemQuantity3, itemPrice3]);
-
-    // Update totalItem4
-    useEffect(() => {
-        if (itemQuantity4 && itemPrice4) {
-            setTotalItem4(Number(itemQuantity4) * Number(itemPrice4));
-        } else if (itemPrice4 && itemQuantity4 === undefined) {
-            setTotalItem4(itemPrice4);
-        } else {
-            setTotalItem4(0);
-        }
-    }, [itemQuantity4, itemPrice4]);
-
-    // Update totalItem5
-    useEffect(() => {
-        if (itemQuantity5 && itemPrice5) {
-            setTotalItem5(Number(itemQuantity5) * Number(itemPrice5));
-        } else if (itemPrice5 && itemQuantity5 === undefined) {
-            setTotalItem5(itemPrice5);
-        } else {
-            setTotalItem5(0);
-        }
-    }, [itemQuantity5, itemPrice5]);
-
-    // Update item total serviceTotal as user gives input
-    useEffect(() => {
-        setItemTotal(
-            Number(totalItem1) +
-                Number(totalItem2) +
-                Number(totalItem3) +
-                Number(totalItem4) +
-                Number(totalItem5)
-        );
-    }, [totalItem1, totalItem2, totalItem3, totalItem4, totalItem5]);
-
+    var tipsToFixed = tips ? Number(tips).toFixed(2) : null;
+    var totalService1 =
+        serviceQuantity1 && servicePrice1
+            ? serviceQuantity1 * servicePrice1
+            : servicePrice1 && serviceQuantity1 === undefined
+            ? servicePrice1
+            : 0;
+    var totalService2 =
+        serviceQuantity2 && servicePrice2
+            ? serviceQuantity2 * servicePrice2
+            : servicePrice2 && serviceQuantity2 === undefined
+            ? servicePrice2
+            : 0;
+    var totalService3 =
+        serviceQuantity3 && servicePrice3
+            ? serviceQuantity3 * servicePrice3
+            : servicePrice3 && serviceQuantity3 === undefined
+            ? servicePrice3
+            : 0;
+    var totalService4 =
+        serviceQuantity4 && servicePrice4
+            ? serviceQuantity4 * servicePrice4
+            : servicePrice4 && serviceQuantity4 === undefined
+            ? servicePrice4
+            : 0;
+    var totalService5 =
+        serviceQuantity5 && servicePrice5
+            ? serviceQuantity5 * servicePrice5
+            : servicePrice5 && serviceQuantity5 === undefined
+            ? servicePrice5
+            : 0;
+    var totalItem1 =
+        itemQuantity1 && itemPrice1
+            ? Number(itemQuantity1) * Number(itemPrice1)
+            : itemPrice1 && itemQuantity1 === undefined
+            ? itemPrice1
+            : 0;
+    var totalItem2 =
+        itemQuantity2 && itemPrice2
+            ? Number(itemQuantity2) * Number(itemPrice2)
+            : itemPrice2 && itemQuantity2 === undefined
+            ? itemPrice2
+            : 0;
+    var totalItem3 =
+        itemQuantity3 && itemPrice3
+            ? Number(itemQuantity3) * Number(itemPrice3)
+            : itemPrice3 && itemQuantity3 === undefined
+            ? itemPrice3
+            : 0;
+    var totalItem4 =
+        itemQuantity4 && itemPrice4
+            ? Number(itemQuantity4) * Number(itemPrice4)
+            : itemPrice4 && itemQuantity4 === undefined
+            ? itemPrice4
+            : 0;
+    var totalItem5 =
+        itemQuantity5 && itemPrice5
+            ? Number(itemQuantity5) * Number(itemPrice5)
+            : itemPrice5 && itemQuantity5 === undefined
+            ? itemPrice5
+            : 0;
+    var serviceTotal =
+        Number(totalService1) +
+        Number(totalService2) +
+        Number(totalService3) +
+        Number(totalService4) +
+        Number(totalService5);
+    var itemTotal =
+        Number(totalItem1) +
+        Number(totalItem2) +
+        Number(totalItem3) +
+        Number(totalItem4) +
+        Number(totalItem5);
     var discountPercent = Number(discount) * 100 + "%";
     var subtotalAfterDiscount = (
         Number(serviceTotal) * (1 - Number(discount)) +
@@ -208,10 +143,9 @@ export default function Payment(props) {
     var selectEmployees = visibilityEmployees ? (
         <SelectEmployees
             url={props.url}
-            tips = {tips}
             balanceDue={balanceDue}
             serviceTotalAfterDiscount={serviceTotalAfterDiscount}
-            itemTotal={itemTotal}
+            itemtotal={itemtotal}
             discount={discount}
             service1={service1}
             service2={service2}
@@ -248,37 +182,34 @@ export default function Payment(props) {
     let purchase_date_for_display = mm + "-" + dd + "-" + yyyy;
 
     var services =
-        (service1 ? service1 + `: $${servicePrice1}` : servicePrice1 ? `$${servicePrice1}` : "") +
-        (service2
-            ? ", " + service2 + `: $${servicePrice2}`
-            : servicePrice2
-            ? `$${servicePrice2}`
-            : "") +
-        (service3
-            ? ", " + service3 + `: $${servicePrice3}`
-            : servicePrice3
-            ? `$${servicePrice3}`
-            : "") +
-        (service4
-            ? ", " + service4 + `: $${servicePrice4}`
-            : servicePrice4
-            ? `$${servicePrice4}`
-            : "") +
-        (service5
-            ? ", " + service5 + `: $${servicePrice5}`
-            : servicePrice5
-            ? `$${servicePrice5}`
-            : "");
+        (service1 ? service1 + `: $${servicePrice1}` : "") +
+        (service2 ? ", " + service2 + `: $${servicePrice2}` : "") +
+        (service3 ? ", " + service3 + `: $${servicePrice3}` : "") +
+        (service4 ? ", " + service4 + `: $${servicePrice4}` : "") +
+        (service5 ? ", " + service5 + `: $${servicePrice5}` : "");
     var items =
-        (item1 ? itemQuantity1 + "*" + item1 : itemPrice1 ? `$${itemPrice1}` : "") +
-        (item2 ? ", " + itemQuantity2 + "*" + item2 : itemPrice2 ? `$${itemPrice2}` : "") +
-        (item3 ? ", " + itemQuantity3 + "*" + item3 : itemPrice3 ? `$${itemPrice3}` : "") +
-        (item4 ? ", " + itemQuantity4 + "*" + item4 : itemPrice4 ? `$${itemPrice4}` : "") +
-        (item5 ? ", " + itemQuantity5 + "*" + item5 : itemPrice5 ? `$${itemPrice5}` : "");
+        (item1 ? itemQuantity1 + "*" + item1 : "") +
+        (item2 ? ", " + itemQuantity2 + "*" + item2 : "") +
+        (item3 ? ", " + itemQuantity3 + "*" + item3 : "") +
+        (item4 ? ", " + itemQuantity4 + "*" + item4 : "") +
+        (item5 ? ", " + itemQuantity5 + "*" + item5 : "");
     var balanceDue = tips
         ? (Number(subtotalAfterDiscount) + Number(gst) + Number(tips)).toFixed(2)
         : (Number(subtotalAfterDiscount) + Number(gst)).toFixed(2);
-    var description = `services: ${services} / service discount: ${discount} / service income: ${serviceTotalAfterDiscount} / products: ${items} / product income: ${itemTotal}`;
+    var description = `services: ${services} / service discount: ${discount} / service income: ${serviceTotalAfterDiscount} / products: ${items} / product income: ${itemtotal}`;
+    var details = {
+        service1: service1,
+        service2: service2,
+        service3: service3,
+        service4: service4,
+        service5: service5,
+        item1: item1,
+        item2: item2,
+        item3: item3,
+        item4: item4,
+        item5: item5,
+        discount: discount,
+    };
 
     // Define onChange handlers
     const changeTips = (event) => setTips(event.target.value);
@@ -338,12 +269,12 @@ export default function Payment(props) {
                 date: `${purchase_date}`,
                 income_before_tax: subtotalAfterDiscount,
                 income_after_tax: Number((Number(subtotalAfterDiscount) - Number(gst)).toFixed(2)),
-                tips: tipsForUpload,
+                tips: tips,
                 description: `${description}`,
             }),
         });
         const content = await response.json();
-        // console.log(content);
+        console.log(content);
         // Tell user the data above is successfully submitted
         if (response.status === 200) {
             alert(`Income information has been successfully uploaded!`);
@@ -352,13 +283,13 @@ export default function Payment(props) {
         }
     };
 
-    // console.log("balanceDue: ", balanceDue);
-    // console.log((Number(subtotalAfterDiscount) + Number(gst)).toFixed(2));
-    // console.log("subtotalAfterDiscount: ", subtotalAfterDiscount);
-    // console.log("gst: ", gst);
-    // console.log("serviceTotal:", serviceTotal);
-    // console.log("discount:", discount);
-    // console.log("itemTotal:", itemTotal);
+    console.log("balanceDue: ", balanceDue);
+    console.log((Number(subtotalAfterDiscount) + Number(gst)).toFixed(2));
+    console.log("subtotalAfterDiscount: ", subtotalAfterDiscount);
+    console.log("gst: ", gst);
+    console.log("serviceTotal:", serviceTotal);
+    console.log("discount:", discount);
+    console.log("itemTotal:", itemTotal);
 
     return (
         <section id="payments">
@@ -704,7 +635,7 @@ export default function Payment(props) {
                         setItemPrice3("");
                         setItemPrice4("");
                         setItemPrice5("");
-                        setItemTotal(0);
+                        setItemtotal(0);
                         // setBalanceDue(0);
                     }}
                 >
@@ -719,7 +650,7 @@ export default function Payment(props) {
             </div>
             <div id="payments__section-for-printing">
                 <div id="payments__section-for-printing__header">
-                    <img src={Logo} alt="company logo" />
+                    <img src={Logo} />
                     <span>pawpawpetspa@gmail.com</span>
                     <span>780-666-9920</span>
                 </div>
@@ -753,7 +684,7 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{servicePrice1}</td>
                                     )}
-                                    {totalService1 === 0 ? <td></td> : <td>{totalService1}</td>}
+                                    {service1 === "" ? <td></td> : <td>{totalService1}</td>}
                                 </tr>
                                 <tr id="service2">
                                     {service2 === "" ? <td></td> : <td>{service2}</td>}
@@ -767,7 +698,7 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{servicePrice2}</td>
                                     )}
-                                    {totalService2 === 0 ? <td></td> : <td>{totalService2}</td>}{" "}
+                                    {service2 === "" ? <td></td> : <td>{totalService2}</td>}
                                 </tr>
                                 <tr id="service3">
                                     {service3 === "" ? <td></td> : <td>{service3}</td>}
@@ -781,7 +712,7 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{servicePrice3}</td>
                                     )}
-                                    {totalService3 === 0 ? <td></td> : <td>{totalService3}</td>}
+                                    {service3 === "" ? <td></td> : <td>{totalService3}</td>}
                                 </tr>
                                 <tr id="service4">
                                     {service4 === "" ? <td></td> : <td>{service4}</td>}
@@ -795,7 +726,7 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{servicePrice4}</td>
                                     )}
-                                    {totalService4 === 0 ? <td></td> : <td>{totalService4}</td>}
+                                    {service4 === "" ? <td></td> : <td>{totalService4}</td>}
                                 </tr>
                                 <tr id="service5">
                                     {service5 === "" ? <td></td> : <td>{service5}</td>}
@@ -809,7 +740,7 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{servicePrice5}</td>
                                     )}
-                                    {totalService5 === 0 ? <td></td> : <td>{totalService5}</td>}
+                                    {service5 === "" ? <td></td> : <td>{totalService5}</td>}
                                 </tr>
                                 {/* Products */}
 
@@ -825,7 +756,7 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{itemPrice1}</td>
                                     )}
-                                    {totalItem1 === 0 ? <td></td> : <td>{totalItem1}</td>}
+                                    {item1 === "" ? <td></td> : <td>{totalItem1}</td>}
                                 </tr>
                                 <tr id="item2">
                                     {item2 === "" ? <td></td> : <td>{item2}</td>}
@@ -839,7 +770,7 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{itemPrice2}</td>
                                     )}
-                                    {totalItem2 === 0 ? <td></td> : <td>{totalItem2}</td>}
+                                    {item2 === "" ? <td></td> : <td>{totalItem2}</td>}
                                 </tr>
                                 <tr id="item3">
                                     {item3 === "" ? <td></td> : <td>{item3}</td>}
@@ -853,7 +784,7 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{itemPrice3}</td>
                                     )}
-                                    {totalItem3 === 0 ? <td></td> : <td>{totalItem3}</td>}
+                                    {item3 === "" ? <td></td> : <td>{totalItem3}</td>}
                                 </tr>
                                 <tr id="item4">
                                     {item4 === "" ? <td></td> : <td>{item4}</td>}
@@ -867,7 +798,7 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{itemPrice4}</td>
                                     )}
-                                    {totalItem4 === 0 ? <td></td> : <td>{totalItem4}</td>}
+                                    {item4 === "" ? <td></td> : <td>{totalItem4}</td>}
                                 </tr>
                                 <tr id="item5">
                                     {item5 === "" ? <td></td> : <td>{item5}</td>}
@@ -881,7 +812,7 @@ export default function Payment(props) {
                                     ) : (
                                         <td>{itemPrice5}</td>
                                     )}
-                                    {totalItem5 === 0 ? <td></td> : <td>{totalItem5}</td>}
+                                    {item5 === "" ? <td></td> : <td>{totalItem5}</td>}
                                 </tr>
                                 <tr>
                                     <td>

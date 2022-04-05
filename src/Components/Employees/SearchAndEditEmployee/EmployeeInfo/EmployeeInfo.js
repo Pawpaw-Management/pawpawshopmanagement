@@ -3,20 +3,22 @@ import "./EmployeeInfo.css";
 
 export default function EmployeeInfo(props) {
     // Define state
-    // const [employee_is_chosen, setEmployeeIsChosen] = useState(false);
+    const [employee_is_chosen, setEmployeeIsChosen] = useState(false);
     // console.log("===========");
+    // console.log("id: " + props.content.id);
     // console.log(employee_is_chosen);
-    // console.log(props.content.id)
-    
-    // // Define event handler
-    // const changeEmployeeIsChosen = (event) =>
-    //     setEmployeeIsChosen(event.target.checked);
+
+    // Define event handler
+    const changeEmployeeIsChosen = (event) =>
+        setEmployeeIsChosen(event.target.checked);
 
     // // Varify if the checkbox is checked.
     // if (employee_is_chosen) {
-    //     props.arrayAddItem(props.content.id)
-    // } else {
+    //     props.arrayAddItem(100)
+    // }
+    // if(!employee_is_chosen) {
     //     props.arrayDeleteItem(props.content.id)
+    //     console.log("hello")
     // }
 
     if (props.scenario === "AddAppointment") {
@@ -41,11 +43,11 @@ export default function EmployeeInfo(props) {
                 <td>
                     <button
                         onClick={() => {
-                            props.setVisibilityProvider(false);
-                            props.setProviderId(props.content.id);
+                            props.setVisibility(props.num);
+                            props.setProviderId(props.num, props.content.id);
                         }}
                     >
-                        Choose
+                        Choose Groomer #{props.num}
                     </button>
                 </td>
                 {/* <td>

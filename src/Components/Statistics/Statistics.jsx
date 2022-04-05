@@ -5,6 +5,9 @@ import MonthlyStatistics from "./MonthlyStatistics/MonthlyStatistics";
 import "../CommonElements.css";
 
 export default function Statistics(props) {
+    // Define states
+    const [shouldShowDailyStatistics, setShouldShowDailyStatistics] = useState(true);
+
     return (
         <div>
             <Router>
@@ -21,15 +24,20 @@ export default function Statistics(props) {
                     </Switch>
                     <nav className="nav-components">
                         <Link to="/dailystatistics">
-                            <button>Daily Statistics</button>
+                            <button onClick={() => setShouldShowDailyStatistics(false)}>
+                                Daily Statistics
+                            </button>
                         </Link>
                         <Link to="/monthlystatistics">
-                            <button>Monthly Statistics</button>
+                            <button onClick={() => setShouldShowDailyStatistics(false)}>
+                                Monthly Statistics
+                            </button>
                         </Link>
                     </nav>
                 </section>
             </Router>
-            <DailyStatistics url={props.url} />
+            {/* The following <DailyStatistics> should only be shown when no other child component is shown. */}
+            {shouldShowDailyStatistics ? <DailyStatistics url={props.url} /> : <div></div>}
         </div>
     );
 }

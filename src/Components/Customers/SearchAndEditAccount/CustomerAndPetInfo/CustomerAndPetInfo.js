@@ -6,18 +6,19 @@ export default function CustomerAndPetInfo(props) {
     const processed_url = props.url.slice(0, -1);
 
     // If an account has pet_photo, then display it; if not, display "no photo provided"
-    let pet_photo;
-    if (props.content.pet_photo !== null) {
-        pet_photo = (
-            <img
-                className={"eachCustomerAndPetInfo-photo"}
-                src={processed_url + props.content.pet_photo.url}
-                alt="customer's pet"
-            />
-        );
-    } else {
-        pet_photo = <span>no photo provided</span>;
-    }
+    let pet_photo = <span>no photo provided</span>;
+    // Disabled photo display to fix fetch issue: 500 error - SQLite too many variables
+    // if (props.content.pet_photo !== null) {
+    //     pet_photo = (
+    //         <img
+    //             className={"eachCustomerAndPetInfo-photo"}
+    //             src={processed_url + props.content.pet_photo.url}
+    //             alt="customer's pet"
+    //         />
+    //     );
+    // } else {
+    //     pet_photo = <span>no photo provided</span>;
+    // }
 
     // Define a function to format phone numbers into (xxx) xxx - xxxx
     const formatToPhone = (phoneNumber) => {
@@ -34,16 +35,20 @@ export default function CustomerAndPetInfo(props) {
             phoneNumber = `(${areaCode}`;
         }
 
-        return phoneNumber
+        return phoneNumber;
     };
 
     // Define state
     const [formattedPhoneNumber, setFormattedPhoneNumber] = useState("");
+    const [formattedAlternatePhoneNumber, setFormattedAlternatePhoneNumber] = useState("");
 
     // Update formattedPhoneNumber when props.content.customer_phone changes
     useEffect(() => {
         if (props.content.customer_phone) {
             setFormattedPhoneNumber(formatToPhone(props.content.customer_phone));
+        }
+        if (props.content.customer_alternate_phone) {
+            setFormattedAlternatePhoneNumber(formatToPhone(props.content.customer_alternate_phone));
         }
     }, [props.content.customer_phone]);
 
@@ -55,9 +60,10 @@ export default function CustomerAndPetInfo(props) {
                 <td>
                     {props.content.customer_first_name + " " + props.content.customer_last_name}
                 </td>
+                <td>{props.content.customer_phone ? formattedPhoneNumber : "no info provided"}</td>
                 <td>
                     {props.content.customer_phone
-                        ? props.content.customer_phone
+                        ? formattedAlternatePhoneNumber
                         : "no info provided"}
                 </td>
                 <td>
@@ -86,6 +92,11 @@ export default function CustomerAndPetInfo(props) {
                 </td>
                 <td>{pet_photo}</td>
                 <td>{props.content.customer_phone ? formattedPhoneNumber : "no info provided"}</td>
+                <td>
+                    {props.content.customer_alternate_phone
+                        ? formattedAlternatePhoneNumber
+                        : "no info provided"}
+                </td>
                 <td>
                     {props.content.customer_email
                         ? props.content.customer_email

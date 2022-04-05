@@ -6,6 +6,7 @@ export default function CreateAccount(props) {
     const [customer_first_name, setCustomerFirstName] = useState("");
     const [customer_last_name, setCustomerLastName] = useState("");
     const [customer_phone, setPhone] = useState();
+    const [customer_alternate_phone, setAlternatePhone] = useState();
     const [customer_email, setEmail] = useState("");
     const [pet_name, setPetName] = useState("");
     const [pet_breed, setPetBreed] = useState("");
@@ -57,6 +58,9 @@ export default function CreateAccount(props) {
     };
     const changePhone = (event) => {
         setPhone(event.target.value);
+    };
+    const changeAlternatePhone = (event) => {
+        setAlternatePhone(event.target.value);
     };
     const changeEmail = (event) => {
         setEmail(event.target.value);
@@ -173,10 +177,10 @@ export default function CreateAccount(props) {
         setPetPhoto4(event.target.files[0]);
     };
 
-    console.log(pet_photo)
-    console.log(pet_photo2)
-    console.log(pet_photo3)
-    console.log(pet_photo4)
+    console.log(pet_photo);
+    console.log(pet_photo2);
+    console.log(pet_photo3);
+    console.log(pet_photo4);
 
     // Prepare data to post to database
     var formdata = new FormData();
@@ -198,6 +202,7 @@ export default function CreateAccount(props) {
             customer_first_name: `${customer_first_name}`,
             customer_last_name: `${customer_last_name}`,
             customer_phone: `${customer_phone}`,
+            customer_alternate_phone: `${customer_alternate_phone}`,
             customer_email: `${customer_email}`,
             pet_name: `${pet_name}`,
             pet_breed: `${pet_breed}`,
@@ -247,6 +252,7 @@ export default function CreateAccount(props) {
             setCustomerFirstName("");
             setCustomerLastName("");
             setPhone("");
+            setAlternatePhone("");
             setEmail("");
             setPetName("");
             setPetBreed("");
@@ -328,7 +334,6 @@ export default function CreateAccount(props) {
                             onChange={changeCustomerLastName}
                         />
                     </div>
-
                     <div className="label-and-input">
                         <label htmlFor="customer_phone"> Phone Number:</label>
                         <input
@@ -339,6 +344,18 @@ export default function CreateAccount(props) {
                             onChange={changePhone}
                         />
                     </div>
+
+                    <div className="label-and-input">
+                        <label htmlFor="customer_alternate_phone">Alternate Phone Number:</label>
+                        <input
+                            type="number"
+                            name="customer_alternate_phone"
+                            id="customer_alternate_phone"
+                            value={customer_alternate_phone}
+                            onChange={changeAlternatePhone}
+                        />
+                    </div>
+
                     <div className="label-and-input">
                         <label htmlFor="customer_email"> Email:</label>
                         <input

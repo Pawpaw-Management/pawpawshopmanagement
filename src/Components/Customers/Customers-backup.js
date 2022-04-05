@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react";
-import CustomerAndPetInfo from "./CustomerAndPetInfo/CustomerAndPetInfo";
-import InfoEditor from "./InfoEditor/InfoEditor";
-import "./SearchAndEditAccount.css";
-import "../../CommonElements.css";
+import React, {useState, useEffect} from "react";
+import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
+import CreateAccount from "./CreateAccount/CreateAccount";
+import SearchAccount from "./SearchAndEditAccount/SearchAndEditAccount";
+import CustomerAndPetInfo from "./SearchAndEditAccount/CustomerAndPetInfo/CustomerAndPetInfo";
+import InfoEditor from "./SearchAndEditAccount/InfoEditor/InfoEditor";
+import "../CommonElements.css";
+import "./SearchAndEditAccount/SearchAndEditAccount.css";
 
-const SearchAccount = (props) => {
+function Customers(props) {
+    // Define scenario to conditionally render content in <SearchAccount>
+    const scenario = "Customers";
+
     // Define state for <Refresh> to update state here
     const [customers_and_pets, setCustomersAndPets] = useState([]);
     // console.log("customers_and_pets:", customers_and_pets);
@@ -26,11 +32,7 @@ const SearchAccount = (props) => {
         console.log(customers_and_pets[0].customer_phone.includes(phoneNumber));
         searchResult = customers_and_pets.filter((customer) => {
             if (customer.customer_phone) {
-                if (customer.customer_phone.includes(phoneNumber)) {
-                    return customer.customer_phone.includes(phoneNumber);
-                } else if (customer.customer_alternate_phone && customer.customer_alternate_phone.includes(phoneNumber)) {
-                    return customer.customer_alternate_phone.includes(phoneNumber);
-                }
+                return customer.customer_phone.includes(phoneNumber);
             }
         });
     }
@@ -79,7 +81,6 @@ const SearchAccount = (props) => {
                             <th>ID</th>
                             <th>Customer Name</th>
                             <th>Phone</th>
-                            <th>Phone #2</th>
                             <th>Email</th>
                         </tr>
                     </thead>
@@ -102,8 +103,32 @@ const SearchAccount = (props) => {
                 </table>
             </section>
         );
-    } else if (props.scenario === "Customers") {
+    } else if (scenario === "Customers") {
         return (
+            <div>
+                <Router>
+                    <div className="customers">
+                        <Switch>
+                            <Route path="/create">
+                                <CreateAccount url={props.url} />
+                            </Route>
+                            {/* <Route path="/search">
+                                <SearchAccount url={props.url} scenario={scenario} />
+                            </Route> */}
+                        </Switch>
+                        <nav className="nav-components">
+                            <Link to="/create">
+                                <button>Create New Customer Account</button>
+                            </Link>
+                            {/* <Link to="/search">
+                                <button>Search/Edit Customer Account</button>
+                            </Link> */}
+                        </nav>
+                    </div>
+                </Router>                            
+
+
+
             <section className="searchAndEditCustomer">
                 <div className="title-and-refresh-button">
                     <h1>All Customer Accounts</h1>
@@ -140,7 +165,6 @@ const SearchAccount = (props) => {
                             <th>Customer Name</th>
                             <th>Pet Photo</th>
                             <th>Phone</th>
-                            <th>Phone #2</th>
                             <th>Email</th>
                         </tr>
                     </thead>
@@ -176,8 +200,9 @@ const SearchAccount = (props) => {
                     />
                 ) : null}
             </section>
+            </div>
         );
     }
-};
+}
 
-export default SearchAccount;
+export default Customers;

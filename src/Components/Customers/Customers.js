@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
 import CreateAccount from "./CreateAccount/CreateAccount";
 import SearchAccount from "./SearchAndEditAccount/SearchAndEditAccount";
 import "../CommonElements.css";
 
 function Customers(props) {
+    // Define states
+    const [shouldShowSearchAccount, setShouldShowSearchAccount] = useState(true);
+
     // Define scenario to conditionally render content in <SearchAccount>
     const scenario = "Customers";
 
@@ -22,15 +25,24 @@ function Customers(props) {
                     </Switch>
                     <nav className="nav-components">
                         <Link to="/create">
-                            <button>Create New Customer Account</button>
+                            <button onClick={() => setShouldShowSearchAccount(false)}>
+                                Create New Customer Account
+                            </button>
                         </Link>
                         <Link to="/search">
-                            <button>Search/Edit Customer Account</button>
+                            <button onClick={() => setShouldShowSearchAccount(false)}>
+                                Search/Edit Customer Account
+                            </button>
                         </Link>
                     </nav>
                 </div>
             </Router>
-            <SearchAccount url={props.url} scenario={scenario} />
+            {/* The following <SearchAccount> should only be shown when no other components are shown. */}
+            {shouldShowSearchAccount ? (
+                <SearchAccount url={props.url} scenario={scenario} />
+            ) : (
+                <div></div>
+            )}
         </div>
     );
 }

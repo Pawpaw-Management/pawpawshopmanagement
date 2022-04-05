@@ -16,3 +16,9 @@
     width: max-content;
     font-size: 1.3rem;
 }
+
+#daily-income-editor__delete-button {
+    margin-top: 1rem;
+    color: white;
+    background-color: red;
+}

@@ -10,17 +10,55 @@ export default function AddAppointment(props) {
     const [appointment_service, setService] = useState("");
     const [appointment_customer_id, setCustomerId] = useState(33);
     const [appointment_service_provider_ids, setProviderIds] = useState([]);
-    
-    const
-    // const [appointment_service_provider_id1, setProviderId1] = useState(0);
-    // const [appointment_service_provider_id2, setProviderId2] = useState(0);
-    // const [appointment_service_provider_id3, setProviderId3] = useState(0);
+    const [appointment_service_provider_id1, setProviderId1] = useState(-1);
+    const [appointment_service_provider_id2, setProviderId2] = useState(-1);
+    const [appointment_service_provider_id3, setProviderId3] = useState(-1);
     // console.log("main component");
-    // console.log(appointment_service_provider_ids);
+    console.log(appointment_service_provider_ids);
+
+    // Update appointment_service_provider_ids when appointment_service_provider_id1, appointment_service_provider_id2, appointment_service_provider_id3 changes
+    useEffect(() => {
+        setProviderIds([
+            appointment_service_provider_id1,
+            appointment_service_provider_id2,
+            appointment_service_provider_id3,
+        ]);
+    }, [
+        appointment_service_provider_id1,
+        appointment_service_provider_id2,
+        appointment_service_provider_id3,
+    ]);
 
     // Define states for component display
     const [shouldShowCustomer, setVisibilityCustomer] = useState(false);
-    const [shouldShowProvider, setVisibilityProvider] = useState(false);
+    const [shouldShowProvider1, setVisibilityProvider1] = useState(false);
+    const [shouldShowProvider2, setVisibilityProvider2] = useState(false);
+    const [shouldShowProvider3, setVisibilityProvider3] = useState(false);
+
+    // Define functions to set corresponding id or visibility
+    const setProviderId = (num, id) => {
+        if (num === 1) {
+            setProviderId1(id);
+        }
+        if (num === 2) {
+            setProviderId2(id);
+        }
+        if (num === 3) {
+            setProviderId3(id);
+        }
+    };
+
+    const setVisibility = (num) => {
+        if (num === 1) {
+            setVisibilityProvider1(false);
+        }
+        if (num === 2) {
+            setVisibilityProvider2(false);
+        }
+        if (num === 3) {
+            setVisibilityProvider3(false);
+        }
+    };
 
     // Define a const to pass to <CustomerList> & <ProviderList> and control their content
     const scenario = "AddAppointment";
@@ -99,7 +137,8 @@ export default function AddAppointment(props) {
                     appointment_time_end: `${appointment_time_end}`,
                     appointment_service: `${appointment_service}`,
                     appointment_customer_id: `${appointment_customer_id}`,
-                    // appointment_service_provider_ids: `${appointment_service_provider_ids}`,
+                    appointment_service_provider_ids:
+                        appointment_service_provider_ids,
                 }),
             });
             const content = await response.json();
@@ -129,20 +168,50 @@ export default function AddAppointment(props) {
     }
 
     // Render <ProviderList/> only when use clicks "choose Provider" buttom
-    var providerList;
-    if (shouldShowProvider) {
-        providerList = (
+    var providerList1, providerList2, providerList3;
+    if (shouldShowProvider1) {
+        providerList1 = (
             <ProviderList
                 url={props.url}
                 scenario={scenario}
-                arrayToggleCheckbox={arrayToggleCheckbox}
+                setProviderId={setProviderId}
+                setVisibility={setVisibility}
+                num={1}
+                // arrayToggleCheckbox={arrayToggleCheckbox}
                 // arrayAddItem={arrayAddItem}
                 // arrayDeleteItem={arrayDeleteItem}
-                setVisibilityProvider={setVisibilityProvider}
             />
         );
     } else {
-        providerList = <div></div>;
+        providerList1 = <div></div>;
+    }
+
+    if (shouldShowProvider2) {
+        providerList2 = (
+            <ProviderList
+                url={props.url}
+                scenario={scenario}
+                setProviderId={setProviderId}
+                setVisibility={setVisibility}
+                num={2}
+            />
+        );
+    } else {
+        providerList2 = <div></div>;
+    }
+
+    if (shouldShowProvider3) {
+        providerList1 = (
+            <ProviderList
+                url={props.url}
+                scenario={scenario}
+                setProviderId={setProviderId}
+                setVisibility={setVisibility}
+                num={3}
+            />
+        );
+    } else {
+        providerList3 = <div></div>;
     }
 
     return (
@@ -178,18 +247,34 @@ export default function AddAppointment(props) {
                     <button
                         onClick={(event) => {
                             event.preventDefault();
-                            setVisibilityProvider(true);
-                        }}
-                    >
-                        Choose Service Provider
-                    </button>
-                    <button
-                        onClick={(event) => {
-                            event.preventDefault();
                             setVisibilityCustomer(true);
                         }}
                     >
                         Choose Customer
+                    </button>
+                    <button
+                        onClick={(event) => {
+                            event.preventDefault();
+                            setVisibilityProvider1(true);
+                        }}
+                    >
+                        Choose Service Provider #1
+                    </button>
+                    <button
+                        onClick={(event) => {
+                            event.preventDefault();
+                            setVisibilityProvider2(true);
+                        }}
+                    >
+                        Choose Service Provider #2
+                    </button>
+                    <button
+                        onClick={(event) => {
+                            event.preventDefault();
+                            setVisibilityProvider3(true);
+                        }}
+                    >
+                        Choose Service Provider #3
                     </button>
                 </div>
                 <input
@@ -198,7 +283,9 @@ export default function AddAppointment(props) {
                     value="Book Appointment"
                 />
             </form>
-            {providerList}
+            {providerList1}
+            {providerList2}
+            {providerList3}
             {customerList}
         </div>
     );

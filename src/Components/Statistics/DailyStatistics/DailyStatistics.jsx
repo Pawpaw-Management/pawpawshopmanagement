@@ -23,23 +23,30 @@ export default function DailyStatistics(props) {
     // console.log("incomeHistoriesOnDate", incomeHistoriesOnDate);
     // console.log("incomeIndex:", incomeIndex)
 
+    // Define a funtion to round numbers to 2 decimal places
+    const roundTo2 = (number) => {
+        return Math.round(number * 1e2) / 1e2;
+    };
+
     // Define non-state variables
     var totalIncomeBeforeTax =
         incomeHistoriesOnDate &&
         incomeHistoriesOnDate
             .map((item) => Number(item.income_before_tax))
-            .reduce((a, b) => a + b, 0);
+            .reduce((a, b) => roundTo2(a) + roundTo2(b), 0);
     var totalIncomeAfterTax =
         incomeHistoriesOnDate &&
         incomeHistoriesOnDate
             .map((item) => Number(item.income_after_tax))
-            .reduce((a, b) => a + b, 0);
-    var totalGst = Number((Number(totalIncomeBeforeTax) - Number(totalIncomeAfterTax)).toFixed(2));
+            .reduce((a, b) => roundTo2(a) + roundTo2(b), 0);
+    var totalGst = roundTo2(Number(totalIncomeBeforeTax) - Number(totalIncomeAfterTax));
     var totalTips =
         incomeHistoriesOnDate &&
-        incomeHistoriesOnDate.map((item) => Number(item.tips)).reduce((a, b) => a + b, 0);
+        incomeHistoriesOnDate
+            .map((item) => Number(item.tips))
+            .reduce((a, b) => roundTo2(a) + roundTo2(b), 0);
     var total = Number(
-        (Number(totalIncomeBeforeTax) + Number(totalGst) + Number(totalTips)).toFixed(2)
+        roundTo2(Number(totalIncomeBeforeTax) + Number(totalGst) + Number(totalTips))
     );
     // console.log("totalIncomeBeforeTax:", totalIncomeBeforeTax);
 
@@ -51,7 +58,7 @@ export default function DailyStatistics(props) {
         // Check is component is mounted to prevent memory leak
         let componentIsMounted = true;
         (async () => {
-            const response = await fetch(`${props.url}income-histories`);
+            const response = await fetch(`${props.url}income-histories?_limit=-1`);
             const data = await response.json();
             if (componentIsMounted) {
                 setIncomeHistories(data);
@@ -94,7 +101,7 @@ export default function DailyStatistics(props) {
 
     // Fetch data when component mount and user clicks refresh-button
     useEffect(() => {
-        fetch(`${props.url}income-histories`)
+        fetch(`${props.url}income-histories?_limit=-1`)
             .then((response) => response.json())
             .then((response) => {
                 setIncomeHistories(response);
@@ -102,7 +109,7 @@ export default function DailyStatistics(props) {
             .catch((error) => {
                 console.log(error);
             });
-    }, [refresh]);
+    }, [refresh, shouldRenderDailyIncomeEditor]);
 
     return (
         <section id="daily-statistics">
@@ -149,18 +156,24 @@ export default function DailyStatistics(props) {
                 <tbody>
                     {incomeHistoriesOnDate &&
                         incomeHistoriesOnDate.map((content, index) => {
+                            let date_for_display = content.date;
+                            let year = date_for_display.slice(0, 4);
+                            let month = date_for_display.slice(5, 7);
+                            let day = date_for_display.slice(8, 10);
+                            date_for_display = month + "-" + day + "-" + year;
+                            let this_gst = roundTo2(
+                                Number(content.income_before_tax) - Number(content.income_after_tax)
+                            );
+                            let this_total = roundTo2(
+                                Number(content.tips) + Number(content.income_before_tax) + this_gst
+                            );
                             return (
                                 <tr>
-                                    <td>{content.date}</td>
+                                    <td>{date_for_display}</td>
                                     <td>{content.income_before_tax}</td>
-                                    <td>
-                                        {Number(content.income_before_tax) -
-                                            Number(content.income_after_tax)}
-                                    </td>
+                                    <td>{this_gst}</td>
                                     <td>{content.tips}</td>
-                                    <td>
-                                        {Number(content.tips) + Number(content.income_before_tax)}
-                                    </td>
+                                    <td>{this_total}</td>
                                     <td>
                                         <button
                                             className="button_edit"

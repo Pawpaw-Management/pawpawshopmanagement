@@ -1,39 +1,105 @@
 import React, { useState, useEffect } from "react";
-import "./PendingPaymentEditor.css";
+import "./SelectEmployees.css";
 import "../../../CommonElements.css";
 
-export default function PendingPaymentEditor(props) {
+export default function SelectEmployeeIDs(props) {
+    console.log(props.tips)
     // Define states
     const [employees, setEmployees] = useState();
-    const [tipsTotalShare, setTipsTotalShare] = useState();
-    const [serviceIncomeTotalShare, setServiceIncomeTotalShare] = useState();
-    const [employeeID1, setEmployeeID1] = useState("");
-    const [employeeID2, setEmployeeID2] = useState("");
-    const [employeeID3, setEmployeeID3] = useState("");
-    const [employeeID4, setEmployeeID4] = useState("");
+    // const [tips, setTips] = useState();
+    const [employeeID1, setEmployeeID1] = useState("Nobody");
+    const [employeeID2, setEmployeeID2] = useState("Nobody");
+    const [employeeID3, setEmployeeID3] = useState("Nobody");
+    const [employeeID4, setEmployeeID4] = useState("Nobody");
     const [employeePayPercentage1, setEmployeePayPercentage1] = useState(0);
     const [employeePayPercentage2, setEmployeePayPercentage2] = useState(0);
     const [employeePayPercentage3, setEmployeePayPercentage3] = useState(0);
     const [employeePayPercentage4, setEmployeePayPercentage4] = useState(0);
-    const [serviceDescription, setServiceDescription] = useState("");
-    const [purchase_date, setPurchaseDate] = useState();
+    const [employeeTips1, setEmployeeTips1] = useState(0);
+    const [employeeTips2, setEmployeeTips2] = useState(0);
+    const [employeeTips3, setEmployeeTips3] = useState(0);
+    const [employeeTips4, setEmployeeTips4] = useState(0);
+    const [employeeCommission1, setEmployeeCommission1] = useState(0);
+    const [employeeCommission2, setEmployeeCommission2] = useState(0);
+    const [employeeCommission3, setEmployeeCommission3] = useState(0);
+    const [employeeCommission4, setEmployeeCommission4] = useState(0);
+    const [shareableServiceIncome, setShareableServiceIncome] = useState(0)
+
+    // Update states as user gives input
+    useEffect(() => {
+        let componentIsMounted = true;
+        if (componentIsMounted) {
+
+        }
+        return () => {
+            componentIsMounted = false;
+        };
+    }, [props]);
+
+    useEffect(() => {
+        let componentIsMounted = true;
+        if (componentIsMounted) {
+
+        }
+        return () => {
+            componentIsMounted = false;
+        };
+    }, [props])
 
     // Define non-state variables
+    var purchase_date = new Date();
+    var dd = String(purchase_date.getDate()).padStart(2, "0");
+    var mm = String(purchase_date.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = purchase_date.getFullYear();
+    purchase_date = yyyy + "-" + mm + "-" + dd;
+
+    var shareableServiceIncome =
+        props.serviceTotalAfterDiscount === undefined ? 0 : props.serviceTotalAfterDiscount * 0.5; // Employees can share 50% of the total service income
+    var tips90percent = props.tips ? Number(props.tips) * 0.9 : 0;
     var employeeTotal1 = Number(
-        (((Number(tipsTotalShare) + Number(serviceIncomeTotalShare)) * Number(employeePayPercentage1)) / 100).toFixed(2)
+        (
+            ((Number(tips90percent) + Number(shareableServiceIncome)) *
+                Number(employeePayPercentage1)) /
+            100
+        ).toFixed(2)
     );
     var employeeTotal2 = Number(
-        (((Number(tipsTotalShare) + Number(serviceIncomeTotalShare)) * Number(employeePayPercentage2)) / 100).toFixed(2)
+        (
+            ((Number(tips90percent) + Number(shareableServiceIncome)) *
+                Number(employeePayPercentage2)) /
+            100
+        ).toFixed(2)
     );
     var employeeTotal3 = Number(
-        (((Number(tipsTotalShare) + Number(serviceIncomeTotalShare)) * Number(employeePayPercentage3)) / 100).toFixed(2)
+        (
+            ((Number(tips90percent) + Number(shareableServiceIncome)) *
+                Number(employeePayPercentage3)) /
+            100
+        ).toFixed(2)
     );
     var employeeTotal4 = Number(
-        (((Number(tipsTotalShare) + Number(serviceIncomeTotalShare)) * Number(employeePayPercentage4)) / 100).toFixed(2)
+        (
+            ((Number(tips90percent) + Number(shareableServiceIncome)) *
+                Number(employeePayPercentage4)) /
+            100
+        ).toFixed(2)
     );
 
+    var storeIncome = (Number(props.balanceDue) + Number(props.tips)).toFixed(2);
+    var service1 = props.service1 ? props.service1 : null;
+    var service2 = props.service2 ? props.service2 : null;
+    var service3 = props.service3 ? props.service3 : null;
+    var service4 = props.service4 ? props.service4 : null;
+    var service5 = props.service5 ? props.service5 : null;
+    var services = service1 + " " + service2 + " " + service3 + " " + service4 + " " + service5;
+    var item1 = props.item1 ? props.itemQuantity1 + "*" + props.item1 : null;
+    var item2 = props.item2 ? props.itemQuantity2 + "*" + props.item2 : null;
+    var item3 = props.item3 ? props.itemQuantity3 + "*" + props.item3 : null;
+    var item4 = props.item4 ? props.itemQuantity4 + "*" + props.item4 : null;
+    var item5 = props.item5 ? props.itemQuantity5 + "*" + props.item5 : null;
+    var items = item1 + " " + item2 + " " + item3 + " " + item4 + " " + item5;
+
     // Define onChange handlers
-    const changeTipsTotalShare = (event) => setTipsTotalShare(event.target.value);
     const changeEmployeeID1 = (event) => setEmployeeID1(event.target.value);
     const changeEmployeeID2 = (event) => setEmployeeID2(event.target.value);
     const changeEmployeeID3 = (event) => setEmployeeID3(event.target.value);
@@ -42,9 +108,8 @@ export default function PendingPaymentEditor(props) {
     const changeEmployeePayPercentage2 = (event) => setEmployeePayPercentage2(event.target.value);
     const changeEmployeePayPercentage3 = (event) => setEmployeePayPercentage3(event.target.value);
     const changeEmployeePayPercentage4 = (event) => setEmployeePayPercentage4(event.target.value);
-    const changeServiceDescription = (event) => setServiceDescription(event.target.value);
 
-    // When component mounts, fetch data and assign to states
+    // When component mount, pull data and assign employee names to the <option>s below
     useEffect(() => {
         fetch(`${props.url}employees`)
             .then((response) => response.json())
@@ -55,36 +120,14 @@ export default function PendingPaymentEditor(props) {
                 console.log(error);
             });
     }, []);
-    console.log("--------------------------");
 
-    // When component mounts, set input values to the current pending payments information
-    // 1. Define the current pending payment
-    var current_payment =
-        props.employee_pending_payments &&
-        props.employee_pending_payments.find((payment) => payment.id === props.pendingPaymentId);
-    // 2. Assign data from current_payment to states when pendingPaymentId changes
-    useEffect(() => {
-        if (current_payment) {
-            setEmployeeID1(current_payment.employeeID1);
-            setEmployeeID2(current_payment.employeeID2);
-            setEmployeeID3(current_payment.employeeID3);
-            setEmployeeID4(current_payment.employeeID4);
-            setEmployeePayPercentage1(current_payment.employeePayPercentage1);
-            setEmployeePayPercentage2(current_payment.employeePayPercentage2);
-            setEmployeePayPercentage3(current_payment.employeePayPercentage3);
-            setEmployeePayPercentage4(current_payment.employeePayPercentage4);
-            setPurchaseDate(current_payment.purchase_date);
-            setServiceDescription(current_payment.service_description);
-            setTipsTotalShare(current_payment.tips_total_share);
-            setServiceIncomeTotalShare(current_payment.service_income_total_share);
-        }
-    }, [props.pendingPaymentId]);
-
-    // Put data on DB
+    // Post data to employee-pending-payments and employee-payment-records
     var formdata = new FormData();
     formdata.append(
         "data",
         JSON.stringify({
+            // Need to add employee name1234, service1234, groomer1234 income(commission + tip),
+
             employeeID1: `${employeeID1}`,
             employeeID2: `${employeeID2}`,
             employeeID3: `${employeeID3}`,
@@ -93,49 +136,75 @@ export default function PendingPaymentEditor(props) {
             employeePayPercentage2: `${employeePayPercentage2}`,
             employeePayPercentage3: `${employeePayPercentage3}`,
             employeePayPercentage4: `${employeePayPercentage4}`,
-            tips_total_share: `${tipsTotalShare}`,
-            service_income_total_share: `${serviceIncomeTotalShare}`,
+            tips_total_share: `${tips90percent}`,
+            service_income_total_share: `${shareableServiceIncome}`,
             employee_pending_pay1: `${employeeTotal1}`,
             employee_pending_pay2: `${employeeTotal2}`,
             employee_pending_pay3: `${employeeTotal3}`,
             employee_pending_pay4: `${employeeTotal4}`,
-            service_description: `${serviceDescription}`,
+            purchase_date: `${purchase_date}`,
         })
     );
     var requestOptions = {
-        method: "PUT",
+        method: "POST",
         body: formdata,
         redirect: "follow",
     };
     const handleSubmit = async () => {
-        const response = await fetch(`${props.url}employee-pending-payments/${props.pendingPaymentId}`, requestOptions);
-        if (response.status === 200) {
+        const response1 = await fetch(`${props.url}employee-pending-payments`, requestOptions);
+        const response2 = await fetch(`${props.url}employee-payment-records`, requestOptions);
+        if (response1.status === 200 && response2.status === 200) {
             alert(`Employees payment information updated successfully!`);
         } else {
             alert("Error! Please make sure the database is running properly.");
         }
     };
 
+    // Post income data to income-history
+    var formdata2 = new FormData();
+    formdata2.append(
+        "data",
+        JSON.stringify({
+            date: `${purchase_date}`,
+            income: `${storeIncome}`,
+            description: `services: ${services} &#013;&#010; service discount: ${props.discount} &#013;&#010; service income: ${props.serviceTotalAfterDiscount} &#013;&#010; products: ${items} &#013;&#010; product income: ${props.itemtotal}`,
+        })
+    );
+    var requestOptions2 = {
+        method: "POST",
+        body: formdata2,
+        redirect: "follow",
+    };
+    const handlePostIncomeData = async () => {
+        const response = await fetch(`${props.url}income-histories`, requestOptions2);
+        if (response.status === 200) {
+            alert(`Income Data Successfully Updated!`);
+        } else {
+            alert("Error! Please make sure the database is running properly.");
+        }
+    };
+
     return (
-        <div className="window" id="pending-payment-editor">
-            <button className="button_esc" onClick={() => props.setShouldRenderPendingPaymentEditor(false)}>
+        <div id="employee-payment-distribution" className="window">
+            <button className="button_esc" onClick={() => props.setVisibilityEmployees(false)}>
                 X
             </button>
             <div className="label-and-input">
-                <span id="shareable-service-income">Shareable service income: ${`${serviceIncomeTotalShare}`}</span>
-                <label htmlFor="tips">Tips (please enter the amount for employees to share):</label>
-                <input type="number" name="tips" value={tipsTotalShare} onChange={changeTipsTotalShare} />
+                <span id="shareable-service-income">
+                    Shareable service income: ${`${shareableServiceIncome}`}
+                </span>
             </div>
-            {/* Employee #1 */}
             <div className="label-and-select">
-                <label htmlFor="employeeID1">Groomer #1:</label>
+                <label htmlFor="employeeID1">Select Groomer #1</label>
                 <select name="employeeID1" value={employeeID1} onChange={changeEmployeeID1}>
-                    <option value={employeeID1}>{employeeID1}</option>
-                    <option value="Nobody">Nobody</option>
+                    <option value="0">Nobody</option>
                     {employees &&
                         employees.map((content, index) => {
                             return (
-                                <option value={content.employee_first_name + content.employee_last_name} key={index}>
+                                <option
+                                    value={content.employee_first_name + content.employee_last_name}
+                                    key={index}
+                                >
                                     {content.employee_first_name + content.employee_last_name}
                                 </option>
                             );
@@ -150,16 +219,17 @@ export default function PendingPaymentEditor(props) {
                 <label htmlFor="employeePayPercentage1">%</label>
                 <span className="employee-pay-total">Total: ${employeeTotal1}</span>
             </div>
-            {/* Employee #2 */}
             <div className="label-and-select">
-                <label htmlFor="employeeID2">Groomer #2:</label>
+                <label htmlFor="employeeID2">Select Groomer #2</label>
                 <select name="employeeID2" value={employeeID2} onChange={changeEmployeeID2}>
-                    <option value={employeeID2}>{employeeID2}</option>
                     <option value="Nobody">Nobody</option>
                     {employees &&
                         employees.map((content, index) => {
                             return (
-                                <option value={content.employee_first_name + content.employee_last_name} key={index}>
+                                <option
+                                    value={content.employee_first_name + content.employee_last_name}
+                                    key={index}
+                                >
                                     {content.employee_first_name + content.employee_last_name}
                                 </option>
                             );
@@ -174,16 +244,17 @@ export default function PendingPaymentEditor(props) {
                 <label htmlFor="employeePayPercentage2">%</label>
                 <span className="employee-pay-total">Total: ${employeeTotal2}</span>
             </div>
-            {/* Employee #3 */}
             <div className="label-and-select">
-                <label htmlFor="employeeID3">Groomer #3:</label>
+                <label htmlFor="employeeID3">Select Groomer #3</label>
                 <select name="employeeID3" value={employeeID3} onChange={changeEmployeeID3}>
-                    <option value={employeeID3}>{employeeID3}</option>
                     <option value="Nobody">Nobody</option>
                     {employees &&
                         employees.map((content, index) => {
                             return (
-                                <option value={content.employee_first_name + content.employee_last_name} key={index}>
+                                <option
+                                    value={content.employee_first_name + content.employee_last_name}
+                                    key={index}
+                                >
                                     {content.employee_first_name + content.employee_last_name}
                                 </option>
                             );
@@ -198,16 +269,17 @@ export default function PendingPaymentEditor(props) {
                 <label htmlFor="employeePayPercentage3">%</label>
                 <span className="employee-pay-total">Total: ${employeeTotal3}</span>
             </div>
-            {/* Employee #4 */}
             <div className="label-and-select">
-                <label htmlFor="employeeID4">Groomer #4:</label>
+                <label htmlFor="employeeID4">Select Groomer #4</label>
                 <select name="employeeID4" value={employeeID4} onChange={changeEmployeeID4}>
-                    <option value={employeeID4}>{employeeID4}</option>
                     <option value="Nobody">Nobody</option>
                     {employees &&
                         employees.map((content, index) => {
                             return (
-                                <option value={content.employee_first_name + content.employee_last_name} key={index}>
+                                <option
+                                    value={content.employee_first_name + content.employee_last_name}
+                                    key={index}
+                                >
                                     {content.employee_first_name + content.employee_last_name}
                                 </option>
                             );
@@ -222,22 +294,11 @@ export default function PendingPaymentEditor(props) {
                 <label htmlFor="employeePayPercentage4">%</label>
                 <span className="employee-pay-total">Total: ${employeeTotal4}</span>
             </div>
-            <div className="label-and-input">
-                <label htmlFor="service-description">Services</label>
-                <textarea
-                    name="service-description"
-                    id="service-description-textarea"
-                    cols="60"
-                    rows="18"
-                    value={serviceDescription}
-                    onChange={changeServiceDescription}
-                ></textarea>
-            </div>
             <button
                 onClick={(e) => {
                     e.preventDefault();
                     handleSubmit();
-                    props.setShouldRenderPendingPaymentEditor(false)
+                    handlePostIncomeData();
                 }}
             >
                 Confirm

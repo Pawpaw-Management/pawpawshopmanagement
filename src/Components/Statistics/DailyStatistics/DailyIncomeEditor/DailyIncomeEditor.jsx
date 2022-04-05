@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./DailyIncomeEditor.css";
 export default function DailyIncomeEditor(props) {
     // Define states
@@ -11,6 +11,21 @@ export default function DailyIncomeEditor(props) {
     );
     const [tips, setTips] = useState(props.incomeHistory.tips);
     const [description, setDescription] = useState(props.incomeHistory.description);
+    const [processedDescription, setProcessedDescription] = useState("");
+
+    // Update processedDescription whenever description changes, replace the "/" in description with "<br />"
+    useEffect(() => {
+        let text_splited = description.split(/[/,]/);
+        let text_rejoined = text_splited.map((item, key) => {
+            return (
+                <span key={key}>
+                    {item}
+                    <br />
+                </span>
+            );
+        });
+        setProcessedDescription(text_rejoined);
+    }, [description]);
 
     // Define non-state variables
     const totalIncomeAfterTax = Number(totalIncomeBeforeTax) - Number(gst);
@@ -48,6 +63,21 @@ export default function DailyIncomeEditor(props) {
         }
     };
 
+    // Delete data from DB
+    const handleDelete = async () => {
+        const response = await fetch(`${props.url}income-histories/${props.incomeId}`, {
+            method: "DELETE",
+        });
+        const content = await response.json();
+        console.log(content);
+        // Tell user the data above is successfully submitted
+        if (response.status === 200) {
+            alert(`Income information has been deleted!`);
+        } else {
+            alert("Error! Please make sure the database is running properly.");
+        }
+    };
+
     return (
         <div id="daily-income-editor" className="window">
             <button
@@ -77,12 +107,14 @@ export default function DailyIncomeEditor(props) {
                 <label htmlFor="tips">Tips</label>
                 <input type="number" name="tips" value={tips} onChange={changeTips} />
             </div>
+            <p>{processedDescription}</p>
             <div className="input-and-label">
                 <label htmlFor="desctiption">Description</label>
                 <textarea
                     rows="10"
                     cols="40"
                     name="desctiption"
+                    id="description-textarea"
                     value={description}
                     onChange={changeDescription}
                 />
@@ -93,8 +125,24 @@ export default function DailyIncomeEditor(props) {
                 onClick={(e) => {
                     e.preventDefault();
                     handleSubmit();
+                    props.setShouldRenderDailyIncomeEditor(false);
                 }}
             />
+            <button
+                id="daily-income-editor__delete-button"
+                onClick={(e) => {
+                    e.preventDefault();
+                    if (
+                        window.confirm(
+                            "Are you sure to delete this transaction? It CANNOT be undone."
+                        )
+                    ) {
+                        handleDelete();
+                    }
+                }}
+            >
+                Delete
+            </button>
         </div>
     );
 }
