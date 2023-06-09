@@ -23,6 +23,12 @@ export default function DailyStatistics(props) {
     // console.log("incomeHistoriesOnDate", incomeHistoriesOnDate);
     // console.log("incomeIndex:", incomeIndex)
 
+    // Define a function to trim content.description down to service1
+    const trimDescription = (description) => {
+        const firstDollarSign = description.indexOf("$");
+        return description.slice(9, firstDollarSign - 2);
+    };
+
     // Define a funtion to round numbers to 2 decimal places
     const roundTo2 = (number) => {
         return Math.round(number * 1e2) / 1e2;
@@ -147,6 +153,7 @@ export default function DailyStatistics(props) {
                 <thead>
                     <tr>
                         <th>Date</th>
+                        <th>Service</th>
                         <th>Sales</th>
                         <th>GST</th>
                         <th>Tips</th>
@@ -170,6 +177,7 @@ export default function DailyStatistics(props) {
                             return (
                                 <tr>
                                     <td>{date_for_display}</td>
+                                    <td>{trimDescription(content.description)}</td>
                                     <td>{content.income_before_tax}</td>
                                     <td>{this_gst}</td>
                                     <td>{content.tips}</td>
