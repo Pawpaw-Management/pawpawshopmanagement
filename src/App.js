@@ -4,14 +4,11 @@ import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
 import Appointments from "./Components/Appointments/Appointments";
 import Customers from "./Components/Customers/Customers";
 import Employees from "./Components/Employees/Employees";
-import Sales from "./Components/Sales/Sales"
-import Statistics from "./Components/Statistics/Statistics"
-import Logo from "./images/logo.png"
+import Sales from "./Components/Sales/Sales";
+import Statistics from "./Components/Statistics/Statistics";
+import Logo from "./images/logo.png";
 
 function App(props) {
-    // console.log(props.allInfo);
-    // console.log(props.url);
-
     return (
         <Router>
             <div className="app">

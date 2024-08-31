@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
 import moment from "moment";
-import BookAppointment from "./BookAppointment/BookAppointment"
+import BookAppointment from "./BookAppointment/BookAppointment";
 import AppointmentList from "./AppointmentList/AppointmentList";
 import "./Appointments.css";
 
@@ -9,8 +9,6 @@ export default function (props) {
     // Define states
     const [selectedDate, setSelectedDate] = useState(moment());
     const date = selectedDate.format("YYYY-MM-DD");
-    // console.log(selectedDate)
-    // console.log(typeof(date))
 
     return (
         <Router>
@@ -25,9 +23,7 @@ export default function (props) {
                         />
                     </Route>
                     <Route path="/search">
-                        <AppointmentList
-                            url={props.url}
-                        />
+                        <AppointmentList url={props.url} />
                     </Route>
                 </Switch>
                 <nav className="nav-components">

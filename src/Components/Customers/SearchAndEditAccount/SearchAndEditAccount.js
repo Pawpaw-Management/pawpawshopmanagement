@@ -7,7 +7,6 @@ import "../../CommonElements.css";
 const SearchAccount = (props) => {
     // Define state for <Refresh> to update state here
     const [customers_and_pets, setCustomersAndPets] = useState([]);
-    console.log("customers_and_pets", customers_and_pets)
 
     // Define state for <InfoEditor> to popup and disappear
     const [visibility, setVisibility] = useState("hidden");
@@ -63,9 +62,7 @@ const SearchAccount = (props) => {
                                         key={index}
                                         index={index}
                                         setCustomerId={props.setCustomerId}
-                                        setVisibilityCustomer={
-                                            props.setVisibilityCustomer
-                                        }
+                                        setVisibilityCustomer={props.setVisibilityCustomer}
                                     />
                                 );
                             })}
@@ -101,9 +98,7 @@ const SearchAccount = (props) => {
                                         setVisibility={setVisibility}
                                         setAccountId={setAccountId}
                                         // setVisibilityCustomer and setCustomerId are for <AddAppointment>
-                                        setVisibilityCustomer={
-                                            props.setVisibilityCustomer
-                                        }
+                                        setVisibilityCustomer={props.setVisibilityCustomer}
                                         setCustomerId={props.setCustomerId}
                                     />
                                 );
