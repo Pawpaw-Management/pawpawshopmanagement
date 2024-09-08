@@ -3,11 +3,11 @@
     display: block;
 }
 
-.searchAndEditCustomer h1{
+.searchAndEditCustomer h1 {
     font-size: 2rem;
 }
 
-.customerList{
+.customerList {
     width: 90vw;
     border-collapse: separate;
     border-spacing: 0.3rem 1rem;
@@ -16,4 +16,31 @@
 
 .customerList th {
     background: rgb(2, 209, 255);
+}
+
+.search-customer-account {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-phone-button {
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+.search-spinner {
+    animation-name: spin;
+    animation-duration: 800ms;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import CustomerAndPetInfo from "./CustomerAndPetInfo/CustomerAndPetInfo";
 import InfoEditor from "./InfoEditor/InfoEditor";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import "./SearchAndEditAccount.css";
 import "../../CommonElements.css";
 
 const SearchAccount = (props) => {
     // Define state for <Refresh> to update state here
     const [customers_and_pets, setCustomersAndPets] = useState([]);
-    // console.log("customers_and_pets:", customers_and_pets);
 
     // Define state for <InfoEditor> to popup and disappear
     const [visibility, setVisibility] = useState(false);
@@ -18,25 +19,35 @@ const SearchAccount = (props) => {
     // Define state for refresh button to re-fetch data
     const [refresh, setRefresh] = useState(true);
 
+    // Define a loading state
+    const [loading, setLoading] = useState(false);
+
     // Define state and onChange handler for search bar
     const [phoneNumber, setPhoneNumber] = useState("");
     const changePhoneNumber = (event) => setPhoneNumber(event.target.value);
     var searchResult;
-    if (phoneNumber !== "" && customers_and_pets !== []) {
-        console.log(customers_and_pets[0].customer_phone.includes(phoneNumber));
-        searchResult = customers_and_pets.filter((customer) => {
-            if (customer.customer_phone) {
-                if (customer.customer_phone.includes(phoneNumber)) {
-                    return customer.customer_phone.includes(phoneNumber);
-                } else if (customer.customer_alternate_phone && customer.customer_alternate_phone.includes(phoneNumber)) {
-                    return customer.customer_alternate_phone.includes(phoneNumber);
-                }
-            }
-        });
-    }
-    var customers_and_pets_filtered = phoneNumber === "" ? customers_and_pets : searchResult;
-    console.log("searchResult", searchResult);
-    console.log("==========");
+
+    const searchByPhoneNumber = async () => {
+        const response = await fetch(
+            `${props.url}customers-and-pets?_where[_or][0][customer_phone_contains]=${phoneNumber}&_where[_or][1][customer_alternate_phone_contains]=${phoneNumber}`
+        );
+        const data = response.json();
+        return data;
+    };
+
+    // Define a function to do the following
+    // 1. Set loading state to true
+    // 2. Call searchByPhoneNumber
+    // 3. If the search result has length > 0, set the result to customers_and_pets
+    // 4. If not, show a "not found" message
+    // 4. Set loading state to false
+    const searchButtonOnClick = async () => {
+        console.log("phoneNumber: ", phoneNumber);
+        setLoading(true);
+        const result = await searchByPhoneNumber();
+        setCustomersAndPets(result);
+        setLoading(false);
+    };
 
     // When component mount, fetch latest data through API, and assign to "customers_and_pets"
     useEffect(() => {
@@ -57,12 +68,19 @@ const SearchAccount = (props) => {
         return (
             <section className="searchAndEditCustomer appointmentWindow">
                 <div className="search-customer-account">
-                    <label htmlFor="customer__search-phone">Search</label>
+                    <label htmlFor="customer__search-phone">Search by Phone Number</label>
                     <input
                         name="customer__search-phone"
                         value={phoneNumber}
                         onChange={changePhoneNumber}
                     />
+                    <button onClick={searchButtonOnClick}>
+                        {loading ? (
+                            <FontAwesomeIcon icon={faCircleNotch} className="search-spinner" />
+                        ) : (
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        )}
+                    </button>
                 </div>
                 <h1>Customer List</h1>
                 <button
@@ -84,8 +102,8 @@ const SearchAccount = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {customers_and_pets_filtered &&
-                            customers_and_pets_filtered.map((content, index) => {
+                        {customers_and_pets &&
+                            customers_and_pets.map((content, index) => {
                                 return (
                                     <CustomerAndPetInfo
                                         url={props.url}
@@ -106,7 +124,7 @@ const SearchAccount = (props) => {
         return (
             <section className="searchAndEditCustomer">
                 <div className="title-and-refresh-button">
-                    <h1>All Customer Accounts</h1>
+                    <h1>All Customer </h1>
                     <button
                         className="refresh-button"
                         onClick={(e) => {
@@ -132,6 +150,13 @@ const SearchAccount = (props) => {
                         value={phoneNumber}
                         onChange={changePhoneNumber}
                     />
+                    <button onClick={searchButtonOnClick} className="search-phone-button">
+                        {loading ? (
+                            <FontAwesomeIcon icon={faCircleNotch} className="search-spinner" />
+                        ) : (
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        )}
+                    </button>
                 </div>
                 <table className="customerList">
                     <thead>
@@ -145,8 +170,8 @@ const SearchAccount = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {customers_and_pets_filtered &&
-                            customers_and_pets_filtered.map((content, index) => {
+                        {customers_and_pets &&
+                            customers_and_pets.map((content, index) => {
                                 return (
                                     <CustomerAndPetInfo
                                         scenario={props.scenario}
