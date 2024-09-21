@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import CustomerAndPetInfo from "./CustomerAndPetInfo/CustomerAndPetInfo";
 import InfoEditor from "./InfoEditor/InfoEditor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import "./SearchAndEditAccount.css";
 import "../../CommonElements.css";
+import PaginationControl from "../../ReuseableComponents/PaginationControl";
 
 const SearchAccount = (props) => {
     // Define state for <Refresh> to update state here
@@ -22,44 +23,55 @@ const SearchAccount = (props) => {
     // Define a loading state
     const [loading, setLoading] = useState(false);
 
+    // Define a state for page control
+    const [currentPage, setCurrentPage] = useState(1);
+
     // Define state and onChange handler for search bar
     const [phoneNumber, setPhoneNumber] = useState("");
     const changePhoneNumber = (event) => setPhoneNumber(event.target.value);
-    var searchResult;
 
-    const searchByPhoneNumber = async () => {
-        const response = await fetch(
-            `${props.url}customers-and-pets?_where[_or][0][customer_phone_contains]=${phoneNumber}&_where[_or][1][customer_alternate_phone_contains]=${phoneNumber}`
-        );
-        const data = response.json();
-        return data;
+    const [totalPageNumber, setTotalPageNumber] = useState();
+
+    const numberOfItemsPerPage = 10;
+    const currentItemNumber = (currentPage - 1) * numberOfItemsPerPage;
+
+    const searchButtonOnClick = async () => {
+        if (currentPage !== 1) {
+            setCurrentPage(1);
+        } else {
+            setRefresh(!refresh);
+        }
     };
 
-    // Define a function to do the following
-    // 1. Set loading state to true
-    // 2. Call searchByPhoneNumber
-    // 3. If the search result has length > 0, set the result to customers_and_pets
-    // 4. If not, show a "not found" message
-    // 4. Set loading state to false
-    const searchButtonOnClick = async () => {
-        console.log("phoneNumber: ", phoneNumber);
+    const fetchDataBasedOnPhoneNumberAndCurrentPage = async () => {
         setLoading(true);
-        const result = await searchByPhoneNumber();
-        setCustomersAndPets(result);
+
+        const phoneNumberIsValid = Number(phoneNumber) !== NaN || Number(phoneNumber) !== 0;
+        const whereClause = phoneNumberIsValid
+            ? `_where[_or][0][customer_phone_contains]=${phoneNumber}&_where[_or][1][customer_alternate_phone_contains]=${phoneNumber}`
+            : "";
+
+        const searchResponse = await fetch(
+            `${props.url}customers-and-pets?${whereClause}&_start=${currentItemNumber}&_limit=${numberOfItemsPerPage}`
+        );
+        const searchData = await searchResponse.json();
+        console.log("searchData: ", searchData);
+        setCustomersAndPets(searchData);
+        // Get data count
+        const countResponse = await fetch(`${props.url}customers-and-pets/count?${whereClause}`);
+        const countData = await countResponse.json();
+        const countDataToNumber = Number(countData);
+        console.log("countData: ", countData);
+        const numberOfPages =
+            numberOfItemsPerPage == 0 ? 0 : Math.ceil(countDataToNumber / numberOfItemsPerPage);
+        setTotalPageNumber(numberOfPages);
         setLoading(false);
     };
 
-    // When component mount, fetch latest data through API, and assign to "customers_and_pets"
+    // When component mount, fetch data and assign to "customers_and_pets"
     useEffect(() => {
-        fetch(`${props.url}customers-and-pets?_limit=-1`)
-            .then((response) => response.json())
-            .then((response) => {
-                setCustomersAndPets(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [refresh]);
+        fetchDataBasedOnPhoneNumberAndCurrentPage();
+    }, [numberOfItemsPerPage, currentPage, refresh]);
 
     // Render elements according to scenario:
     // if "AddAppointment", show "choose" button, cannot edit data
@@ -82,6 +94,7 @@ const SearchAccount = (props) => {
                         )}
                     </button>
                 </div>
+                <PaginationControl setCurrentPage={setCurrentPage} currentPage={currentPage} />
                 <h1>Customer List</h1>
                 <button
                     className="button_esc"
@@ -158,6 +171,11 @@ const SearchAccount = (props) => {
                         )}
                     </button>
                 </div>
+                <PaginationControl
+                    setCurrentPage={setCurrentPage}
+                    currentPage={currentPage}
+                    totalPageNumber={totalPageNumber}
+                />
                 <table className="customerList">
                     <thead>
                         <tr>
