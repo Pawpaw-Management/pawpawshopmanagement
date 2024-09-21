@@ -245,14 +245,12 @@ export default function InfoEditor(props) {
     // Props.url has a "/" at the end, need to remove it before using it in next step
     const processed_url = props.url.slice(0, -1);
 
-    
     // Disabled photo display to fix fetch issue: 500 error - SQLite too many variables
-    let pet_photoOrInput = <span>No Photo</span>
-    let pet_photoOrInput2 = <span>No Photo</span>
-    let pet_photoOrInput3 = <span>No Photo</span>
-    let pet_photoOrInput4 = <span>No Photo</span>
-    
-    
+    // let pet_photoOrInput = <span>No Photo</span>;
+    // let pet_photoOrInput2 = <span>No Photo</span>;
+    // let pet_photoOrInput3 = <span>No Photo</span>;
+    // let pet_photoOrInput4 = <span>No Photo</span>;
+
     // If an account has pet_photo, then display it; if not, display "no photo provided"
     // let pet_photoOrInput;
     // if (current_account.pet_photo !== null) {
@@ -500,8 +498,8 @@ export default function InfoEditor(props) {
                         />
                     </div>
                 </div>
-                <span className="customer-and-pet__infoEditor__title">Pet #1</span>
                 <div id="pet-1">
+                    <span className="customer-and-pet__infoEditor__title">Pet #1</span>
                     <div className="label-and-input">
                         <label htmlFor="pet_name">Pet Name:</label>
                         <input
@@ -600,7 +598,6 @@ export default function InfoEditor(props) {
                         </select>
                     </div>
                     <div className="line-break"></div>
-                    {pet_photoOrInput}
                     <div className="line-break"></div>
                     <div className="label-and-input">
                         <label htmlFor="pet_note">Note:</label>
@@ -718,7 +715,6 @@ export default function InfoEditor(props) {
                                 </select>
                             </div>
                             <div className="line-break"></div>
-                            {pet_photoOrInput2}
                             <div className="line-break"></div>
                             <div className="label-and-input">
                                 <label htmlFor="pet_note2">Pet#2 Note:</label>
@@ -847,7 +843,6 @@ export default function InfoEditor(props) {
                                 </select>
                             </div>
                             <div className="line-break"></div>
-                            {pet_photoOrInput3}
                             <div className="line-break"></div>
                             <div className="label-and-input">
                                 <label htmlFor="pet_note3">Pet#3 Note:</label>
@@ -976,7 +971,6 @@ export default function InfoEditor(props) {
                                 </select>
                             </div>
                             <div className="line-break"></div>
-                            {pet_photoOrInput4}
                             <div className="line-break"></div>
                             <div className="label-and-input">
                                 <label htmlFor="pet_note4">Pet#4 Note:</label>
