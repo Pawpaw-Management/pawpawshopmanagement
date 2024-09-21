@@ -15,22 +15,18 @@ export default function CreateAccount(props) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await fetch(
-            "http://localhost:1337/customers-and-pets",
-            {
-                method: "POST",
-                headers: {
-                    accept: "application/json",
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify({
-                    pet_name: `${pet_name}`,
-                    pet_photo: pet_photo,
-                }),
-            }
-        );
+        const response = await fetch("http://localhost:1337/customers-and-pets", {
+            method: "POST",
+            headers: {
+                accept: "application/json",
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                pet_name: `${pet_name}`,
+                pet_photo: pet_photo,
+            }),
+        });
         const content = await response.json();
-        console.log(content);
         if (response.status === 200) {
             alert(`${pet_name} has been added!`);
         } else {
@@ -40,10 +36,7 @@ export default function CreateAccount(props) {
 
     return (
         <div className="create_account">
-            <form
-                className="create_account_customer_registrition"
-                onSubmit={handleSubmit}
-            >
+            <form className="create_account_customer_registrition" onSubmit={handleSubmit}>
                 <label htmlFor="pet_name">Pet Name:</label>
                 <input
                     type="text"

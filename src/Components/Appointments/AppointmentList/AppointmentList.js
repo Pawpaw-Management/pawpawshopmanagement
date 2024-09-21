@@ -17,18 +17,11 @@ export default function AppointmentList(props) {
     const [dateOfInterest, setDateOfInterest] = useState("");
 
     // Define event handler
-    const changeDateOfInterest = (event) =>
-        setDateOfInterest(event.target.value);
+    const changeDateOfInterest = (event) => setDateOfInterest(event.target.value);
 
     // Define states for component display
-    const [
-        shouldShowAppointmentEditor,
-        setVisibilityAppointmentEditor,
-    ] = useState(false);
-    const [
-        shouldShowAppointmentCompleter,
-        setVisibilityAppointmentCompleter,
-    ] = useState(false);
+    const [shouldShowAppointmentEditor, setVisibilityAppointmentEditor] = useState(false);
+    const [shouldShowAppointmentCompleter, setVisibilityAppointmentCompleter] = useState(false);
 
     // When component mount, fetch latest data through API, and assign to "appointments"
     // In BookAppointment.jsx, show only those appointments on selectedDate, ie. response.filter...
@@ -51,8 +44,6 @@ export default function AppointmentList(props) {
                             return current.appointment_date === date;
                         })
                     );
-                    console.log("appointments: ");
-                    console.log(appointments);
                 } else if (date === null) {
                     // if date is not provided, which means this component is used in Search/Edit Appointments,
                     // then simply assign all fetched data to appointments, and set hasAppointment to true
@@ -118,9 +109,7 @@ export default function AppointmentList(props) {
                                     );
                                 }
                                 // If user enter a valid date, show appointments on that date only.
-                                if (
-                                    content.appointment_date === dateOfInterest
-                                ) {
+                                if (content.appointment_date === dateOfInterest) {
                                     return (
                                         <AppointmentDetail
                                             content={content}
@@ -144,9 +133,7 @@ export default function AppointmentList(props) {
                         url={props.url}
                         appointments={appointments}
                         appointmentId={appointmentId}
-                        setVisibilityAppointmentEditor={
-                            setVisibilityAppointmentEditor
-                        }
+                        setVisibilityAppointmentEditor={setVisibilityAppointmentEditor}
                     />
                 ) : (
                     <div></div>
