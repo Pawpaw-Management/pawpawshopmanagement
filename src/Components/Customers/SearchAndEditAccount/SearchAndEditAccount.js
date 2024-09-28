@@ -79,21 +79,21 @@ const SearchAccount = (props) => {
     if (props.scenario === "AddAppointment") {
         return (
             <section className="searchAndEditCustomer appointmentWindow">
-                <form className="search-customer-account" onSubmit={searchButtonOnClick}>
+                <div className="search-customer-account">
                     <label htmlFor="customer__search-phone">Search by Phone Number</label>
                     <input
                         name="customer__search-phone"
                         value={phoneNumber}
                         onChange={changePhoneNumber}
                     />
-                    <button type="submit" className="search-phone-button">
+                    <button onClick={searchButtonOnClick}>
                         {loading ? (
                             <FontAwesomeIcon icon={faCircleNotch} className="search-spinner" />
                         ) : (
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         )}
                     </button>
-                </form>
+                </div>
                 <PaginationControl setCurrentPage={setCurrentPage} currentPage={currentPage} />
                 <h1>Customer List</h1>
                 <button
@@ -156,21 +156,21 @@ const SearchAccount = (props) => {
                         </svg>
                     </button>
                 </div>
-                <form className="search-customer-account" onSubmit={searchButtonOnClick}>
+                <div className="search-customer-account">
                     <label htmlFor="customer__search-phone">Search by Phone Number</label>
                     <input
                         name="customer__search-phone"
                         value={phoneNumber}
                         onChange={changePhoneNumber}
                     />
-                    <button type="submit" className="search-phone-button">
+                    <button onClick={searchButtonOnClick} className="search-phone-button">
                         {loading ? (
                             <FontAwesomeIcon icon={faCircleNotch} className="search-spinner" />
                         ) : (
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         )}
                     </button>
-                </form>
+                </div>
                 <PaginationControl
                     setCurrentPage={setCurrentPage}
                     currentPage={currentPage}
