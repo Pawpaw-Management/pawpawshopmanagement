@@ -652,7 +652,7 @@ export default function Payment(props) {
                 <div id="payments__section-for-printing__header">
                     <img src={Logo} />
                     <span>pawpawpetspa@gmail.com</span>
-                    <span>780-666-9920</span>
+                    <span>780-695-5866</span>
                 </div>
                 <div id="payments__section-for-printing__client-info">
                     <div id="payments__section-for-printing__client-info__client">

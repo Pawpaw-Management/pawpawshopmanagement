@@ -55,7 +55,7 @@ export default function Payment(props) {
     const [itemTotal, setItemTotal] = useState("");
     const [visibilityEmployees, setVisibilityEmployees] = useState(false);
 
-    console.log(serviceTotalAfterDiscount)
+    console.log(serviceTotalAfterDiscount);
     // Define non-state variables
     var tipsToFixed = tips ? Number(tips).toFixed(2) : null;
     var tipsForUpload = tips ? tips : 0;
@@ -208,7 +208,7 @@ export default function Payment(props) {
     var selectEmployees = visibilityEmployees ? (
         <SelectEmployees
             url={props.url}
-            tips = {tips}
+            tips={tips}
             balanceDue={balanceDue}
             serviceTotalAfterDiscount={serviceTotalAfterDiscount}
             itemTotal={itemTotal}
@@ -721,7 +721,7 @@ export default function Payment(props) {
                 <div id="payments__section-for-printing__header">
                     <img src={Logo} alt="company logo" />
                     <span>pawpawpetspa@gmail.com</span>
-                    <span>780-666-9920</span>
+                    <span>780-695-5866</span>
                 </div>
                 <div id="payments__section-for-printing__client-info">
                     <div id="payments__section-for-printing__client-info__client">
