@@ -55,10 +55,47 @@ export default function Payment(props) {
     const [itemTotal, setItemTotal] = useState("");
     const [visibilityEmployees, setVisibilityEmployees] = useState(false);
 
-    console.log(serviceTotalAfterDiscount);
     // Define non-state variables
     var tipsToFixed = tips ? Number(tips).toFixed(2) : null;
     var tipsForUpload = tips ? tips : 0;
+
+    // Define a function to clear form
+    const clearForm = () => {
+        setDiscount(0);
+        setTips("");
+        setService1("");
+        setService2("");
+        setService3("");
+        setService4("");
+        setService5("");
+        setServiceQuantity1(1);
+        setServiceQuantity2(1);
+        setServiceQuantity3(1);
+        setServiceQuantity4(1);
+        setServiceQuantity5(1);
+        setServicePrice1("");
+        setServicePrice2("");
+        setServicePrice3("");
+        setServicePrice4("");
+        setServicePrice5("");
+        setServiceTotalAfterDiscount();
+        setItem1("");
+        setItem2("");
+        setItem3("");
+        setItem4("");
+        setItem5("");
+        setItemQuantity1(1);
+        setItemQuantity2(1);
+        setItemQuantity3(1);
+        setItemQuantity4(1);
+        setItemQuantity5(1);
+        setItemPrice1("");
+        setItemPrice2("");
+        setItemPrice3("");
+        setItemPrice4("");
+        setItemPrice5("");
+        setItemTotal(0);
+    };
 
     // Every time serviceTotal changes, update serviceTotalAfterDiscount
     useEffect(() => {
@@ -343,10 +380,10 @@ export default function Payment(props) {
             }),
         });
         const content = await response.json();
-        // console.log(content);
         // Tell user the data above is successfully submitted
         if (response.status === 200) {
             alert(`Income information has been successfully uploaded!`);
+            clearForm();
         } else {
             alert("Error! Please make sure the database is running properly.");
         }
@@ -660,6 +697,7 @@ export default function Payment(props) {
                 </button>
                 <button
                     id="calc-store-income-button"
+                    type="button"
                     onClick={(e) => {
                         e.preventDefault();
                         handleSubmitToIncomeHistories();
@@ -669,42 +707,10 @@ export default function Payment(props) {
                 </button>
                 <button
                     id="clear-button"
+                    type="button"
                     onClick={(e) => {
                         e.preventDefault();
-                        setDiscount(0);
-                        setTips("");
-                        setService1("");
-                        setService2("");
-                        setService3("");
-                        setService4("");
-                        setService5("");
-                        setServiceQuantity1(1);
-                        setServiceQuantity2(1);
-                        setServiceQuantity3(1);
-                        setServiceQuantity4(1);
-                        setServiceQuantity5(1);
-                        setServicePrice1("");
-                        setServicePrice2("");
-                        setServicePrice3("");
-                        setServicePrice4("");
-                        setServicePrice5("");
-                        setServiceTotalAfterDiscount();
-                        setItem1("");
-                        setItem2("");
-                        setItem3("");
-                        setItem4("");
-                        setItem5("");
-                        setItemQuantity1(1);
-                        setItemQuantity2(1);
-                        setItemQuantity3(1);
-                        setItemQuantity4(1);
-                        setItemQuantity5(1);
-                        setItemPrice1("");
-                        setItemPrice2("");
-                        setItemPrice3("");
-                        setItemPrice4("");
-                        setItemPrice5("");
-                        setItemTotal(0);
+                        clearForm();
                         // setBalanceDue(0);
                     }}
                 >
