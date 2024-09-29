@@ -28,14 +28,22 @@ const SearchAccount = (props) => {
 
     // Define state and onChange handler for search bar
     const [phoneNumber, setPhoneNumber] = useState("");
-    const changePhoneNumber = (event) => setPhoneNumber(event.target.value);
+    const changePhoneNumber = (event) => {
+        setPhoneNumber(event.target.value);
+    };
+    // If user press enter, call searchButtonCallback
+    const checkKeyUpAndCallSearch = (event) => {
+        if (event.key === "Enter") {
+            searchByPhoneNumber();
+        }
+    };
 
     const [totalPageNumber, setTotalPageNumber] = useState();
 
     const numberOfItemsPerPage = 10;
     const currentItemNumber = (currentPage - 1) * numberOfItemsPerPage;
 
-    const searchButtonOnClick = async () => {
+    const searchByPhoneNumber = () => {
         if (currentPage !== 1) {
             setCurrentPage(1);
         } else {
@@ -79,21 +87,22 @@ const SearchAccount = (props) => {
     if (props.scenario === "AddAppointment") {
         return (
             <section className="searchAndEditCustomer appointmentWindow">
-                <form className="search-customer-account" onSubmit={searchButtonOnClick}>
+                <div className="search-customer-account">
                     <label htmlFor="customer__search-phone">Search by Phone Number</label>
                     <input
                         name="customer__search-phone"
                         value={phoneNumber}
                         onChange={changePhoneNumber}
+                        onKeyUp={checkKeyUpAndCallSearch}
                     />
-                    <button type="submit" className="search-phone-button">
+                    <button onClick={searchByPhoneNumber} className="search-phone-button">
                         {loading ? (
                             <FontAwesomeIcon icon={faCircleNotch} className="search-spinner" />
                         ) : (
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         )}
                     </button>
-                </form>
+                </div>
                 <PaginationControl setCurrentPage={setCurrentPage} currentPage={currentPage} />
                 <h1>Customer List</h1>
                 <button
@@ -156,21 +165,22 @@ const SearchAccount = (props) => {
                         </svg>
                     </button>
                 </div>
-                <form className="search-customer-account" onSubmit={searchButtonOnClick}>
+                <div className="search-customer-account">
                     <label htmlFor="customer__search-phone">Search by Phone Number</label>
                     <input
                         name="customer__search-phone"
                         value={phoneNumber}
                         onChange={changePhoneNumber}
+                        onKeyUp={checkKeyUpAndCallSearch}
                     />
-                    <button type="submit" className="search-phone-button">
+                    <button onClick={searchByPhoneNumber} className="search-phone-button">
                         {loading ? (
                             <FontAwesomeIcon icon={faCircleNotch} className="search-spinner" />
                         ) : (
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         )}
                     </button>
-                </form>
+                </div>
                 <PaginationControl
                     setCurrentPage={setCurrentPage}
                     currentPage={currentPage}
