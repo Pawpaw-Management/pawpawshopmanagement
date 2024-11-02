@@ -27,14 +27,14 @@ const SearchAccount = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     // Define state and onChange handler for search bar
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const changePhoneNumber = (event) => {
-        setPhoneNumber(event.target.value);
+    const [phoneNumberOrName, setPhoneNumberOrName] = useState("");
+    const changePhoneNumberOrName = (event) => {
+        setPhoneNumberOrName(event.target.value);
     };
     // If user press enter, call searchButtonCallback
     const checkKeyUpAndCallSearch = (event) => {
         if (event.key === "Enter") {
-            searchByPhoneNumber();
+            searchByPhoneNumberOrName();
         }
     };
 
@@ -43,7 +43,7 @@ const SearchAccount = (props) => {
     const numberOfItemsPerPage = 10;
     const currentItemNumber = (currentPage - 1) * numberOfItemsPerPage;
 
-    const searchByPhoneNumber = () => {
+    const searchByPhoneNumberOrName = () => {
         if (currentPage !== 1) {
             setCurrentPage(1);
         } else {
@@ -51,25 +51,27 @@ const SearchAccount = (props) => {
         }
     };
 
-    const fetchDataBasedOnPhoneNumberAndCurrentPage = async () => {
+    const fetchDataBasedOnPhoneNumberOrNameAndCurrentPage = async () => {
         setLoading(true);
 
-        const phoneNumberIsValid = Number(phoneNumber) !== NaN || Number(phoneNumber) !== 0;
-        const whereClause = phoneNumberIsValid
-            ? `_where[_or][0][customer_phone_contains]=${phoneNumber}&_where[_or][1][customer_alternate_phone_contains]=${phoneNumber}`
+        const inputIsValidNumber =
+            !isNaN(Number(phoneNumberOrName)) && Number(phoneNumberOrName) !== 0;
+        const whereClause = inputIsValidNumber
+            ? `_where[_or][0][customer_phone_contains]=${phoneNumberOrName}&_where[_or][1][customer_alternate_phone_contains]=${phoneNumberOrName}`
+            : phoneNumberOrName !== ""
+            ? `_where[_or][0][customer_first_name_contains]=${phoneNumberOrName}&_where[_or][1][customer_last_name_contains]=${phoneNumberOrName}`
             : "";
 
         const searchResponse = await fetch(
             `${props.url}customers-and-pets?${whereClause}&_start=${currentItemNumber}&_limit=${numberOfItemsPerPage}`
         );
+
         const searchData = await searchResponse.json();
-        console.log("searchData: ", searchData);
         setCustomersAndPets(searchData);
         // Get data count
         const countResponse = await fetch(`${props.url}customers-and-pets/count?${whereClause}`);
         const countData = await countResponse.json();
         const countDataToNumber = Number(countData);
-        console.log("countData: ", countData);
         const numberOfPages =
             numberOfItemsPerPage == 0 ? 0 : Math.ceil(countDataToNumber / numberOfItemsPerPage);
         setTotalPageNumber(numberOfPages);
@@ -78,7 +80,7 @@ const SearchAccount = (props) => {
 
     // When component mount, fetch data and assign to "customers_and_pets"
     useEffect(() => {
-        fetchDataBasedOnPhoneNumberAndCurrentPage();
+        fetchDataBasedOnPhoneNumberOrNameAndCurrentPage();
     }, [numberOfItemsPerPage, currentPage, refresh]);
 
     // Render elements according to scenario:
@@ -88,14 +90,16 @@ const SearchAccount = (props) => {
         return (
             <section className="searchAndEditCustomer appointmentWindow">
                 <div className="search-customer-account">
-                    <label htmlFor="customer__search-phone">Search by Phone Number</label>
+                    <label htmlFor="customer__search-phone">
+                        Search by Phone Number / First Name / Last Name
+                    </label>
                     <input
                         name="customer__search-phone"
-                        value={phoneNumber}
-                        onChange={changePhoneNumber}
+                        value={phoneNumberOrName}
+                        onChange={changePhoneNumberOrName}
                         onKeyUp={checkKeyUpAndCallSearch}
                     />
-                    <button onClick={searchByPhoneNumber} className="search-phone-button">
+                    <button onClick={searchByPhoneNumberOrName} className="search-phone-button">
                         {loading ? (
                             <FontAwesomeIcon icon={faCircleNotch} className="search-spinner" />
                         ) : (
@@ -166,14 +170,16 @@ const SearchAccount = (props) => {
                     </button>
                 </div>
                 <div className="search-customer-account">
-                    <label htmlFor="customer__search-phone">Search by Phone Number</label>
+                    <label htmlFor="customer__search-phone">
+                        Search by Phone Number / First Name / Last Name
+                    </label>
                     <input
                         name="customer__search-phone"
-                        value={phoneNumber}
-                        onChange={changePhoneNumber}
+                        value={phoneNumberOrName}
+                        onChange={changePhoneNumberOrName}
                         onKeyUp={checkKeyUpAndCallSearch}
                     />
-                    <button onClick={searchByPhoneNumber} className="search-phone-button">
+                    <button onClick={searchByPhoneNumberOrName} className="search-phone-button">
                         {loading ? (
                             <FontAwesomeIcon icon={faCircleNotch} className="search-spinner" />
                         ) : (
