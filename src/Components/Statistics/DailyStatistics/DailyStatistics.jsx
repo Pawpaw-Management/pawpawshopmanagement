@@ -202,6 +202,7 @@ export default function DailyStatistics(props) {
                         })}
                     <tr>
                         <td className="bold">Total</td>
+                        <td></td>
                         <td className="bold">{totalIncomeBeforeTax}</td>
                         <td className="bold">{totalGst}</td>
                         <td className="bold">{totalTips}</td>
