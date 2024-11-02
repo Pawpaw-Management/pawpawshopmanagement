@@ -24,6 +24,10 @@
     justify-content: center;
 }
 
+.search-customer-account label {
+    font-size: 17px;
+}
+
 .search-phone-button {
     font-size: 18px;
     margin-left: 5px;
